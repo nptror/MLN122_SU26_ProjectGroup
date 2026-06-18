@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GAME - HẠNH PHÚC HAY TIỀN BẠC?</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary-container": "#f4f4f4",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "surface-variant": "#e5e2e1",
+                        "outline": "#906f6b",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface": "#fcf9f8",
+                        "secondary": "#5f5e5e",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#313030",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-dim": "#dcd9d9",
+                        "primary": "#b20112",
+                        "surface-tint": "#bd1119",
+                        "on-primary-container": "#fff1ef",
+                        "on-secondary-fixed-variant": "#474646",
+                        "outline-variant": "#e5bdb9",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1c1b1b",
+                        "tertiary-container": "#6e7070",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary-fixed-variant": "#93000d",
+                        "primary-container": "#d62828",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "background": "#fcf9f8",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "surface-container": "#f0eded",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#656464",
+                        "surface-container-high": "#eae7e7",
+                        "secondary-container": "#e5e2e1",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary": "#565858",
+                        "inverse-primary": "#ffb4ab",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-background": "#1c1b1b",
+                        "on-surface-variant": "#5c403d",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#410002"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "caption": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Bebas Neue"],
+                        "headline-md": ["Bebas Neue"],
+                        "headline-xl": ["Bebas Neue"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Bebas Neue"],
+                        "headline-lg": ["Bebas Neue"]
+                    },
+                    "fontSize": {
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-bold": ["14px", {
+                            "lineHeight": "16px",
+                            "letterSpacing": "0.1em",
+                            "fontWeight": "700"
+                        }],
+                        "body-lg": ["20px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["72px", { "lineHeight": "64px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "headline-xl": ["64px", {
+                            "lineHeight": "60px",
+                            "letterSpacing": "0.02em",
+                            "fontWeight": "400"
+                        }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["120px", {
+                            "lineHeight": "100px",
+                            "letterSpacing": "-0.02em",
+                            "fontWeight": "400"
+                        }],
+                        "headline-lg": ["48px", { "lineHeight": "48px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fcf9f8;
+            color: #1c1b1b;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .bg-grid-pattern {
+            background-image:
+                linear-gradient(to right, #e5e2e1 1px, transparent 1px),
+                linear-gradient(to bottom, #e5e2e1 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* ----- TYPOGRAPHY HELPERS ----- */
+        .font-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+        }
+
+        .font-label-bold {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .font-body-lg {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            line-height: 32px;
+            font-weight: 400;
+        }
+
+        .font-headline-md {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            line-height: 32px;
+            font-weight: 400;
+        }
+
+        .font-headline-lg {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            line-height: 48px;
+            font-weight: 400;
+        }
+
+        .font-headline-xl {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 64px;
+            line-height: 60px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .font-display-lg {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 120px;
+            line-height: 100px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .font-display-lg-mobile {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 72px;
+            line-height: 64px;
+            font-weight: 400;
+        }
+
+        .font-body-md {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+        }
+
+        /* ----- SCROLL PROGRESS BAR ----- */
+        #scroll-progress-bar {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            height: 3px;
+            background: #b20112;
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+
+        /* ----- MOBILE MENU ----- */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.open {
+            display: block;
+            opacity: 1;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: #1c1b1b;
+            z-index: 999;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid #b20112;
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: #fcf9f8;
+            letter-spacing: 0.05em;
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            color: #fcf9f8;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #fcf9f8;
+            text-decoration: none;
+            padding: 12px 16px;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .mobile-nav-link:hover {
+            border-color: #b20112;
+            background: rgba(178, 1, 18, 0.15);
+        }
+
+        .mobile-nav-link.active {
+            border-color: #b20112;
+            background: rgba(178, 1, 18, 0.25);
+        }
+
+        .mobile-nav-link .material-symbols-outlined {
+            font-size: 24px;
+            color: #b20112;
+        }
+
+        .mobile-menu-footer {
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            padding-top: 16px;
+            margin-top: auto;
+        }
+
+        .mobile-menu-footer p {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.05em;
+        }
+
+        .mobile-menu-footer .mobile-menu-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.08em;
+        }
+
+        /* ----- HAMBURGER ----- */
+        .header-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 4px;
+            z-index: 1000;
+        }
+
+        .header-hamburger .hamburger-line {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: #1c1b1b;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .header-hamburger.open .hamburger-line-1 {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .header-hamburger.open .hamburger-line-2 {
+            opacity: 0;
+        }
+
+        .header-hamburger.open .hamburger-line-3 {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ----- SITE HEADER ----- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: #fcf9f8;
+            border-bottom: 4px solid #1c1b1b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 997;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .site-header.scrolled {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .header-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #b20112;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #1c1b1b;
+        }
+
+        .header-logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 0.08em;
+            color: #1c1b1b;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .header-nav-desktop {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #1c1b1b;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .header-nav-link:hover {
+            border-color: #b20112;
+            background: rgba(178, 1, 18, 0.06);
+        }
+
+        .header-nav-link.active {
+            border-color: #b20112;
+            background: rgba(178, 1, 18, 0.12);
+        }
+
+        .header-nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #b20112;
+        }
+
+        @media (max-width: 768px) {
+            .header-nav-desktop {
+                display: none;
+            }
+
+            .header-hamburger {
+                display: flex;
+            }
+
+            .header-logo-text {
+                font-size: 16px;
+            }
+
+            .site-header {
+                padding: 0 16px;
+            }
+        }
+
+        /* ----- PAGE TRANSITION ----- */
+        .page-transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: #1c1b1b;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .page-transition-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        body.page-loaded .page-transition-overlay {
+            opacity: 0;
+        }
+
+        /* ----- FLOATING STATS ----- */
+        .float-stat {
+            position: fixed;
+            pointer-events: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            z-index: 200;
+            animation: floatStat 1.4s ease-out forwards;
+            text-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .float-stat.up {
+            color: #22d3ee;
+        }
+
+        .float-stat.down {
+            color: #ef4444;
+        }
+
+        @keyframes floatStat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(1.3);
+            }
+        }
+
+        /* ----- RESULT POPUP ----- */
+        .result-popup {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .result-popup.active {
+            display: flex;
+        }
+
+        .result-popup .result-box {
+            background: #fcf9f8;
+            border: 4px solid #1c1b1b;
+            border-radius: 0px;
+            padding: 32px 36px 28px;
+            max-width: 480px;
+            width: 92%;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+            box-shadow: 16px 16px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .result-popup .result-box .result-icon {
+            font-size: 3.2rem;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .result-popup .result-box .result-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #1c1b1b;
+            margin-bottom: 4px;
+        }
+
+        .result-popup .result-box .result-desc {
+            font-size: 0.9rem;
+            color: #5c403d;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .result-popup .result-box .result-changes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            justify-content: center;
+            padding: 12px 0;
+            border-top: 2px solid #1c1b1b;
+            border-bottom: 2px solid #1c1b1b;
+            margin-bottom: 16px;
+        }
+
+        .result-popup .result-box .result-changes .change-item {
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .result-popup .result-box .result-changes .change-item .delta {
+            font-weight: 700;
+        }
+
+        .result-popup .result-box .result-changes .change-item .delta.up {
+            color: #22d3ee;
+        }
+
+        .result-popup .result-box .result-changes .change-item .delta.down {
+            color: #ef4444;
+        }
+
+        .result-popup .result-box .btn-continue {
+            padding: 12px 40px;
+            background: #1c1b1b;
+            border: 4px solid #1c1b1b;
+            color: #fcf9f8;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .result-popup .result-box .btn-continue:hover {
+            background: #b20112;
+            border-color: #b20112;
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px rgba(178, 1, 18, 0.2);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ----- ENDING OVERLAY ----- */
+        .ending-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: fadeIn 0.7s ease;
+        }
+
+        .ending-overlay.active {
+            display: flex;
+        }
+
+        .ending-box {
+            background: #fcf9f8;
+            border: 4px solid #1c1b1b;
+            border-radius: 0px;
+            padding: 32px 40px 28px;
+            max-width: 560px;
+            width: 92%;
+            max-height: 92vh;
+            overflow-y: auto;
+            animation: slideUp 0.6s ease;
+            text-align: center;
+            box-shadow: 24px 24px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .ending-box .ending-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .ending-box .ending-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #1c1b1b;
+            margin-bottom: 2px;
+        }
+
+        .ending-box .ending-sub {
+            color: #5c403d;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .ending-box .ending-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 16px;
+            text-align: left;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.04);
+            border: 2px solid #1c1b1b;
+            margin-bottom: 14px;
+        }
+
+        .ending-box .ending-stats .es-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5c403d;
+            font-weight: 600;
+        }
+
+        .ending-box .ending-stats .es-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: right;
+            color: #1c1b1b;
+        }
+
+        .ending-box .ending-stats .es-value.gold {
+            color: #facc15;
+        }
+
+        .ending-box .ending-stats .es-value.cyan {
+            color: #06b6d4;
+        }
+
+        .ending-box .ending-stats .es-value.purple {
+            color: #7c3aed;
+        }
+
+        .ending-box .ending-stats .es-value.pink {
+            color: #db2777;
+        }
+
+        .ending-box .ending-stats .es-value.orange {
+            color: #f97316;
+        }
+
+        .ending-box .ending-stats .es-value.green {
+            color: #22c55e;
+        }
+
+        .ending-box .ending-stats .es-value.red {
+            color: #ef4444;
+        }
+
+        .ending-box .ending-rank {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            padding: 4px 28px;
+            border: 4px solid #1c1b1b;
+            display: inline-block;
+            margin: 4px 0 10px;
+            letter-spacing: 2px;
+        }
+
+        .ending-box .ending-rank.S {
+            color: #facc15;
+            border-color: #facc15;
+            background: rgba(250, 204, 21, 0.04);
+        }
+
+        .ending-box .ending-rank.A {
+            color: #06b6d4;
+            border-color: #06b6d4;
+            background: rgba(6, 182, 212, 0.04);
+        }
+
+        .ending-box .ending-rank.B {
+            color: #22c55e;
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.04);
+        }
+
+        .ending-box .ending-rank.C {
+            color: #f97316;
+            border-color: #f97316;
+            background: rgba(249, 115, 22, 0.04);
+        }
+
+        .ending-box .ending-rank.D {
+            color: #ef4444;
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.04);
+        }
+
+        .ending-box .btn-restart {
+            padding: 14px 44px;
+            background: #1c1b1b;
+            border: 4px solid #1c1b1b;
+            color: #fcf9f8;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .ending-box .btn-restart:hover {
+            background: #b20112;
+            border-color: #b20112;
+            transform: translateY(-2px);
+            box-shadow: 8px 8px 0px rgba(178, 1, 18, 0.15);
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 768px) {
+            .result-popup .result-box {
+                padding: 24px 20px 20px;
+            }
+
+            .ending-box {
+                padding: 24px 18px 20px;
+            }
+
+            .ending-box .ending-title {
+                font-size: 1.6rem;
+            }
+
+            .ending-box .ending-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 2px 12px;
+                padding: 10px 12px;
+            }
+
+            .ending-box .ending-stats .es-value {
+                font-size: 1rem;
+            }
+
+            .float-stat {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ----- SITE FOOTER (loaded from component) ----- */
+        .site-footer {
+            background: #1c1b1b;
+            color: #fcf9f8;
+            border-top: 4px solid #1c1b1b;
+            padding: 48px 24px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 0.08em;
+            color: #fcf9f8;
+            margin-bottom: 8px;
+        }
+
+        .footer-title-underline {
+            width: 40px;
+            height: 3px;
+            background: #b20112;
+            margin-bottom: 16px;
+        }
+
+        .footer-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 22px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: #ffb4ab;
+        }
+
+        .footer-link-arrow {
+            color: #b20112;
+            font-size: 16px;
+        }
+
+        .footer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            background: rgba(178, 1, 18, 0.2);
+            padding: 6px 14px;
+            border: 1px solid rgba(178, 1, 18, 0.4);
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copyright {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.05em;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .footer-bottom-link:hover {
+            color: #fcf9f8;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .footer-bottom-links {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface text-on-surface antialiased bg-grid-pattern flex flex-col min-h-screen selection:bg-primary selection:text-on-primary">
+
+    <!-- ============================================================
+    HEADER CONTAINER — loaded by layout.js from ../components/header.html
+    ============================================================ -->
+    <div id="header-container"></div>
+
+    <!-- ============================================================
+    SCROLL PROGRESS BAR
+    ============================================================ -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- ============================================================
+    PAGE TRANSITION OVERLAY
+    ============================================================ -->
+    <div id="page-transition-overlay" class="page-transition-overlay"></div>
+
+    <!-- ============================================================
+    MAIN GAME AREA
+    ============================================================ -->
+    <main
+        class="flex-grow flex flex-col md:flex-row mt-20 pt-6 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full gap-gutter pb-12">
+
+        <!-- SIDEBAR STATS -->
+        <aside class="w-full md:w-1/3 flex flex-col gap-6 mb-8 md:mb-0" id="sidebarStats">
+            <!-- Stats Card -->
+            <div class="border-4 border-on-surface p-5 md:p-6 bg-surface-container-lowest">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="font-headline-xl text-headline-xl text-on-surface leading-none" id="dayDisplay">NGÀY 1
+                    </h2>
+                    <span class="font-label-bold text-label-bold text-secondary">/ 30</span>
+                </div>
+                <div class="h-1 w-full bg-on-surface mb-6"></div>
+                <div class="flex flex-col gap-5" id="statList">
+                    <!-- Stat: Tiền -->
+                    <div class="stat-item">
+                        <div class="flex justify-between mb-1 font-label-bold text-label-bold uppercase">
+                            <span>💰 Tiền</span>
+                            <span id="moneyValue" class="stat-number">50</span>
+                        </div>
+                        <div class="w-full bg-surface-container-highest h-4 border border-on-surface">
+                            <div class="bg-on-surface h-full stat-bar" id="moneyBar" style="width:10%;"></div>
+                        </div>
+                    </div>
+                    <!-- Stat: Sức khỏe -->
+                    <div class="stat-item">
+                        <div class="flex justify-between mb-1 font-label-bold text-label-bold uppercase">
+                            <span>❤️ Sức khỏe</span>
+                            <span id="healthValue" class="stat-number">80</span>
+                        </div>
+                        <div class="w-full bg-surface-container-highest h-4 border border-on-surface">
+                            <div class="bg-primary h-full stat-bar" id="healthBar" style="width:80%;"></div>
+                        </div>
+                    </div>
+                    <!-- Stat: Tha hóa -->
+                    <div class="stat-item">
+                        <div class="flex justify-between mb-1 font-label-bold text-label-bold uppercase">
+                            <span>⚙️ Tha hóa</span>
+                            <span id="alienationValue" class="stat-number">10</span>
+                        </div>
+                        <div class="w-full bg-surface-container-highest h-4 border border-on-surface">
+                            <div class="bg-[#7c3aed] h-full stat-bar" id="alienationBar" style="width:10%;"></div>
+                        </div>
+                    </div>
+                    <!-- Stat: Bái vật giáo -->
+                    <div class="stat-item">
+                        <div class="flex justify-between mb-1 font-label-bold text-label-bold uppercase">
+                            <span>📱 Bái vật giáo</span>
+                            <span id="commodityValue" class="stat-number">5</span>
+                        </div>
+                        <div class="w-full bg-surface-container-highest h-4 border border-on-surface">
+                            <div class="bg-[#db2777] h-full stat-bar" id="commodityBar" style="width:5%;"></div>
+                        </div>
+                    </div>
+                    <!-- Stat: Sĩ diện -->
+                    <div class="stat-item">
+                        <div class="flex justify-between mb-1 font-label-bold text-label-bold uppercase">
+                            <span>😎 Sĩ diện</span>
+                            <span id="faceValue" class="stat-number">30</span>
+                        </div>
+                        <div class="w-full bg-surface-container-highest h-4 border border-on-surface">
+                            <div class="bg-[#f97316] h-full stat-bar" id="faceBar" style="width:30%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warning Card -->
+            <div class="border-4 border-on-surface p-5 md:p-6 bg-primary text-on-primary" id="warningCard">
+                <h3 class="font-headline-md text-headline-md mb-2">⚠️ CẢNH BÁO</h3>
+                <p class="font-body-md text-body-md" id="warningText">Hãy cân nhắc kỹ mỗi lựa chọn. Hành động của bạn
+                    định hình số phận.</p>
+            </div>
+        </aside>
+
+        <!-- MAIN DECISION CANVAS -->
+        <section class="w-full md:w-2/3 flex flex-col justify-center items-center relative min-h-[500px]" id="cardArea">
+            <!-- Decorative background -->
+            <div
+                class="absolute inset-0 bg-on-surface opacity-5 pointer-events-none transform -skew-x-12 scale-110 z-0">
+            </div>
+
+            <!-- Decision Card -->
+            <div class="relative z-10 w-full max-w-2xl border-4 border-on-surface bg-surface-container-lowest p-6 md:p-10 shadow-[12px_12px_0px_0px_rgba(28,27,27,1)] transition-all duration-300"
+                id="scenarioCard">
+                <div class="mb-3 inline-block bg-on-surface text-on-primary px-3 py-1 font-label-bold text-label-bold uppercase"
+                    id="dayBadge">
+                    NGÀY 1
+                </div>
+                <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-none mb-5 text-on-surface uppercase break-words"
+                    id="scenarioTitle">
+                    Chào mừng đến với thành phố.
+                </h1>
+                <div class="h-1 w-full bg-on-surface mb-5"></div>
+                <p class="font-body-lg text-body-lg mb-8 text-on-surface-variant" id="scenarioText">
+                    Hãy cố gắng sống sót qua 30 ngày. Mỗi lựa chọn đều có hệ quả.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 w-full" id="choiceRow">
+                    <button
+                        class="flex-1 border-4 border-on-surface bg-on-surface text-on-primary font-headline-md text-headline-md py-4 px-6 hover:bg-primary hover:border-primary transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn"
+                        id="choiceA">
+                        LỰA CHỌN A
+                        <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceAText">
+                            + Tiền</div>
+                    </button>
+                    <button
+                        class="flex-1 border-4 border-on-surface bg-surface text-on-surface font-headline-md text-headline-md py-4 px-6 hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn"
+                        id="choiceB">
+                        LỰA CHỌN B
+                        <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceBText">
+                            + Sức khỏe</div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+    RESULT POPUP
+    ============================================================ -->
+    <div class="result-popup" id="resultPopup">
+        <div class="result-box">
+            <span class="result-icon" id="resultIcon">📋</span>
+            <div class="result-title" id="resultTitle">Kết quả</div>
+            <div class="result-desc" id="resultDesc">Hệ quả từ lựa chọn của bạn.</div>
+            <div class="result-changes" id="resultChanges"></div>
+            <button class="btn-continue" id="btnContinue">TIẾP TỤC →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    ENDING OVERLAY
+    ============================================================ -->
+    <div class="ending-overlay" id="endingOverlay">
+        <div class="ending-box">
+            <span class="ending-icon" id="endingIcon">🏆</span>
+            <div class="ending-title" id="endingTitle">Kết thúc</div>
+            <div class="ending-sub" id="endingSub">Hành trình của bạn đã kết thúc.</div>
+            <div class="ending-stats" id="endingStats"></div>
+            <div class="ending-rank" id="endingRank">B</div>
+            <button class="btn-restart" id="btnRestart">🔄 CHƠI LẠI</button>
+            <button class="btn-restart" id="btnRestart" onclick="location.href='../web_game/leaderboard.html'"> TOP HẠNH
+                PHÚC
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    FOOTER CONTAINER — loaded by layout.js from ../components/footer.html
+    ============================================================ -->
+    <div id="footer-container"></div>
+
+    <!-- ============================================================
+    LAYOUT.JS — loads header, footer, and manages interactive features
+    ============================================================ -->
+    <script src="../assets/js/layout.js">
+    </script>
+
+    <!-- ============================================================
+    GAME ENGINE — Full JavaScript
+    ============================================================ -->
+    <script>
+            /**
+             * ============================================================
+             *  HẠNH PHÚC HAY TIỀN BẠC? — Choice-Based Game
+             *  Brutalist UI · 30 Days Survival · 46 Scenarios
+             * ============================================================
+             */
+
+            (function () {
+                'use strict';
+
+                // ============================================================
+                // 1. SCENARIOS DATA
+                // ============================================================
+                const SCENARIOS = [{
+                    id: 0,
+                    text: 'Sếp yêu cầu bạn OT tới 12h đêm để kịp tiến độ dự án.',
+                    A: {
+                        label: 'Đồng ý OT',
+                        effects: { money: 20, health: -10, alienation: 5, commodity: 0, face: 0 },
+                        desc: '+20💰, -10❤️, +5⚙️'
+                    },
+                    B: {
+                        label: 'Từ chối về nhà',
+                        effects: { money: -5, health: 5, alienation: -3, commodity: 0, face: -5 },
+                        desc: '-5💰, +5❤️, -3⚙️, -5😎'
+                    }
+                }, {
+                    id: 1,
+                    text: 'Đồng nghiệp rủ bạn mua iPhone 15 Pro Max trả góp.',
+                    A: {
+                        label: 'Mua để khẳng định đẳng cấp',
+                        effects: { money: -40, health: 0, alienation: 5, commodity: 25, face: 20 },
+                        desc: '-40💰, +5⚙️, +25📱, +20😎'
+                    },
+                    B: {
+                        label: 'Từ chối, điện thoại cũ vẫn dùng tốt',
+                        effects: { money: 10, health: 0, alienation: -5, commodity: -10, face: -10 },
+                        desc: '+10💰, -5⚙️, -10📱, -10😎'
+                    }
+                }, {
+                    id: 2,
+                    text: 'KPI tháng này đang rất thấp, sếp nhắc nhở gay gắt.',
+                    A: {
+                        label: 'Cố gắng cày cuốc hết mình',
+                        effects: { money: 15, health: -12, alienation: 8, commodity: 0, face: 5 },
+                        desc: '+15💰, -12❤️, +8⚙️, +5😎'
+                    },
+                    B: {
+                        label: 'Bình tĩnh, làm việc có chừng mực',
+                        effects: { money: -5, health: 5, alienation: -3, commodity: 0, face: -5 },
+                        desc: '-5💰, +5❤️, -3⚙️, -5😎'
+                    }
+                }, {
+                    id: 3,
+                    text: 'Bạn thấy một khóa học đầu tư chứng khoán hấp dẫn.',
+                    A: {
+                        label: 'Đầu tư mạo hiểm',
+                        effects: { money: 30, health: -5, alienation: 10, commodity: 0, face: 10 },
+                        desc: '+30💰, -5❤️, +10⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Không rủi ro, tiết kiệm an toàn',
+                        effects: { money: 5, health: 5, alienation: -5, commodity: 0, face: -5 },
+                        desc: '+5💰, +5❤️, -5⚙️, -5😎'
+                    }
+                }, {
+                    id: 4,
+                    text: 'Công ty tổ chức teambuilding cuối tuần, bạn phải đi.',
+                    A: {
+                        label: 'Tham gia vui vẻ',
+                        effects: { money: 0, health: 5, alienation: -5, commodity: 0, face: 10 },
+                        desc: '+5❤️, -5⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Xin nghỉ ở nhà',
+                        effects: { money: 0, health: -3, alienation: 8, commodity: 0, face: -10 },
+                        desc: '-3❤️, +8⚙️, -10😎'
+                    }
+                }, {
+                    id: 5,
+                    text: 'Bạn thấy đồng nghiệp livestream bán hàng kiếm thêm thu nhập.',
+                    A: {
+                        label: 'Học theo làm thêm',
+                        effects: { money: 15, health: -8, alienation: 10, commodity: 5, face: 5 },
+                        desc: '+15💰, -8❤️, +10⚙️, +5📱, +5😎'
+                    },
+                    B: {
+                        label: 'Tập trung vào công việc chính',
+                        effects: { money: 0, health: 5, alienation: -3, commodity: 0, face: 0 },
+                        desc: '+5❤️, -3⚙️'
+                    }
+                }, {
+                    id: 6,
+                    text: 'Bạn được thưởng cuối năm, một khoản kha khá.',
+                    A: {
+                        label: 'Mua xe máy mới trả góp',
+                        effects: { money: -30, health: 0, alienation: 5, commodity: 20, face: 25 },
+                        desc: '-30💰, +5⚙️, +20📱, +25😎'
+                    },
+                    B: {
+                        label: 'Gửi tiết kiệm an toàn',
+                        effects: { money: 25, health: 5, alienation: -5, commodity: -5, face: 0 },
+                        desc: '+25💰, +5❤️, -5⚙️, -5📱'
+                    }
+                }, {
+                    id: 7,
+                    text: 'Sếp đề xuất thăng chức cho bạn nhưng áp lực cực lớn.',
+                    A: {
+                        label: 'Nhận lời thăng chức',
+                        effects: { money: 30, health: -15, alienation: 15, commodity: 0, face: 20 },
+                        desc: '+30💰, -15❤️, +15⚙️, +20😎'
+                    },
+                    B: {
+                        label: 'Từ chối giữ vị trí hiện tại',
+                        effects: { money: -10, health: 10, alienation: -10, commodity: 0, face: -10 },
+                        desc: '-10💰, +10❤️, -10⚙️, -10😎'
+                    }
+                }, {
+                    id: 8,
+                    text: 'Mạng xã hội tràn ngập check-in ở các quán cà phê đẹp.',
+                    A: {
+                        label: 'Check-in sống ảo mỗi ngày',
+                        effects: { money: -15, health: 0, alienation: 10, commodity: 15, face: 20 },
+                        desc: '-15💰, +10⚙️, +15📱, +20😎'
+                    },
+                    B: {
+                        label: 'Không quan tâm, sống thật',
+                        effects: { money: 5, health: 5, alienation: -5, commodity: -10, face: -10 },
+                        desc: '+5💰, +5❤️, -5⚙️, -10📱, -10😎'
+                    }
+                }, {
+                    id: 9,
+                    text: 'Bạn bè rủ đi du lịch xuyên Việt 1 tuần.',
+                    A: {
+                        label: 'Đi để trải nghiệm',
+                        effects: { money: -30, health: 10, alienation: -15, commodity: 5, face: 15 },
+                        desc: '-30💰, +10❤️, -15⚙️, +5📱, +15😎'
+                    },
+                    B: {
+                        label: 'Ở nhà làm thêm',
+                        effects: { money: 20, health: -5, alienation: 10, commodity: 0, face: -5 },
+                        desc: '+20💰, -5❤️, +10⚙️, -5😎'
+                    }
+                }, {
+                    id: 10,
+                    text: 'Công đoàn phát động đấu tranh đòi tăng lương.',
+                    A: {
+                        label: 'Tham gia tích cực',
+                        effects: { money: 10, health: 0, alienation: -20, commodity: 0, face: 10 },
+                        desc: '+10💰, -20⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Không tham gia giữ yên vị',
+                        effects: { money: -10, health: 0, alienation: 15, commodity: 0, face: -15 },
+                        desc: '-10💰, +15⚙️, -15😎'
+                    }
+                }, {
+                    id: 11,
+                    text: 'Bạn bị đau lưng thường xuyên do ngồi văn phòng.',
+                    A: {
+                        label: 'Đi khám và tập thể thao',
+                        effects: { money: -15, health: 15, alienation: -5, commodity: 0, face: 5 },
+                        desc: '-15💰, +15❤️, -5⚙️, +5😎'
+                    },
+                    B: {
+                        label: 'Uống thuốc giảm đau và tiếp tục',
+                        effects: { money: -5, health: -10, alienation: 10, commodity: 0, face: -5 },
+                        desc: '-5💰, -10❤️, +10⚙️, -5😎'
+                    }
+                }, {
+                    id: 12,
+                    text: 'Nhà đầu tư rót vốn vào dự án của công ty bạn.',
+                    A: {
+                        label: 'Hào hứng đẩy nhanh tiến độ',
+                        effects: { money: 20, health: -10, alienation: 10, commodity: 0, face: 10 },
+                        desc: '+20💰, -10❤️, +10⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Bình thản làm đúng quy trình',
+                        effects: { money: 5, health: 5, alienation: -5, commodity: 0, face: 0 },
+                        desc: '+5💰, +5❤️, -5⚙️'
+                    }
+                }, {
+                    id: 13,
+                    text: 'Bạn thấy một chiếc đồng hồ hàng hiệu đang giảm giá.',
+                    A: {
+                        label: 'Mua bằng thẻ tín dụng',
+                        effects: { money: -35, health: 0, alienation: 10, commodity: 20, face: 20 },
+                        desc: '-35💰, +10⚙️, +20📱, +20😎'
+                    },
+                    B: {
+                        label: 'Không mua, tiền để dành',
+                        effects: { money: 15, health: 0, alienation: -5, commodity: -10, face: -10 },
+                        desc: '+15💰, -5⚙️, -10📱, -10😎'
+                    }
+                }, {
+                    id: 14,
+                    text: 'Bạn bè ép bạn uống rượu trong buổi tiệc công ty.',
+                    A: {
+                        label: 'Uống nhiều để thể hiện',
+                        effects: { money: 0, health: -12, alienation: 10, commodity: 0, face: 15 },
+                        desc: '-12❤️, +10⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'Từ chối, bảo vệ sức khỏe',
+                        effects: { money: 0, health: 5, alienation: -8, commodity: 0, face: -10 },
+                        desc: '+5❤️, -8⚙️, -10😎'
+                    }
+                }, {
+                    id: 15,
+                    text: 'Công ty có chương trình đào tạo nâng cao kỹ năng.',
+                    A: {
+                        label: 'Đăng ký tham gia',
+                        effects: { money: -5, health: 0, alienation: -10, commodity: 0, face: 15 },
+                        desc: '-5💰, -10⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'Bỏ qua vì bận rộn',
+                        effects: { money: 0, health: -5, alienation: 10, commodity: 0, face: -5 },
+                        desc: '-5❤️, +10⚙️, -5😎'
+                    }
+                }, {
+                    id: 16,
+                    text: 'Bạn đang bị burnout sau nhiều ngày làm việc căng thẳng.',
+                    A: {
+                        label: 'Xin nghỉ phép vài ngày',
+                        effects: { money: -10, health: 15, alienation: -15, commodity: 0, face: 0 },
+                        desc: '-10💰, +15❤️, -15⚙️'
+                    },
+                    B: {
+                        label: 'Cố gắng gồng mình tiếp tục',
+                        effects: { money: 10, health: -15, alienation: 20, commodity: 0, face: -5 },
+                        desc: '+10💰, -15❤️, +20⚙️, -5😎'
+                    }
+                }, {
+                    id: 17,
+                    text: 'Công ty thông báo lương thưởng bị cắt giảm 20%.',
+                    A: {
+                        label: 'Đấu tranh đòi quyền lợi',
+                        effects: { money: -5, health: 0, alienation: -20, commodity: 0, face: 10 },
+                        desc: '-5💰, -20⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Im lặng chấp nhận',
+                        effects: { money: -15, health: -5, alienation: 15, commodity: 0, face: -10 },
+                        desc: '-15💰, -5❤️, +15⚙️, -10😎'
+                    }
+                }, {
+                    id: 18,
+                    text: 'Bạn nhận được lời mời làm việc với mức lương cao hơn.',
+                    A: {
+                        label: 'Nhảy việc để tăng lương',
+                        effects: { money: 30, health: -10, alienation: 10, commodity: 0, face: 15 },
+                        desc: '+30💰, -10❤️, +10⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'Ở lại công ty cũ trung thành',
+                        effects: { money: -5, health: 5, alienation: -10, commodity: 0, face: 5 },
+                        desc: '-5💰, +5❤️, -10⚙️, +5😎'
+                    }
+                }, {
+                    id: 19,
+                    text: 'Mẹ bạn gọi hỏi thăm và kêu về quê ăn Tết.',
+                    A: {
+                        label: 'Về quê sum họp gia đình',
+                        effects: { money: -20, health: 15, alienation: -20, commodity: 0, face: 10 },
+                        desc: '-20💰, +15❤️, -20⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Ở lại thành phố làm thêm',
+                        effects: { money: 25, health: -5, alienation: 15, commodity: 0, face: -10 },
+                        desc: '+25💰, -5❤️, +15⚙️, -10😎'
+                    }
+                }, {
+                    id: 20,
+                    text: 'Bạn dành quá nhiều thời gian lướt TikTok mỗi ngày.',
+                    A: {
+                        label: 'Cắt giảm thời gian sử dụng',
+                        effects: { money: 0, health: 5, alienation: -10, commodity: -15, face: 5 },
+                        desc: '+5❤️, -10⚙️, -15📱, +5😎'
+                    },
+                    B: {
+                        label: 'Tiếp tục lướt vì nghiện',
+                        effects: { money: 0, health: -5, alienation: 10, commodity: 20, face: 0 },
+                        desc: '-5❤️, +10⚙️, +20📱'
+                    }
+                }, {
+                    id: 21,
+                    text: 'Sếp giao cho bạn dự án khó nhằn với deadline cấp tốc.',
+                    A: {
+                        label: 'Nhận và làm hết sức',
+                        effects: { money: 25, health: -12, alienation: 12, commodity: 0, face: 15 },
+                        desc: '+25💰, -12❤️, +12⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'Từ chối vì quá sức',
+                        effects: { money: -10, health: 10, alienation: -10, commodity: 0, face: -10 },
+                        desc: '-10💰, +10❤️, -10⚙️, -10😎'
+                    }
+                }, {
+                    id: 22,
+                    text: 'Bạn thấy một chương trình bán hàng đa cấp hấp dẫn.',
+                    A: {
+                        label: 'Tham gia để kiếm thêm',
+                        effects: { money: -20, health: -5, alienation: 20, commodity: 15, face: 5 },
+                        desc: '-20💰, -5❤️, +20⚙️, +15📱, +5😎'
+                    },
+                    B: {
+                        label: 'Tránh xa vì lừa đảo',
+                        effects: { money: 0, health: 5, alienation: -10, commodity: -5, face: 0 },
+                        desc: '+5❤️, -10⚙️, -5📱'
+                    }
+                }, {
+                    id: 23,
+                    text: 'Cuối tuần bạn không biết làm gì, ở nhà buồn chán.',
+                    A: {
+                        label: 'Đi chơi, gặp gỡ bạn bè',
+                        effects: { money: -15, health: 8, alienation: -10, commodity: 5, face: 15 },
+                        desc: '-15💰, +8❤️, -10⚙️, +5📱, +15😎'
+                    },
+                    B: {
+                        label: 'Ở nhà nghỉ ngơi đọc sách',
+                        effects: { money: 0, health: 10, alienation: -5, commodity: -5, face: 0 },
+                        desc: '+10❤️, -5⚙️, -5📱'
+                    }
+                }, {
+                    id: 24,
+                    text: 'Công ty cử bạn đi công tác xa 1 tuần.',
+                    A: {
+                        label: 'Đi để có cơ hội thăng tiến',
+                        effects: { money: 15, health: -8, alienation: 8, commodity: 0, face: 10 },
+                        desc: '+15💰, -8❤️, +8⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Từ chối vì gia đình',
+                        effects: { money: -10, health: 5, alienation: -10, commodity: 0, face: -5 },
+                        desc: '-10💰, +5❤️, -10⚙️, -5😎'
+                    }
+                }, {
+                    id: 25,
+                    text: 'Bạn phát hiện mình bị cao huyết áp do căng thẳng.',
+                    A: {
+                        label: 'Tập thể dục và ăn uống lành mạnh',
+                        effects: { money: -10, health: 20, alienation: -10, commodity: 0, face: 5 },
+                        desc: '-10💰, +20❤️, -10⚙️, +5😎'
+                    },
+                    B: {
+                        label: 'Kệ, vẫn sống như cũ',
+                        effects: { money: 0, health: -15, alienation: 10, commodity: 0, face: -5 },
+                        desc: '-15❤️, +10⚙️, -5😎'
+                    }
+                }, {
+                    id: 26,
+                    text: 'Bạn được mời tham gia khởi nghiệp cùng bạn bè.',
+                    A: {
+                        label: 'Đồng ý, đây là cơ hội',
+                        effects: { money: -25, health: -10, alienation: 15, commodity: 0, face: 20 },
+                        desc: '-25💰, -10❤️, +15⚙️, +20😎'
+                    },
+                    B: {
+                        label: 'Từ chối, rủi ro quá lớn',
+                        effects: { money: 0, health: 5, alienation: -10, commodity: 0, face: -5 },
+                        desc: '+5❤️, -10⚙️, -5😎'
+                    }
+                }, {
+                    id: 27,
+                    text: 'Mạng xã hội lan truyền tin đồn tiêu cực về bạn.',
+                    A: {
+                        label: 'Lên tiếng phủ nhận',
+                        effects: { money: 0, health: -5, alienation: 10, commodity: 0, face: -15 },
+                        desc: '-5❤️, +10⚙️, -15😎'
+                    },
+                    B: {
+                        label: 'Không quan tâm, chơi game quên đi',
+                        effects: { money: 0, health: -3, alienation: 5, commodity: 10, face: 0 },
+                        desc: '-3❤️, +5⚙️, +10📱'
+                    }
+                }, {
+                    id: 28,
+                    text: 'Nhân viên mới vào công ty được đào tạo bài bản.',
+                    A: {
+                        label: 'Kèm cặp tận tình',
+                        effects: { money: 0, health: 0, alienation: -10, commodity: 0, face: 15 },
+                        desc: '-10⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'Mặc kệ để tự xoay sở',
+                        effects: { money: 0, health: 0, alienation: 8, commodity: 0, face: -5 },
+                        desc: '+8⚙️, -5😎'
+                    }
+                }, {
+                    id: 29,
+                    text: 'Bạn thấy mình bị mất cân bằng giữa công việc và cuộc sống.',
+                    A: {
+                        label: 'Cân bằng lại, nghỉ nhiều hơn',
+                        effects: { money: -15, health: 15, alienation: -15, commodity: 0, face: 5 },
+                        desc: '-15💰, +15❤️, -15⚙️, +5😎'
+                    },
+                    B: {
+                        label: 'Cày tiếp vì sự nghiệp',
+                        effects: { money: 25, health: -15, alienation: 15, commodity: 0, face: -5 },
+                        desc: '+25💰, -15❤️, +15⚙️, -5😎'
+                    }
+                }, {
+                    id: 30,
+                    text: 'Công ty mời chuyên gia tư vấn tâm lý cho nhân viên.',
+                    A: {
+                        label: 'Tham gia buổi tư vấn',
+                        effects: { money: 0, health: 10, alienation: -15, commodity: 0, face: 10 },
+                        desc: '+10❤️, -15⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Không quan tâm, việc gì phải lo',
+                        effects: { money: 0, health: -5, alienation: 10, commodity: 0, face: -5 },
+                        desc: '-5❤️, +10⚙️, -5😎'
+                    }
+                }, {
+                    id: 31,
+                    text: 'Bạn bị lừa mua hàng giả trên mạng, mất một khoản tiền.',
+                    A: {
+                        label: 'Kiện cáo đòi lại tiền',
+                        effects: { money: -15, health: -5, alienation: 10, commodity: 0, face: -10 },
+                        desc: '-15💰, -5❤️, +10⚙️, -10😎'
+                    },
+                    B: {
+                        label: 'Thôi bỏ qua, coi như bài học',
+                        effects: { money: -20, health: 0, alienation: 5, commodity: 0, face: -5 },
+                        desc: '-20💰, +5⚙️, -5😎'
+                    }
+                }, {
+                    id: 32,
+                    text: 'Người yêu cũ gặp bạn và muốn quay lại.',
+                    A: {
+                        label: 'Quay lại vì tình cảm',
+                        effects: { money: -10, health: 5, alienation: -5, commodity: 0, face: 10 },
+                        desc: '-10💰, +5❤️, -5⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Từ chối, tập trung cho tương lai',
+                        effects: { money: 0, health: -3, alienation: 5, commodity: 0, face: -5 },
+                        desc: '-3❤️, +5⚙️, -5😎'
+                    }
+                }, {
+                    id: 33,
+                    text: 'Môi trường làm việc độc hại khiến bạn căng thẳng.',
+                    A: {
+                        label: 'Tìm cách giải quyết văn minh',
+                        effects: { money: 0, health: 5, alienation: -15, commodity: 0, face: 10 },
+                        desc: '+5❤️, -15⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Chịu đựng và im lặng',
+                        effects: { money: 0, health: -10, alienation: 15, commodity: 0, face: -10 },
+                        desc: '-10❤️, +15⚙️, -10😎'
+                    }
+                }, {
+                    id: 34,
+                    text: 'Bạn có cơ hội thăng tiến nếu học thêm văn bằng 2.',
+                    A: {
+                        label: 'Đăng ký học ngay',
+                        effects: { money: -20, health: -8, alienation: 5, commodity: 0, face: 20 },
+                        desc: '-20💰, -8❤️, +5⚙️, +20😎'
+                    },
+                    B: {
+                        label: 'Không học vì quá mệt',
+                        effects: { money: 0, health: 5, alienation: -5, commodity: 0, face: -10 },
+                        desc: '+5❤️, -5⚙️, -10😎'
+                    }
+                }, {
+                    id: 35,
+                    text: 'Bạn thấy một chương trình đầu tư hứa hẹn lợi nhuận khủng.',
+                    A: {
+                        label: 'Đầu tư tất cả tiền tiết kiệm',
+                        effects: { money: 40, health: -10, alienation: 20, commodity: 5, face: 15 },
+                        desc: '+40💰, -10❤️, +20⚙️, +5📱, +15😎'
+                    },
+                    B: {
+                        label: 'Kiểm tra kỹ rồi mới đầu tư',
+                        effects: { money: 10, health: 0, alienation: -5, commodity: 0, face: 5 },
+                        desc: '+10💰, -5⚙️, +5😎'
+                    }
+                }, {
+                    id: 36,
+                    text: 'Gia đình bạn gặp khó khăn tài chính cần hỗ trợ.',
+                    A: {
+                        label: 'Gửi tiền về giúp đỡ',
+                        effects: { money: -30, health: 5, alienation: -15, commodity: 0, face: 15 },
+                        desc: '-30💰, +5❤️, -15⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'Chỉ gửi một phần nhỏ',
+                        effects: { money: -15, health: 0, alienation: -5, commodity: 0, face: -5 },
+                        desc: '-15💰, -5⚙️, -5😎'
+                    }
+                }, {
+                    id: 37,
+                    text: 'Bạn thường xuyên bị áp lực phải giữ hình ảnh hoàn hảo.',
+                    A: {
+                        label: 'Sống thật với bản thân',
+                        effects: { money: 0, health: 10, alienation: -15, commodity: -10, face: -5 },
+                        desc: '+10❤️, -15⚙️, -10📱, -5😎'
+                    },
+                    B: {
+                        label: 'Tiếp tục sống ảo để được tôn trọng',
+                        effects: { money: -10, health: -5, alienation: 15, commodity: 15, face: 15 },
+                        desc: '-10💰, -5❤️, +15⚙️, +15📱, +15😎'
+                    }
+                }, {
+                    id: 38,
+                    text: 'Bạn nhận ra mình đang bị cô lập trong công ty.',
+                    A: {
+                        label: 'Chủ động kết nối với mọi người',
+                        effects: { money: 0, health: 0, alienation: -15, commodity: 0, face: 15 },
+                        desc: '-15⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'Càng thu mình lại',
+                        effects: { money: 0, health: -5, alienation: 15, commodity: 0, face: -10 },
+                        desc: '-5❤️, +15⚙️, -10😎'
+                    }
+                }, {
+                    id: 39,
+                    text: 'Bạn có một ý tưởng kinh doanh táo bạo nhưng rủi ro cao.',
+                    A: {
+                        label: 'Liều thử một lần',
+                        effects: { money: 35, health: -10, alienation: 20, commodity: 0, face: 15 },
+                        desc: '+35💰, -10❤️, +20⚙️, +15😎'
+                    },
+                    B: {
+                        label: 'An toàn, không dám mạo hiểm',
+                        effects: { money: -5, health: 5, alienation: -10, commodity: 0, face: -5 },
+                        desc: '-5💰, +5❤️, -10⚙️, -5😎'
+                    }
+                }, {
+                    id: 40,
+                    text: 'Công ty tổ chức đánh giá hiệu suất cuối năm.',
+                    A: {
+                        label: 'Chuẩn bị kỹ để phỏng vấn',
+                        effects: { money: 20, health: -5, alienation: 5, commodity: 0, face: 20 },
+                        desc: '+20💰, -5❤️, +5⚙️, +20😎'
+                    },
+                    B: {
+                        label: 'Không quan tâm lắm',
+                        effects: { money: -10, health: 0, alienation: 5, commodity: 0, face: -15 },
+                        desc: '-10💰, +5⚙️, -15😎'
+                    }
+                }, {
+                    id: 41,
+                    text: 'Sức khỏe của bạn đang xuống dốc do ngồi nhiều.',
+                    A: {
+                        label: 'Mua ghế công thái học và tập yoga',
+                        effects: { money: -25, health: 20, alienation: -10, commodity: 0, face: 10 },
+                        desc: '-25💰, +20❤️, -10⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Tiếp tục như cũ vì tiết kiệm',
+                        effects: { money: 0, health: -15, alienation: 10, commodity: 0, face: -5 },
+                        desc: '-15❤️, +10⚙️, -5😎'
+                    }
+                }, {
+                    id: 42,
+                    text: 'Bạn thấy mình đang mất kết nối với gia đình.',
+                    A: {
+                        label: 'Xin nghỉ phép về thăm nhà',
+                        effects: { money: -20, health: 10, alienation: -15, commodity: 0, face: 10 },
+                        desc: '-20💰, +10❤️, -15⚙️, +10😎'
+                    },
+                    B: {
+                        label: 'Gọi điện video thường xuyên hơn',
+                        effects: { money: 0, health: 5, alienation: -5, commodity: 0, face: 5 },
+                        desc: '+5❤️, -5⚙️, +5😎'
+                    }
+                }, {
+                    id: 43,
+                    text: 'Đồng nghiệp của bạn bị sa thải đột ngột, không khí căng thẳng.',
+                    A: {
+                        label: 'Lo lắng và làm việc chăm chỉ hơn',
+                        effects: { money: 10, health: -8, alienation: 10, commodity: 0, face: -5 },
+                        desc: '+10💰, -8❤️, +10⚙️, -5😎'
+                    },
+                    B: {
+                        label: 'Bình tĩnh, biết mình có giá trị',
+                        effects: { money: 0, health: 5, alienation: -10, commodity: 0, face: 0 },
+                        desc: '+5❤️, -10⚙️'
+                    }
+                }, {
+                    id: 44,
+                    text: 'Bạn thấy mình bị nghiện mua sắm trực tuyến.',
+                    A: {
+                        label: 'Cai nghiện bằng cách chặn ứng dụng',
+                        effects: { money: 10, health: 5, alienation: -15, commodity: -20, face: 0 },
+                        desc: '+10💰, +5❤️, -15⚙️, -20📱'
+                    },
+                    B: {
+                        label: 'Tiếp tục vì nó giải tỏa stress',
+                        effects: { money: -25, health: -5, alienation: 10, commodity: 20, face: 5 },
+                        desc: '-25💰, -5❤️, +10⚙️, +20📱, +5😎'
+                    }
+                }, {
+                    id: 45,
+                    text: 'Bạn được mời làm diễn giả cho một sự kiện lớn.',
+                    A: {
+                        label: 'Nhận lời để khẳng định bản thân',
+                        effects: { money: 15, health: -5, alienation: 5, commodity: 0, face: 25 },
+                        desc: '+15💰, -5❤️, +5⚙️, +25😎'
+                    },
+                    B: {
+                        label: 'Từ chối vì sợ áp lực',
+                        effects: { money: -5, health: 5, alienation: -5, commodity: 0, face: -15 },
+                        desc: '-5💰, +5❤️, -5⚙️, -15😎'
+                    }
+                }];
+
+                // ============================================================
+                // 2. GAME STATE
+                // ============================================================
+                const G = {
+                    money: 50,
+                    health: 80,
+                    alienation: 10,
+                    commodity: 5,
+                    face: 30,
+                    day: 1,
+                    maxDay: 30,
+                    isPlaying: true,
+                    isWaitingResult: false,
+                    usedScenarios: [],
+                    currentScenarioIndex: 0,
+                    totalHappiness: 0,
+                    gameEnded: false,
+                };
+
+                const MAX_STAT = 100;
+                const MIN_STAT = 0;
+
+                // ============================================================
+                // 3. DOM REFS
+                // ============================================================
+                const $ = (id) => document.getElementById(id);
+
+                const DOM = {
+                    money: $('moneyValue'),
+                    health: $('healthValue'),
+                    alienation: $('alienationValue'),
+                    commodity: $('commodityValue'),
+                    face: $('faceValue'),
+                    moneyBar: $('moneyBar'),
+                    healthBar: $('healthBar'),
+                    alienationBar: $('alienationBar'),
+                    commodityBar: $('commodityBar'),
+                    faceBar: $('faceBar'),
+                    dayDisplay: $('dayDisplay'),
+                    dayBadge: $('dayBadge'),
+                    scenarioTitle: $('scenarioTitle'),
+                    scenarioText: $('scenarioText'),
+                    choiceA: $('choiceA'),
+                    choiceB: $('choiceB'),
+                    choiceAText: $('choiceAText'),
+                    choiceBText: $('choiceBText'),
+                    resultPopup: $('resultPopup'),
+                    resultIcon: $('resultIcon'),
+                    resultTitle: $('resultTitle'),
+                    resultDesc: $('resultDesc'),
+                    resultChanges: $('resultChanges'),
+                    btnContinue: $('btnContinue'),
+                    endingOverlay: $('endingOverlay'),
+                    endingIcon: $('endingIcon'),
+                    endingTitle: $('endingTitle'),
+                    endingSub: $('endingSub'),
+                    endingStats: $('endingStats'),
+                    endingRank: $('endingRank'),
+                    btnRestart: $('btnRestart'),
+                    warningText: $('warningText'),
+                    scenarioCard: $('scenarioCard'),
+                    choiceRow: $('choiceRow'),
+                };
+
+                // ============================================================
+                // 4. UTILITY
+                // ============================================================
+                function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+                function fmtNum(n) { return Math.floor(n); }
+
+                function getStatPercent(value) { return clamp((value / MAX_STAT) * 100, 0, 100); }
+
+                function shuffleArray(arr) {
+                    for (let i = arr.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [arr[i], arr[j]] = [arr[j], arr[i]];
+                    }
+                    return arr;
+                }
+
+                // ============================================================
+                // 5. AUDIO — Web Audio API
+                // ============================================================
+                let audioCtx = null;
+
+                function getAudioCtx() {
+                    if (!audioCtx) {
+                        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    return audioCtx;
+                }
+
+                function playTone(freq, duration, type, volume) {
+                    try {
+                        const ctx = getAudioCtx();
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = type || 'sine';
+                        osc.frequency.value = freq;
+                        gain.gain.setValueAtTime(volume || 0.10, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(ctx.currentTime);
+                        osc.stop(ctx.currentTime + duration);
+                    } catch (e) { /* ignore */ }
+                }
+
+                function sfxClick() { playTone(800, 0.06, 'sine', 0.08); }
+
+                function sfxSuccess() {
+                    playTone(600, 0.10, 'sine', 0.10);
+                    setTimeout(() => playTone(900, 0.10, 'sine', 0.08), 120);
+                }
+
+                function sfxWarning() {
+                    playTone(400, 0.15, 'sawtooth', 0.06);
+                    setTimeout(() => playTone(300, 0.20, 'sawtooth', 0.05), 180);
+                }
+
+                function sfxGameOver() {
+                    playTone(500, 0.20, 'sawtooth', 0.08);
+                    setTimeout(() => playTone(400, 0.20, 'sawtooth', 0.07), 220);
+                    setTimeout(() => playTone(300, 0.30, 'sawtooth', 0.06), 440);
+                }
+
+                // ============================================================
+                // 6. UI UPDATE
+                // ============================================================
+                function updateStatsUI(animate = true) {
+                    const s = G;
+                    DOM.money.textContent = fmtNum(s.money);
+                    DOM.health.textContent = fmtNum(s.health);
+                    DOM.alienation.textContent = fmtNum(s.alienation);
+                    DOM.commodity.textContent = fmtNum(s.commodity);
+                    DOM.face.textContent = fmtNum(s.face);
+
+                    DOM.moneyBar.style.width = getStatPercent(s.money) + '%';
+                    DOM.healthBar.style.width = getStatPercent(s.health) + '%';
+                    DOM.alienationBar.style.width = getStatPercent(s.alienation) + '%';
+                    DOM.commodityBar.style.width = getStatPercent(s.commodity) + '%';
+                    DOM.faceBar.style.width = getStatPercent(s.face) + '%';
+
+                    DOM.dayDisplay.textContent = 'NGÀY ' + s.day;
+
+                    // Update warning card
+                    const warnings = [];
+                    if (s.health < 30) warnings.push('⚠️ Sức khỏe nguy kịch! Hãy nghỉ ngơi.');
+                    if (s.alienation > 70) warnings.push('⚙️ Tha hóa quá cao! Bạn đang đánh mất chính mình.');
+                    if (s.commodity > 70) warnings.push('📱 Bái vật giáo! Bạn bị cuốn vào vòng xoáy tiêu dùng.');
+                    if (s.money < 20) warnings.push('💰 Tiền bạc eo hẹp, hãy thận trọng với chi tiêu.');
+                    if (s.face > 80) warnings.push('😎 Sĩ diện quá lớn, áp lực đè nặng.');
+
+                    if (warnings.length > 0) {
+                        DOM.warningText.textContent = warnings[0];
+                        DOM.warningText.parentElement.style.display = 'block';
+                    } else {
+                        DOM.warningText.textContent = 'Mọi thứ đang cân bằng. Hãy tiếp tục đưa ra quyết định sáng suốt.';
+                        DOM.warningText.parentElement.style.display = 'block';
+                    }
+                }
+
+                // ============================================================
+                // 7. FLOATING STAT TEXT
+                // ============================================================
+                function spawnFloatStat(x, y, text, isUp) {
+                    const el = document.createElement('div');
+                    el.className = 'float-stat ' + (isUp ? 'up' : 'down');
+                    el.textContent = text;
+                    el.style.left = x + 'px';
+                    el.style.top = y + 'px';
+                    el.style.transform = 'translate(-50%, -50%)';
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 1500);
+                }
+
+                // ============================================================
+                // 8. APPLY EFFECTS
+                // ============================================================
+                function applyEffects(effects, choiceLabel) {
+                    const s = G;
+                    const changes = [];
+
+                    for (const [key, value] of Object.entries(effects)) {
+                        if (value === 0) continue;
+                        const oldVal = s[key];
+                        let newVal = clamp(s[key] + value, 0, MAX_STAT);
+                        s[key] = newVal;
+                        const delta = newVal - oldVal;
+                        if (delta !== 0) {
+                            changes.push({ key, delta, label: key });
+                        }
+                    }
+
+                    showResult(changes, choiceLabel);
+                }
+
+                // ============================================================
+                // 9. RESULT POPUP
+                // ============================================================
+                function showResult(changes, choiceLabel) {
+                    const popup = DOM.resultPopup;
+                    DOM.resultIcon.textContent = changes.some(c => c.delta > 0) ? '✅' : '⚠️';
+                    DOM.resultTitle.textContent = choiceLabel || 'Kết quả';
+
+                    let desc = '';
+                    if (changes.length === 0) {
+                        desc = 'Không có thay đổi đáng kể.';
+                    } else {
+                        const parts = changes.map(c => {
+                            const icon = c.delta > 0 ? '↑' : '↓';
+                            const color = c.delta > 0 ? 'up' : 'down';
+                            const labelMap = {
+                                money: '💰 Tiền',
+                                health: '❤️ Sức khỏe',
+                                alienation: '⚙️ Tha hóa',
+                                commodity: '📱 Bái vật giáo',
+                                face: '😎 Sĩ diện'
+                            };
+                            return `<span class="change-item">${labelMap[c.key] || c.key} <span class="delta ${color}">${c.delta > 0 ? '+' : ''}${fmtNum(c.delta)}</span></span>`;
+                        });
+                        desc = parts.join(' · ');
+                    }
+                    DOM.resultDesc.textContent = 'Hệ quả từ lựa chọn của bạn.';
+                    DOM.resultChanges.innerHTML = desc;
+
+                    popup.classList.add('active');
+                    sfxSuccess();
+
+                    // Floating numbers on stats
+                    const rect = DOM.scenarioCard.getBoundingClientRect();
+                    changes.forEach((c, i) => {
+                        const x = rect.left + rect.width * (0.15 + i * 0.2);
+                        const y = rect.top + 40 + i * 20;
+                        const labelMap = { money: '💰', health: '❤️', alienation: '⚙️', commodity: '📱', face: '😎' };
+                        const icon = labelMap[c.key] || '';
+                        spawnFloatStat(x, y, `${icon} ${c.delta > 0 ? '+' : ''}${fmtNum(c.delta)}`, c.delta > 0);
+                    });
+
+                    G.isWaitingResult = true;
+                    DOM.btnContinue.disabled = false;
+
+                    if (changes.some(c => c.delta < 0 && (c.key === 'health' || c.key === 'money'))) {
+                        sfxWarning();
+                    } else {
+                        sfxSuccess();
+                    }
+                }
+
+                // ============================================================
+                // 10. CONTINUE / NEXT DAY
+                // ============================================================
+                function nextDay() {
+                    if (!G.isWaitingResult) return;
+                    G.isWaitingResult = false;
+                    DOM.resultPopup.classList.remove('active');
+
+                    const ending = checkEnding();
+                    if (ending) {
+                        endGame(ending);
+                        return;
+                    }
+
+                    G.day++;
+                    if (G.day > G.maxDay) {
+                        endGame('win');
+                        return;
+                    }
+
+                    updateStatsUI();
+                    loadScenario();
+                    sfxClick();
+                }
+
+                // ============================================================
+                // 11. CHECK ENDINGS
+                // ============================================================
+                function checkEnding() {
+                    const s = G;
+                    if (s.health <= 0) return {
+                        type: 'health',
+                        icon: '💀',
+                        title: 'Kiệt sức lao động',
+                        sub: 'Sức khỏe của bạn đã xuống quá thấp. Cơ thể không thể chịu đựng thêm được nữa.'
+                    };
+                    if (s.alienation >= 100) return {
+                        type: 'alienation',
+                        icon: '⚙️',
+                        title: 'Tha hóa hoàn toàn',
+                        sub: 'Bạn đã trở thành cỗ máy lao động, đánh mất nhân tính của mình.'
+                    };
+                    if (s.commodity >= 100) return {
+                        type: 'commodity',
+                        icon: '📱',
+                        title: 'Nô lệ tiêu dùng',
+                        sub: 'Bạn bị cuốn vào vòng xoáy tiêu dùng, mất kiểm soát cuộc sống.'
+                    };
+                    return null;
+                }
+
+                // ============================================================
+                // 12. END GAME
+                // ============================================================
+                function endGame(reason) {
+                    if (G.gameEnded) return;
+                    G.gameEnded = true;
+                    G.isPlaying = false;
+
+                    const s = G;
+                    const happiness = s.money + s.health - s.alienation - s.commodity;
+                    G.totalHappiness = Math.max(0, happiness);
+
+                    let rank = 'D';
+                    if (G.totalHappiness >= 80) rank = 'S';
+                    else if (G.totalHappiness >= 60) rank = 'A';
+                    else if (G.totalHappiness >= 40) rank = 'B';
+                    else if (G.totalHappiness >= 20) rank = 'C';
+
+                    let icon = '🏆',
+                        title = 'Sống sót!',
+                        sub = 'Bạn đã vượt qua 30 ngày đầy thử thách.';
+                    if (reason === 'win') {
+                        icon = '🏆';
+                        title = 'Sống sót!';
+                        sub = 'Bạn đã vượt qua 30 ngày đầy thử thách. Hạnh phúc là điều bạn tạo ra.';
+                    } else if (reason.type === 'health') {
+                        icon = reason.icon;
+                        title = reason.title;
+                        sub = reason.sub;
+                        sfxGameOver();
+                    } else if (reason.type === 'alienation') {
+                        icon = reason.icon;
+                        title = reason.title;
+                        sub = reason.sub;
+                        sfxGameOver();
+                    } else if (reason.type === 'commodity') {
+                        icon = reason.icon;
+                        title = reason.title;
+                        sub = reason.sub;
+                        sfxGameOver();
+                    }
+
+                    DOM.endingIcon.textContent = icon;
+                    DOM.endingTitle.textContent = title;
+                    DOM.endingSub.textContent = sub;
+
+                    DOM.endingStats.innerHTML = `
+                        <div><div class="es-label">💰 Tiền</div><div class="es-value gold">${fmtNum(s.money)}</div></div>
+                        <div><div class="es-label">❤️ Sức khỏe</div><div class="es-value cyan">${fmtNum(s.health)}</div></div>
+                        <div><div class="es-label">⚙️ Tha hóa</div><div class="es-value purple">${fmtNum(s.alienation)}</div></div>
+                        <div><div class="es-label">📱 Bái vật giáo</div><div class="es-value pink">${fmtNum(s.commodity)}</div></div>
+                        <div><div class="es-label">😎 Sĩ diện</div><div class="es-value orange">${fmtNum(s.face)}</div></div>
+                        <div style="border-top:2px solid #1c1b1b;padding-top:4px;grid-column:span 2;">
+                            <div class="es-label">❤️ Hạnh phúc</div>
+                            <div class="es-value green" style="font-size:1.6rem;">${fmtNum(G.totalHappiness)}</div>
+                        </div>
+                    `;
+
+                    DOM.endingRank.textContent = rank;
+                    DOM.endingRank.className = 'ending-rank ' + rank;
+
+                    DOM.endingOverlay.classList.add('active');
+
+                    if (rank === 'S' || rank === 'A') {
+                        fireConfetti();
+                    }
+                }
+
+                // ============================================================
+                // 13. CONFETTI
+                // ============================================================
+                function fireConfetti() {
+                    const colors = ['#b20112', '#facc15', '#22d3ee', '#a855f7', '#ec4899', '#fb923c'];
+                    const container = document.createElement('div');
+                    container.style.cssText =
+                        'position:fixed;inset:0;pointer-events:none;z-index:600;overflow:hidden;';
+                    document.body.appendChild(container);
+                    for (let i = 0; i < 80; i++) {
+                        const el = document.createElement('div');
+                        const size = 5 + Math.random() * 10;
+                        el.style.cssText = `
+                            position:absolute;
+                            width:${size}px;
+                            height:${size * 0.6}px;
+                            background:${colors[Math.floor(Math.random() * colors.length)]};
+                            left:${Math.random() * 100}%;
+                            top:-20px;
+                            border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+                            animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
+                            animation-delay:${Math.random() * 1.5}s;
+                            transform:rotate(${Math.random() * 360}deg);
+                        `;
+                        container.appendChild(el);
+                    }
+                    if (!document.getElementById('confettiStyle')) {
+                        const style = document.createElement('style');
+                        style.id = 'confettiStyle';
+                        style.textContent = `
+                            @keyframes confettiFall {
+                                0% { transform: translateY(0) rotate(0deg) scale(1); opacity:1; }
+                                100% { transform: translateY(110vh) rotate(720deg) scale(0.2); opacity:0; }
+                            }
+                        `;
+                        document.head.appendChild(style);
+                    }
+                    setTimeout(() => container.remove(), 5500);
+                }
+
+                // ============================================================
+                // 14. LOAD SCENARIO
+                // ============================================================
+                function loadScenario() {
+                    if (!G.isPlaying) return;
+
+                    let available = SCENARIOS.filter(s => !G.usedScenarios.includes(s.id));
+                    if (available.length === 0) {
+                        G.usedScenarios = [];
+                        available = SCENARIOS;
+                    }
+
+                    const idx = Math.floor(Math.random() * available.length);
+                    const scenario = available[idx];
+                    G.usedScenarios.push(scenario.id);
+                    G.currentScenarioIndex = scenario.id;
+
+                    DOM.dayBadge.textContent = 'NGÀY ' + G.day;
+                    DOM.scenarioTitle.textContent = scenario.text.length > 60 ? scenario.text.substring(0, 60) + '...' : scenario
+                        .text;
+                    DOM.scenarioText.textContent = scenario.text;
+
+                    DOM.choiceAText.textContent = scenario.A.desc || scenario.A.label;
+                    DOM.choiceBText.textContent = scenario.B.desc || scenario.B.label;
+
+                    // Store effects as data attributes for the click handler
+                    DOM.choiceA.dataset.effects = JSON.stringify(scenario.A.effects);
+                    DOM.choiceA.dataset.label = scenario.A.label;
+                    DOM.choiceB.dataset.effects = JSON.stringify(scenario.B.effects);
+                    DOM.choiceB.dataset.label = scenario.B.label;
+
+                    DOM.choiceA.disabled = false;
+                    DOM.choiceB.disabled = false;
+
+                    // Card animation
+                    DOM.scenarioCard.style.animation = 'none';
+                    void DOM.scenarioCard.offsetWidth;
+                    DOM.scenarioCard.style.animation = 'slideUp 0.5s ease';
+
+                    updateStatsUI();
+                }
+
+                // ============================================================
+                // 15. HANDLE CHOICE
+                // ============================================================
+                function handleChoice(e) {
+                    const btn = e.currentTarget;
+                    if (btn.disabled || !G.isPlaying || G.isWaitingResult) return;
+
+                    const effects = JSON.parse(btn.dataset.effects);
+                    const label = btn.dataset.label || 'Lựa chọn';
+
+                    DOM.choiceA.disabled = true;
+                    DOM.choiceB.disabled = true;
+
+                    sfxClick();
+                    applyEffects(effects, label);
+
+                    // Card slide effect
+                    const isA = btn === DOM.choiceA;
+                    DOM.scenarioCard.style.transform = isA ? 'translateX(-16px)' : 'translateX(16px)';
+                    DOM.scenarioCard.style.opacity = '0.85';
+                    setTimeout(() => {
+                        DOM.scenarioCard.style.transform = '';
+                        DOM.scenarioCard.style.opacity = '';
+                    }, 400);
+                }
+
+                // ============================================================
+                // 16. RESTART
+                // ============================================================
+                function restartGame() {
+                    G.money = 50;
+                    G.health = 80;
+                    G.alienation = 10;
+                    G.commodity = 5;
+                    G.face = 30;
+                    G.day = 1;
+                    G.isPlaying = true;
+                    G.isWaitingResult = false;
+                    G.usedScenarios = [];
+                    G.currentScenarioIndex = 0;
+                    G.totalHappiness = 0;
+                    G.gameEnded = false;
+
+                    DOM.endingOverlay.classList.remove('active');
+                    DOM.resultPopup.classList.remove('active');
+
+                    DOM.choiceA.disabled = false;
+                    DOM.choiceB.disabled = false;
+
+                    updateStatsUI();
+                    loadScenario();
+                    sfxClick();
+                }
+
+                // ============================================================
+                // 17. INIT
+                // ============================================================
+                function init() {
+                    shuffleArray(SCENARIOS);
+
+                    // Event listeners
+                    DOM.choiceA.addEventListener('click', handleChoice);
+                    DOM.choiceB.addEventListener('click', handleChoice);
+                    DOM.btnContinue.addEventListener('click', nextDay);
+                    DOM.btnRestart.addEventListener('click', restartGame);
+
+                    // Keyboard shortcuts
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'a' || e.key === 'A') {
+                            if (!DOM.choiceA.disabled) DOM.choiceA.click();
+                        }
+                        if (e.key === 'b' || e.key === 'B') {
+                            if (!DOM.choiceB.disabled) DOM.choiceB.click();
+                        }
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            if (DOM.resultPopup.classList.contains('active')) {
+                                e.preventDefault();
+                                DOM.btnContinue.click();
+                            }
+                        }
+                    });
+
+                    updateStatsUI();
+                    loadScenario();
+
+                    console.log('💎 Hạnh Phúc Hay Tiền Bạc? — Game loaded.');
+                    console.log(`📚 ${SCENARIOS.length} scenarios available.`);
+                }
+
+                // Start game when DOM ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
+
+            })();
+    </script>
+
+</body>
+
+</html>
