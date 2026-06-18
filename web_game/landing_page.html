@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>HẠNH PHÚC HAY TIỀN BẠC?</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#410002",
+                        "secondary-fixed": "#e5e2e1",
+                        "secondary-container": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-secondary-container": "#656464",
+                        "background": "#fcf9f8",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "primary-container": "#d62828",
+                        "primary": "#b20112",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#eae7e7",
+                        "surface-tint": "#bd1119",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "inverse-primary": "#ffb4ab",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "surface-bright": "#fcf9f8",
+                        "secondary": "#5f5e5e",
+                        "on-primary-container": "#fff1ef",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#313030",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#93000d",
+                        "tertiary-container": "#6e7070",
+                        "outline-variant": "#e5bdb9",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary-fixed": "#ffdad6",
+                        "on-surface-variant": "#5c403d",
+                        "on-secondary-fixed-variant": "#474646",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-container": "#f4f4f4",
+                        "tertiary": "#565858",
+                        "surface-container-highest": "#e5e2e1",
+                        "outline": "#906f6b",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1c1b1b",
+                        "on-surface": "#1c1b1b",
+                        "surface": "#fcf9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "container-max": "1440px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Inter"],
+                        "headline-lg": ["Bebas Neue"],
+                        "display-lg": ["Bebas Neue"],
+                        "headline-xl": ["Bebas Neue"],
+                        "display-lg-mobile": ["Bebas Neue"],
+                        "caption": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Bebas Neue"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["14px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-lg": ["48px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "display-lg": ["120px", { "lineHeight": "100px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-xl": ["64px", { "lineHeight": "60px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "display-lg-mobile": ["72px", { "lineHeight": "64px", "fontWeight": "400" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "32px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .brutalist-button {
+            border-radius: 0;
+            border: 2px solid #1c1b1b;
+            transition: all 0.2s ease;
+        }
+
+        .brutalist-button-primary {
+            background-color: #1c1b1b;
+            color: #ffffff;
+        }
+
+        .brutalist-button-primary:hover {
+            background-color: #b20112;
+            border-color: #b20112;
+        }
+
+        .brutalist-button-secondary {
+            background-color: transparent;
+            color: #1c1b1b;
+        }
+
+        .brutalist-button-secondary:hover {
+            background-color: #e5e2e1;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary overflow-x-hidden">
+    <!-- Top Navigation -->
+    <header
+        class="flex justify-between items-center w-full px-margin-desktop h-20 bg-background border-b-4 border-on-background fixed top-0 z-50">
+        <div class="font-headline-lg text-headline-lg text-primary tracking-tighter">
+            HẠNH PHÚC HAY TIỀN BẠC?
+        </div>
+        <nav class="hidden md:flex gap-8 items-center h-full">
+            <a class="font-label-bold text-label-bold uppercase text-on-background opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
+                href="#">Theory</a>
+            <a class="font-label-bold text-label-bold uppercase text-primary font-bold border-b-2 border-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
+                href="#">Game</a>
+            <a class="font-label-bold text-label-bold uppercase text-on-background opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
+                href="#">Manifesto</a>
+        </nav>
+        <button class="md:hidden flex items-center justify-center p-2">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="mt-20 relative min-h-screen grid-bg flex flex-col justify-center">
+        <!-- Marquee Background -->
+        <div class="absolute inset-0 z-0 flex flex-col justify-around pointer-events-none opacity-10">
+            <div class="marquee-container font-headline-xl text-headline-xl text-primary transform -rotate-12">
+                <div class="marquee-content">
+                    LAO ĐỘNG LÀ VINH QUANG  •  BÁI VẬT GIÁO  •  LAO ĐỘNG LÀ VINH QUANG  •  BÁI VẬT GIÁO  •  LAO ĐỘNG LÀ
+                    VINH QUANG  •  BÁI VẬT GIÁO  •  LAO ĐỘNG LÀ VINH QUANG  •  BÁI VẬT GIÁO  • 
+                </div>
+            </div>
+            <div class="marquee-container font-headline-xl text-headline-xl text-primary transform rotate-6 mt-32">
+                <div class="marquee-content" style="animation-direction: reverse; animation-duration: 25s;">
+                    GIÁ TRỊ THẶNG DƯ  •  THA HÓA  •  GIÁ TRỊ THẶNG DƯ  •  THA HÓA  •  GIÁ TRỊ THẶNG DƯ  •  THA HÓA  • 
+                    GIÁ TRỊ THẶNG DƯ  •  THA HÓA  • 
+                </div>
+            </div>
+        </div>
+        <!-- Hero Section -->
+        <section
+            class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32 flex flex-col md:flex-row gap-16 items-center">
+            <!-- Text Content -->
+            <div class="flex-1 flex flex-col items-start">
+                <h1
+                    class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background uppercase leading-none mb-8">
+                    HẠNH PHÚC<br />
+                    <span class="text-primary">HAY TIỀN BẠC?</span>
+                </h1>
+                <div class="border-l-4 border-primary pl-6 mb-12">
+                    <p class="font-body-lg text-body-lg text-on-background mb-4 max-w-2xl">
+                        Bạn là một người lao động trẻ sống trong thành phố hiện đại.
+                    </p>
+                    <div
+                        class="bg-on-background text-background p-4 inline-block font-label-bold text-label-bold uppercase mb-4">
+                        MỤC TIÊU: Sống sót 30 ngày.
+                    </div>
+                    <div class="bg-surface-variant border-2 border-on-background p-6 max-w-xl">
+                        <p class="font-label-bold text-label-bold uppercase text-secondary mb-2 tracking-widest">CÔNG
+                            THỨC SINH TỒN</p>
+                        <p class="font-headline-md text-headline-md">
+                            Hạnh Phúc = Tiền + Sức Khỏe <span class="text-primary">− Tha Hóa − Bái Vật Giáo</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <button onclick="location.href='../web_game/game.html'"
+                        class="brutalist-button brutalist-button-primary font-headline-md text-headline-md px-12 py-4 flex items-center justify-center gap-2 group">
+                        BẮT ĐẦU
+                        <span
+                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                    <button onclick="location.href='../web_game/leaderboard.html'"
+                        class="brutalist-button brutalist-button-secondary font-label-bold text-label-bold uppercase px-8 py-4 flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">leaderboard</span>
+                        TOP HẠNH PHÚC
+                    </button>
+                </div>
+            </div>
+            <!-- Visual Asset -->
+            <div
+                class="flex-1 w-full max-w-lg md:max-w-none border-4 border-on-background bg-surface-container-low p-2 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                <div class="relative w-full aspect-square border-2 border-on-background overflow-hidden bg-background">
+                    <img class="w-full h-full object-cover filter grayscale contrast-150 mix-blend-multiply"
+                        data-alt="A striking graphic illustration in a stark, high-contrast modernist propaganda style. It depicts a towering, stylized cityscape of brutalist factories and skyscrapers reaching into a dark, dramatic sky. Bold diagonal lines intersect the composition, suggesting searchlights or dynamic progress. The color palette is strictly limited to deep black, pristine white, and intense vibrant red accents, emphasizing industrial grit and societal pressure. The mood is serious, authoritative, and slightly oppressive, reflecting a critical social commentary on modern labor and capitalism."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8bgnqa5wckSpLt06FN0k1zflFdFwsCmlMFYvFFxdF6q4c_PcO1CE7Miv19cWiP6DPdu5uVZxKdJaiEtRtcdhMNizArun4cLp8zsVRJnYY1oDI9iLyRP_8ZrofMPWc5GldSto1FzURTiluN5uXGZLHvZJeIewrFBQbn7MGFsXLrHCZ5qOJoz1yVRu97a4k-u9E954-ppxYq5cdIL_3ommlgl1vgAFOWSVQo88DKr68ZGQ_Knjglu1sE4f4wRMvwA4h54WKduSRCok" />
+                    <div class="absolute inset-0 bg-primary opacity-20 mix-blend-color-burn pointer-events-none"></div>
+                    <!-- Propaganda Elements -->
+                    <div
+                        class="absolute top-4 left-4 bg-background border-2 border-on-background px-3 py-1 font-label-bold text-label-bold uppercase transform -rotate-6">
+                        Tài sản 001
+                    </div>
+                    <div class="absolute bottom-4 right-4 text-primary">
+                        <span class="material-symbols-outlined text-6xl"
+                            style="font-variation-settings: 'FILL' 1;">warning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer Navigation (Hidden intentionally for a focused landing page feel, or simplified) -->
+    <footer
+        class="w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 bg-on-background text-on-primary border-t-4 border-primary mt-24">
+        <div class="font-headline-md text-headline-md text-primary">
+            THE PROLETARIAT PRESS
+        </div>
+        <div class="font-body-md text-body-md text-surface-container-low opacity-70">
+            © 2024 THE PROLETARIAT PRESS. ALL POWER TO THE IMAGINATION.
+        </div>
+        <nav class="flex gap-6">
+            <a class="font-label-bold text-label-bold uppercase text-surface-container-low opacity-70 hover:text-primary transition-colors"
+                href="#">Manifesto</a>
+            <a class="font-label-bold text-label-bold uppercase text-surface-container-low opacity-70 hover:text-primary transition-colors"
+                href="#">Contact</a>
+        </nav>
+    </footer>
+</body>
+
+</html>
