@@ -1049,7 +1049,7 @@
                     <!-- Stat: Tha hóa -->
                     <div class="stat-item">
                         <div class="flex justify-between mb-1 font-label-bold text-label-bold uppercase">
-                            <span>⚙️ Tha hóa</span>
+                            <span>⚡ Tha hóa</span>
                             <span id="alienationValue" class="stat-number">10</span>
                         </div>
                         <div class="w-full bg-surface-container-highest h-4 border border-on-surface">
@@ -1113,16 +1113,23 @@
                     <button
                         class="flex-1 border-4 border-on-surface bg-on-surface text-on-primary font-headline-md text-headline-md py-4 px-6 hover:bg-primary hover:border-primary transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn"
                         id="choiceA">
-                        LỰA CHỌN A
+                        <span id="choiceATitle">LỰA CHỌN A</span>
                         <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceAText">
                             + Tiền</div>
                     </button>
                     <button
                         class="flex-1 border-4 border-on-surface bg-surface text-on-surface font-headline-md text-headline-md py-4 px-6 hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn"
                         id="choiceB">
-                        LỰA CHỌN B
+                        <span id="choiceBTitle">LỰA CHỌN B</span>
                         <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceBText">
                             + Sức khỏe</div>
+                    </button>
+                    <button
+                        class="flex-1 border-4 border-on-surface bg-surface text-on-surface font-headline-md text-headline-md py-4 px-6 hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn hidden"
+                        id="choiceC">
+                        <span id="choiceCTitle">LỰA CHỌN C</span>
+                        <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceCText">
+                            Lựa chọn C</div>
                     </button>
                 </div>
             </div>
@@ -1190,601 +1197,413 @@
                 // ============================================================
                 const SCENARIOS = [{
                     id: 0,
-                    text: 'Sếp yêu cầu bạn OT tới 12h đêm để kịp tiến độ dự án.',
+                    text: 'Công ty gửi offer với mức lương thấp hơn kỳ vọng.',
                     A: {
-                        label: 'Đồng ý OT',
-                        effects: { money: 20, health: -10, alienation: 5, commodity: 0, face: 0 },
-                        desc: '+20💰, -10❤️, +5⚙️'
+                        label: 'Chấp nhận, lấy kinh nghiệm',
+                        effects: { money: 2, health: 1, face: -1, alienation: 0, commodity: 0, connection: 0 },
+                        desc: '💰 +2 | ❤️ +1 | 😎 -1'
                     },
                     B: {
-                        label: 'Từ chối về nhà',
-                        effects: { money: -5, health: 5, alienation: -3, commodity: 0, face: -5 },
-                        desc: '-5💰, +5❤️, -3⚙️, -5😎'
+                        label: 'Đòi mức cao hơn',
+                        effects: { money: 4, health: 0, face: 0, alienation: 2, commodity: 0, connection: 0 },
+                        desc: '💰 +4 | ⚡ +2'
                     }
                 }, {
                     id: 1,
-                    text: 'Đồng nghiệp rủ bạn mua iPhone 15 Pro Max trả góp.',
+                    text: 'Sếp hối thúc dự án qua tin nhắn vào cuối tuần.',
                     A: {
-                        label: 'Mua để khẳng định đẳng cấp',
-                        effects: { money: -40, health: 0, alienation: 5, commodity: 25, face: 20 },
-                        desc: '-40💰, +5⚙️, +25📱, +20😎'
+                        label: 'Ở lại tăng ca',
+                        effects: { money: 3, health: -2, alienation: 2, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +3 | ❤️ -2 | ⚡ +2'
                     },
                     B: {
-                        label: 'Từ chối, điện thoại cũ vẫn dùng tốt',
-                        effects: { money: 10, health: 0, alienation: -5, commodity: -10, face: -10 },
-                        desc: '+10💰, -5⚙️, -10📱, -10😎'
+                        label: 'Về nhà nghỉ ngơi',
+                        effects: { money: 0, health: 3, alienation: 0, commodity: 0, face: -1, connection: 0 },
+                        desc: '❤️ +3 | 😎 -1'
+                    },
+                    C: {
+                        label: 'Thương lượng tăng ca bù vào thứ Hai',
+                        effects: { money: 1, health: -1, alienation: 1, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +1 | ❤️ -1 | ⚡ +1'
                     }
                 }, {
                     id: 2,
-                    text: 'KPI tháng này đang rất thấp, sếp nhắc nhở gay gắt.',
+                    text: 'Đồng nghiệp khoe iPhone mới và cả phòng bình luận xôn xao.',
                     A: {
-                        label: 'Cố gắng cày cuốc hết mình',
-                        effects: { money: 15, health: -12, alienation: 8, commodity: 0, face: 5 },
-                        desc: '+15💰, -12❤️, +8⚙️, +5😎'
+                        label: 'Mua trả góp để hòa nhập',
+                        effects: { money: -4, health: 0, alienation: 0, commodity: 6, face: 4, connection: 0 },
+                        desc: '💰 -4 | 📱 +6 | 😎 +4'
                     },
                     B: {
-                        label: 'Bình tĩnh, làm việc có chừng mực',
-                        effects: { money: -5, health: 5, alienation: -3, commodity: 0, face: -5 },
-                        desc: '-5💰, +5❤️, -3⚙️, -5😎'
+                        label: 'Vẫn dùng máy cũ',
+                        effects: { money: 0, health: 0, alienation: -1, commodity: -2, face: -3, connection: 0 },
+                        desc: '📱 -2 | 😎 -3 | ⚡ -1'
                     }
                 }, {
                     id: 3,
-                    text: 'Bạn thấy một khóa học đầu tư chứng khoán hấp dẫn.',
+                    text: 'Đồng nghiệp nghỉ ốm và sếp nhờ bạn gánh vác phần việc làm giúp.',
                     A: {
-                        label: 'Đầu tư mạo hiểm',
-                        effects: { money: 30, health: -5, alienation: 10, commodity: 0, face: 10 },
-                        desc: '+30💰, -5❤️, +10⚙️, +10😎'
+                        label: 'Nhận làm',
+                        effects: { money: 3, health: -2, alienation: 3, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +3 | ❤️ -2 | ⚡ +3'
                     },
                     B: {
-                        label: 'Không rủi ro, tiết kiệm an toàn',
-                        effects: { money: 5, health: 5, alienation: -5, commodity: 0, face: -5 },
-                        desc: '+5💰, +5❤️, -5⚙️, -5😎'
+                        label: 'Khéo léo từ chối',
+                        effects: { money: 0, health: 1, alienation: -1, commodity: 0, face: 2, connection: 0 },
+                        desc: '❤️ +1 | 😎 +2 | ⚡ -1'
                     }
                 }, {
                     id: 4,
-                    text: 'Công ty tổ chức teambuilding cuối tuần, bạn phải đi.',
+                    text: 'Hội bạn thân lên kế hoạch rủ đi du lịch chơi xa 2 ngày.',
                     A: {
-                        label: 'Tham gia vui vẻ',
-                        effects: { money: 0, health: 5, alienation: -5, commodity: 0, face: 10 },
-                        desc: '+5❤️, -5⚙️, +10😎'
+                        label: 'Đi du lịch xả stress',
+                        effects: { money: -3, health: 5, alienation: -2, commodity: 0, face: 0, connection: 0 },
+                        desc: '❤️ +5 | 💰 -3 | ⚡ -2'
                     },
                     B: {
-                        label: 'Xin nghỉ ở nhà',
-                        effects: { money: 0, health: -3, alienation: 8, commodity: 0, face: -10 },
-                        desc: '-3❤️, +8⚙️, -10😎'
+                        label: 'Ở nhà kiếm thêm thu nhập',
+                        effects: { money: 4, health: -1, alienation: 3, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +4 | ⚡ +3 | ❤️ -1'
                     }
                 }, {
                     id: 5,
-                    text: 'Bạn thấy đồng nghiệp livestream bán hàng kiếm thêm thu nhập.',
+                    text: 'Vô tình thấy ảnh đồng nghiệp check-in nhà hàng dát vàng.',
                     A: {
-                        label: 'Học theo làm thêm',
-                        effects: { money: 15, health: -8, alienation: 10, commodity: 5, face: 5 },
-                        desc: '+15💰, -8❤️, +10⚙️, +5📱, +5😎'
+                        label: 'Đi ăn để cập nhật trạng thái',
+                        effects: { money: -3, health: 0, alienation: 1, commodity: 4, face: 5, connection: 0 },
+                        desc: '💰 -3 | 📱 +4 | 😎 +5 | ⚡ +1'
                     },
                     B: {
-                        label: 'Tập trung vào công việc chính',
-                        effects: { money: 0, health: 5, alienation: -3, commodity: 0, face: 0 },
-                        desc: '+5❤️, -3⚙️'
+                        label: 'Lướt qua, tập trung đọc sách',
+                        effects: { money: 0, health: 1, alienation: -2, commodity: -2, face: 0, connection: 0 },
+                        desc: '📱 -2 | ⚡ -2 | ❤️ +1'
                     }
                 }, {
                     id: 6,
-                    text: 'Bạn được thưởng cuối năm, một khoản kha khá.',
+                    text: 'Cơ thể uể oải, đầu óc căng thẳng sau tuần làm việc đầu tiên.',
                     A: {
-                        label: 'Mua xe máy mới trả góp',
-                        effects: { money: -30, health: 0, alienation: 5, commodity: 20, face: 25 },
-                        desc: '-30💰, +5⚙️, +20📱, +25😎'
+                        label: 'Dành trọn ngày nghỉ ngơi',
+                        effects: { money: 0, health: 6, alienation: -2, commodity: 0, face: 0, connection: 0 },
+                        desc: '❤️ +6 | ⚡ -2'
                     },
                     B: {
-                        label: 'Gửi tiết kiệm an toàn',
-                        effects: { money: 25, health: 5, alienation: -5, commodity: -5, face: 0 },
-                        desc: '+25💰, +5❤️, -5⚙️, -5📱'
+                        label: 'Tranh thủ học khóa kỹ năng mềm',
+                        effects: { money: 2, health: -2, alienation: 2, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +2 | ❤️ -2 | ⚡ +2'
                     }
                 }, {
                     id: 7,
-                    text: 'Sếp đề xuất thăng chức cho bạn nhưng áp lực cực lớn.',
+                    text: 'Sếp đưa chỉ tiêu KPI mới đột ngột tăng vọt cao hơn 20%.',
                     A: {
-                        label: 'Nhận lời thăng chức',
-                        effects: { money: 30, health: -15, alienation: 15, commodity: 0, face: 20 },
-                        desc: '+30💰, -15❤️, +15⚙️, +20😎'
+                        label: 'Cố gắng bám đuổi bằng mọi giá',
+                        effects: { money: 4, health: -3, alienation: 4, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +4 | ⚡ +4 | ❤️ -3'
                     },
                     B: {
-                        label: 'Từ chối giữ vị trí hiện tại',
-                        effects: { money: -10, health: 10, alienation: -10, commodity: 0, face: -10 },
-                        desc: '-10💰, +10❤️, -10⚙️, -10😎'
+                        label: 'Đàm phán giảm chỉ tiêu, tập trung chất lượng',
+                        effects: { money: 0, health: 0, alienation: -1, commodity: 0, face: 2, connection: 0 },
+                        desc: '😎 +2 | ⚡ -1'
+                    },
+                    C: {
+                        label: 'Nhận chỉ tiêu nhưng cắt giảm việc lặt vặt',
+                        effects: { money: 1, health: -1, alienation: 1, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +1 | ❤️ -1 | ⚡ +1'
                     }
                 }, {
                     id: 8,
-                    text: 'Mạng xã hội tràn ngập check-in ở các quán cà phê đẹp.',
+                    text: 'Nhận được một loạt quảng cáo giảm giá ưu đãi đợt sale cuối năm.',
                     A: {
-                        label: 'Check-in sống ảo mỗi ngày',
-                        effects: { money: -15, health: 0, alienation: 10, commodity: 15, face: 20 },
-                        desc: '-15💰, +10⚙️, +15📱, +20😎'
+                        label: 'Mua sắm cho thỏa mãn',
+                        effects: { money: -5, health: 0, alienation: 0, commodity: 5, face: 3, connection: 0 },
+                        desc: '💰 -5 | 📱 +5 | 😎 +3'
                     },
                     B: {
-                        label: 'Không quan tâm, sống thật',
-                        effects: { money: 5, health: 5, alienation: -5, commodity: -10, face: -10 },
-                        desc: '+5💰, +5❤️, -5⚙️, -10📱, -10😎'
+                        label: 'Không mua gì, để dành tiết kiệm',
+                        effects: { money: 2, health: 0, alienation: -2, commodity: -2, face: 0, connection: 0 },
+                        desc: '💰 +2 | 📱 -2 | ⚡ -2'
                     }
                 }, {
                     id: 9,
-                    text: 'Bạn bè rủ đi du lịch xuyên Việt 1 tuần.',
+                    text: 'Dự án nhỏ thành công, công ty thưởng nóng 5 triệu.',
                     A: {
-                        label: 'Đi để trải nghiệm',
-                        effects: { money: -30, health: 10, alienation: -15, commodity: 5, face: 15 },
-                        desc: '-30💰, +10❤️, -15⚙️, +5📱, +15😎'
+                        label: 'Mua quà tặng bố mẹ',
+                        effects: { money: -4, health: 0, alienation: -3, commodity: -1, face: 0, connection: 2 },
+                        desc: '💰 -4 | 📱 -1 | ⚡ -3 | 🔗 +2'
                     },
                     B: {
-                        label: 'Ở nhà làm thêm',
-                        effects: { money: 20, health: -5, alienation: 10, commodity: 0, face: -5 },
-                        desc: '+20💰, -5❤️, +10⚙️, -5😎'
+                        label: 'Gửi tiết kiệm để an tâm',
+                        effects: { money: 4, health: 0, alienation: 0, commodity: 0, face: -1, connection: 0 },
+                        desc: '💰 +4 | 😎 -1'
                     }
                 }, {
                     id: 10,
-                    text: 'Công đoàn phát động đấu tranh đòi tăng lương.',
+                    text: 'Bị mất ngủ triền miên, nằm tới 2h sáng vẫn chưa ngủ được.',
                     A: {
-                        label: 'Tham gia tích cực',
-                        effects: { money: 10, health: 0, alienation: -20, commodity: 0, face: 10 },
-                        desc: '+10💰, -20⚙️, +10😎'
+                        label: 'Uống thuốc ngủ hoặc tăng lực gượng tiếp',
+                        effects: { money: -1, health: -4, alienation: 3, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 -1 | ❤️ -4 | ⚡ +3'
                     },
                     B: {
-                        label: 'Không tham gia giữ yên vị',
-                        effects: { money: -10, health: 0, alienation: 15, commodity: 0, face: -15 },
-                        desc: '-10💰, +15⚙️, -15😎'
+                        label: 'Thiền nhẹ, chấp nhận muộn giờ làm mai',
+                        effects: { money: 0, health: 3, alienation: -2, commodity: 0, face: 0, connection: 0 },
+                        desc: '❤️ +3 | ⚡ -2'
                     }
                 }, {
                     id: 11,
-                    text: 'Bạn bị đau lưng thường xuyên do ngồi văn phòng.',
+                    text: 'Một món đồ hiệu bất ngờ lên trend TikTok và ai cũng có.',
                     A: {
-                        label: 'Đi khám và tập thể thao',
-                        effects: { money: -15, health: 15, alienation: -5, commodity: 0, face: 5 },
-                        desc: '-15💰, +15❤️, -5⚙️, +5😎'
+                        label: 'Đua trend mua bằng kịp',
+                        effects: { money: -4, health: 0, alienation: 0, commodity: 6, face: 4, connection: 0 },
+                        desc: '💰 -4 | 📱 +6 | 😎 +4'
                     },
                     B: {
-                        label: 'Uống thuốc giảm đau và tiếp tục',
-                        effects: { money: -5, health: -10, alienation: 10, commodity: 0, face: -5 },
-                        desc: '-5💰, -10❤️, +10⚙️, -5😎'
+                        label: 'Bỏ qua và dọn dẹp nhà cửa',
+                        effects: { money: 0, health: 2, alienation: 0, commodity: -3, face: 0, connection: 0 },
+                        desc: '📱 -3 | ❤️ +2'
                     }
                 }, {
                     id: 12,
-                    text: 'Nhà đầu tư rót vốn vào dự án của công ty bạn.',
+                    text: 'Đồng nghiệp chủ chốt nghỉ việc. Sếp đề nghị bạn gánh nửa việc với phụ cấp.',
                     A: {
-                        label: 'Hào hứng đẩy nhanh tiến độ',
-                        effects: { money: 20, health: -10, alienation: 10, commodity: 0, face: 10 },
-                        desc: '+20💰, -10❤️, +10⚙️, +10😎'
+                        label: 'Nhận lời để chứng tỏ năng lực',
+                        effects: { money: 7, health: -5, alienation: 5, commodity: 0, face: 3, connection: 0 },
+                        desc: '💰 +7 | ❤️ -5 | ⚡ +5 | 😎 +3'
                     },
                     B: {
-                        label: 'Bình thản làm đúng quy trình',
-                        effects: { money: 5, health: 5, alienation: -5, commodity: 0, face: 0 },
-                        desc: '+5💰, +5❤️, -5⚙️'
+                        label: 'Từ chối khéo, giữ đúng mô tả công việc',
+                        effects: { money: 0, health: 2, alienation: -3, commodity: 0, face: -1, connection: 0 },
+                        desc: '❤️ +2 | ⚡ -3 | 😎 -1'
                     }
                 }, {
                     id: 13,
-                    text: 'Bạn thấy một chiếc đồng hồ hàng hiệu đang giảm giá.',
+                    text: 'Cuối tuần gia đình ở quê lên thăm.',
                     A: {
-                        label: 'Mua bằng thẻ tín dụng',
-                        effects: { money: -35, health: 0, alienation: 10, commodity: 20, face: 20 },
-                        desc: '-35💰, +10⚙️, +20📱, +20😎'
+                        label: 'Dành trọn 2 ngày đi chơi cùng gia đình',
+                        effects: { money: 0, health: 6, alienation: -5, commodity: 0, face: 0, connection: 3 },
+                        desc: '❤️ +6 | ⚡ -5 | 🔗 +3'
                     },
                     B: {
-                        label: 'Không mua, tiền để dành',
-                        effects: { money: 15, health: 0, alienation: -5, commodity: -10, face: -10 },
-                        desc: '+15💰, -5⚙️, -10📱, -10😎'
+                        label: 'Nhận dự án về làm',
+                        effects: { money: 5, health: -2, alienation: 4, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +5 | ❤️ -2 | ⚡ +4'
                     }
                 }, {
                     id: 14,
-                    text: 'Bạn bè ép bạn uống rượu trong buổi tiệc công ty.',
+                    text: 'Gặp cảnh báo sức khỏe: Tim đập nhanh, đau đầu liên hồi.',
                     A: {
-                        label: 'Uống nhiều để thể hiện',
-                        effects: { money: 0, health: -12, alienation: 10, commodity: 0, face: 15 },
-                        desc: '-12❤️, +10⚙️, +15😎'
+                        label: 'Đi khám tổng quát (tốn phí)',
+                        effects: { money: -5, health: 8, alienation: -3, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 -5 | ❤️ +8 | ⚡ -3'
                     },
                     B: {
-                        label: 'Từ chối, bảo vệ sức khỏe',
-                        effects: { money: 0, health: 5, alienation: -8, commodity: 0, face: -10 },
-                        desc: '+5❤️, -8⚙️, -10😎'
+                        label: 'Tự mua thuốc uống đỡ',
+                        effects: { money: -2, health: -2, alienation: 2, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 -2 | ❤️ -2 | ⚡ +2'
+                    },
+                    C: {
+                        label: 'Gọi bác sĩ tư vấn online, nghỉ nửa ngày',
+                        effects: { money: -3, health: 4, alienation: -1, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 -3 | ❤️ +4 | ⚡ -1'
                     }
                 }, {
                     id: 15,
-                    text: 'Công ty có chương trình đào tạo nâng cao kỹ năng.',
+                    text: 'Bạn đồng nghiệp trẻ hơn vừa được thăng chức lên làm trưởng nhóm.',
                     A: {
-                        label: 'Đăng ký tham gia',
-                        effects: { money: -5, health: 0, alienation: -10, commodity: 0, face: 15 },
-                        desc: '-5💰, -10⚙️, +15😎'
+                        label: 'Nhận thêm việc để cạnh tranh lần sau',
+                        effects: { money: 3, health: -3, alienation: 5, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +3 | ⚡ +5 | ❤️ -3'
                     },
                     B: {
-                        label: 'Bỏ qua vì bận rộn',
-                        effects: { money: 0, health: -5, alienation: 10, commodity: 0, face: -5 },
-                        desc: '-5❤️, +10⚙️, -5😎'
+                        label: 'Xin lời khuyên và học hỏi từ họ',
+                        effects: { money: 0, health: 2, alienation: -1, commodity: 0, face: 2, connection: 0 },
+                        desc: '❤️ +2 | 😎 +2 | ⚡ -1'
                     }
                 }, {
                     id: 16,
-                    text: 'Bạn đang bị burnout sau nhiều ngày làm việc căng thẳng.',
+                    text: 'Nghe tin bạn cũ vừa mua ô tô trả góp, chịu áp lực xe cộ.',
                     A: {
-                        label: 'Xin nghỉ phép vài ngày',
-                        effects: { money: -10, health: 15, alienation: -15, commodity: 0, face: 0 },
-                        desc: '-10💰, +15❤️, -15⚙️'
+                        label: 'Hùn vốn mua xe trả góp cho sang',
+                        effects: { money: -6, health: 0, alienation: 2, commodity: 6, face: 6, connection: 0 },
+                        desc: '💰 -6 | 📱 +6 | 😎 +6 | ⚡ +2'
                     },
                     B: {
-                        label: 'Cố gắng gồng mình tiếp tục',
-                        effects: { money: 10, health: -15, alienation: 20, commodity: 0, face: -5 },
-                        desc: '+10💰, -15❤️, +20⚙️, -5😎'
+                        label: 'Chấp nhận đi xe máy, tập thể dục nhiều hơn',
+                        effects: { money: 2, health: 3, alienation: 0, commodity: -2, face: 0, connection: 0 },
+                        desc: '❤️ +3 | 📱 -2 | 💰 +2'
                     }
                 }, {
                     id: 17,
-                    text: 'Công ty thông báo lương thưởng bị cắt giảm 20%.',
+                    text: 'Một khách hàng khó chiều đòi hỏi chỉnh sửa ngoài hợp đồng.',
                     A: {
-                        label: 'Đấu tranh đòi quyền lợi',
-                        effects: { money: -5, health: 0, alienation: -20, commodity: 0, face: 10 },
-                        desc: '-5💰, -20⚙️, +10😎'
+                        label: 'Chấp nhận vô điều kiện giữ doanh thu',
+                        effects: { money: 5, health: -3, alienation: 5, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +5 | ⚡ +5 | ❤️ -3'
                     },
                     B: {
-                        label: 'Im lặng chấp nhận',
-                        effects: { money: -15, health: -5, alienation: 15, commodity: 0, face: -10 },
-                        desc: '-15💰, -5❤️, +15⚙️, -10😎'
+                        label: 'Từ chối thẳng, bảo vệ ranh giới',
+                        effects: { money: 0, health: 2, alienation: -3, commodity: 0, face: 3, connection: 0 },
+                        desc: '❤️ +2 | 😎 +3 | ⚡ -3'
+                    },
+                    C: {
+                        label: 'Đề xuất điều chỉnh có tính phí',
+                        effects: { money: 2, health: 0, alienation: 2, commodity: 0, face: 3, connection: 0 },
+                        desc: '💰 +2 | ⚡ +2 | 😎 +3'
                     }
                 }, {
                     id: 18,
-                    text: 'Bạn nhận được lời mời làm việc với mức lương cao hơn.',
+                    text: 'Hôm nay công ty cho phép nhân viên làm việc từ xa tại nhà.',
                     A: {
-                        label: 'Nhảy việc để tăng lương',
-                        effects: { money: 30, health: -10, alienation: 10, commodity: 0, face: 15 },
-                        desc: '+30💰, -10❤️, +10⚙️, +15😎'
+                        label: 'Làm việc xuyên trưa kiếm thêm overtime',
+                        effects: { money: 4, health: -3, alienation: 3, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +4 | ❤️ -3 | ⚡ +3'
                     },
                     B: {
-                        label: 'Ở lại công ty cũ trung thành',
-                        effects: { money: -5, health: 5, alienation: -10, commodity: 0, face: 5 },
-                        desc: '-5💰, +5❤️, -10⚙️, +5😎'
+                        label: 'Tắt máy đúng giờ, ra ngoài hít thở',
+                        effects: { money: 0, health: 5, alienation: -2, commodity: 0, face: 0, connection: 0 },
+                        desc: '❤️ +5 | ⚡ -2'
                     }
                 }, {
                     id: 19,
-                    text: 'Mẹ bạn gọi hỏi thăm và kêu về quê ăn Tết.',
+                    text: 'Laptop cũ đã 4 năm chạy rất chậm, giật lag liên tục.',
                     A: {
-                        label: 'Về quê sum họp gia đình',
-                        effects: { money: -20, health: 15, alienation: -20, commodity: 0, face: 10 },
-                        desc: '-20💰, +15❤️, -20⚙️, +10😎'
+                        label: 'Mua máy mới trả góp',
+                        effects: { money: -7, health: 0, alienation: 1, commodity: 4, face: 2, connection: 0 },
+                        desc: '💰 -7 | 📱 +4 | 😎 +2 | ⚡ +1'
                     },
                     B: {
-                        label: 'Ở lại thành phố làm thêm',
-                        effects: { money: 25, health: -5, alienation: 15, commodity: 0, face: -10 },
-                        desc: '+25💰, -5❤️, +15⚙️, -10😎'
+                        label: 'Nâng cấp RAM và dùng thêm 2 năm',
+                        effects: { money: -2, health: 1, alienation: 0, commodity: -2, face: 0, connection: 0 },
+                        desc: '💰 -2 | 📱 -2 | ❤️ +1'
                     }
                 }, {
                     id: 20,
-                    text: 'Bạn dành quá nhiều thời gian lướt TikTok mỗi ngày.',
+                    text: 'Mẹ gọi báo bố ốm nặng phải nhập viện, cần tiền hỗ trợ gấp.',
                     A: {
-                        label: 'Cắt giảm thời gian sử dụng',
-                        effects: { money: 0, health: 5, alienation: -10, commodity: -15, face: 5 },
-                        desc: '+5❤️, -10⚙️, -15📱, +5😎'
+                        label: 'Chuyển khoản hết tiền dưỡng bệnh',
+                        effects: { money: -8, health: 3, alienation: -6, commodity: 0, face: 0, connection: 4 },
+                        desc: '💰 -8 | ⚡ -6 | 🔗 +4 | ❤️ +3'
                     },
                     B: {
-                        label: 'Tiếp tục lướt vì nghiện',
-                        effects: { money: 0, health: -5, alienation: 10, commodity: 20, face: 0 },
-                        desc: '-5❤️, +10⚙️, +20📱'
+                        label: 'Xin công ty ứng lương gửi về',
+                        effects: { money: -4, health: 0, alienation: -2, commodity: 0, face: 0, connection: 2 },
+                        desc: '💰 -4 | ⚡ -2 | 🔗 +2'
                     }
                 }, {
                     id: 21,
-                    text: 'Sếp giao cho bạn dự án khó nhằn với deadline cấp tốc.',
+                    text: 'Công ty tổ chức Team Building offline vào ngày cuối tuần.',
                     A: {
-                        label: 'Nhận và làm hết sức',
-                        effects: { money: 25, health: -12, alienation: 12, commodity: 0, face: 15 },
-                        desc: '+25💰, -12❤️, +12⚙️, +15😎'
+                        label: 'Tham gia đầy đủ để hòa đồng',
+                        effects: { money: 0, health: 2, alienation: -1, commodity: 0, face: 3, connection: 0 },
+                        desc: '😎 +3 | ❤️ +2 | ⚡ -1'
                     },
                     B: {
-                        label: 'Từ chối vì quá sức',
-                        effects: { money: -10, health: 10, alienation: -10, commodity: 0, face: -10 },
-                        desc: '-10💰, +10❤️, -10⚙️, -10😎'
+                        label: 'Ở nhà làm đồ án riêng',
+                        effects: { money: 3, health: 0, alienation: 3, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +3 | ⚡ +3'
                     }
                 }, {
                     id: 22,
-                    text: 'Bạn thấy một chương trình bán hàng đa cấp hấp dẫn.',
+                    text: 'Ngân hàng gọi điện mời vay, hạn mức thẻ tín dụng tự tăng.',
                     A: {
-                        label: 'Tham gia để kiếm thêm',
-                        effects: { money: -20, health: -5, alienation: 20, commodity: 15, face: 5 },
-                        desc: '-20💰, -5❤️, +20⚙️, +15📱, +5😎'
+                        label: 'Vay ngay để mua món đồ mong ước',
+                        effects: { money: 6, health: -2, alienation: 3, commodity: 7, face: 0, connection: 0 },
+                        desc: '💰 +6 | 📱 +7 | ⚡ +3 | ❤️ -2'
                     },
                     B: {
-                        label: 'Tránh xa vì lừa đảo',
-                        effects: { money: 0, health: 5, alienation: -10, commodity: -5, face: 0 },
-                        desc: '+5❤️, -10⚙️, -5📱'
+                        label: 'Không vay, khóa thẻ tiêu dùng',
+                        effects: { money: -1, health: 0, alienation: -3, commodity: -4, face: 0, connection: 0 },
+                        desc: '💰 -1 | 📱 -4 | ⚡ -3'
                     }
                 }, {
                     id: 23,
-                    text: 'Cuối tuần bạn không biết làm gì, ở nhà buồn chán.',
+                    text: 'Dự án bị cháy deadline lớn, cả team phải OT xuyên đêm.',
                     A: {
-                        label: 'Đi chơi, gặp gỡ bạn bè',
-                        effects: { money: -15, health: 8, alienation: -10, commodity: 5, face: 15 },
-                        desc: '-15💰, +8❤️, -10⚙️, +5📱, +15😎'
+                        label: 'Ở lại đến 2h sáng cùng team',
+                        effects: { money: 8, health: -8, alienation: 7, commodity: 0, face: 5, connection: 0 },
+                        desc: '💰 +8 | ❤️ -8 | ⚡ +7 | 😎 +5'
                     },
                     B: {
-                        label: 'Ở nhà nghỉ ngơi đọc sách',
-                        effects: { money: 0, health: 10, alienation: -5, commodity: -5, face: 0 },
-                        desc: '+10❤️, -5⚙️, -5📱'
+                        label: 'Làm đến 11h rồi về',
+                        effects: { money: 0, health: 2, alienation: -3, commodity: 0, face: -3, connection: 0 },
+                        desc: '❤️ +2 | ⚡ -3 | 😎 -3'
                     }
                 }, {
                     id: 24,
-                    text: 'Công ty cử bạn đi công tác xa 1 tuần.',
+                    text: 'Có buổi tối rảnh rỗi nhìn lại lịch sử mua sắm tháng qua.',
                     A: {
-                        label: 'Đi để có cơ hội thăng tiến',
-                        effects: { money: 15, health: -8, alienation: 8, commodity: 0, face: 10 },
-                        desc: '+15💰, -8❤️, +8⚙️, +10😎'
+                        label: 'Thanh lý đồ cũ để gọn nhà',
+                        effects: { money: 2, health: 2, alienation: -3, commodity: -3, face: 0, connection: 0 },
+                        desc: '💰 +2 | 📱 -3 | ⚡ -3 | ❤️ +2'
                     },
                     B: {
-                        label: 'Từ chối vì gia đình',
-                        effects: { money: -10, health: 5, alienation: -10, commodity: 0, face: -5 },
-                        desc: '-10💰, +5❤️, -10⚙️, -5😎'
+                        label: 'Đăng ảnh tủ đồ mới lên mạng xã hội',
+                        effects: { money: 0, health: 0, alienation: 1, commodity: 3, face: 4, connection: 0 },
+                        desc: '😎 +4 | 📱 +3 | ⚡ +1'
                     }
                 }, {
                     id: 25,
-                    text: 'Bạn phát hiện mình bị cao huyết áp do căng thẳng.',
+                    text: 'Áp lực tuổi 30 khi bạn bè đồng lứa mua nhà, lập gia đình.',
                     A: {
-                        label: 'Tập thể dục và ăn uống lành mạnh',
-                        effects: { money: -10, health: 20, alienation: -10, commodity: 0, face: 5 },
-                        desc: '-10💰, +20❤️, -10⚙️, +5😎'
+                        label: 'Cày thêm các dự án để tăng tài chính',
+                        effects: { money: 6, health: -4, alienation: 5, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +6 | ❤️ -4 | ⚡ +5'
                     },
                     B: {
-                        label: 'Kệ, vẫn sống như cũ',
-                        effects: { money: 0, health: -15, alienation: 10, commodity: 0, face: -5 },
-                        desc: '-15❤️, +10⚙️, -5😎'
+                        label: 'Chấp nhận nhịp độ của mình, tập trung chất lượng',
+                        effects: { money: 0, health: 4, alienation: -4, commodity: 0, face: -2, connection: 0 },
+                        desc: '❤️ +4 | ⚡ -4 | 😎 -2'
                     }
                 }, {
                     id: 26,
-                    text: 'Bạn được mời tham gia khởi nghiệp cùng bạn bè.',
+                    text: 'Dấu hiệu Burnout: Mất động lực, đến công ty chỉ muốn khóc.',
                     A: {
-                        label: 'Đồng ý, đây là cơ hội',
-                        effects: { money: -25, health: -10, alienation: 15, commodity: 0, face: 20 },
-                        desc: '-25💰, -10❤️, +15⚙️, +20😎'
+                        label: 'Xin nghỉ phép 2 ngày để recharge',
+                        effects: { money: -3, health: 8, alienation: -5, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 -3 | ❤️ +8 | ⚡ -5'
                     },
                     B: {
-                        label: 'Từ chối, rủi ro quá lớn',
-                        effects: { money: 0, health: 5, alienation: -10, commodity: 0, face: -5 },
-                        desc: '+5❤️, -10⚙️, -5😎'
+                        label: 'Mua sắm đồ công nghệ giải trí',
+                        effects: { money: -4, health: 1, alienation: 1, commodity: 4, face: 0, connection: 0 },
+                        desc: '💰 -4 | 📱 +4 | ❤️ +1 | ⚡ +1'
                     }
                 }, {
                     id: 27,
-                    text: 'Mạng xã hội lan truyền tin đồn tiêu cực về bạn.',
+                    text: 'Sếp đề nghị tăng lương 20% nhưng tăng tần suất trực cuối tuần.',
                     A: {
-                        label: 'Lên tiếng phủ nhận',
-                        effects: { money: 0, health: -5, alienation: 10, commodity: 0, face: -15 },
-                        desc: '-5❤️, +10⚙️, -15😎'
+                        label: 'Nhận vì mức lương quá hời',
+                        effects: { money: 8, health: -5, alienation: 6, commodity: 0, face: 4, connection: 0 },
+                        desc: '💰 +8 | ❤️ -5 | ⚡ +6 | 😎 +4'
                     },
                     B: {
-                        label: 'Không quan tâm, chơi game quên đi',
-                        effects: { money: 0, health: -3, alienation: 5, commodity: 10, face: 0 },
-                        desc: '-3❤️, +5⚙️, +10📱'
+                        label: 'Giữ nguyên lương và không tăng áp lực',
+                        effects: { money: 0, health: 3, alienation: -4, commodity: 0, face: 0, connection: 0 },
+                        desc: '❤️ +3 | ⚡ -4'
                     }
                 }, {
                     id: 28,
-                    text: 'Nhân viên mới vào công ty được đào tạo bài bản.',
+                    text: 'Nhìn lại 1 tháng trôi qua, cảm thấy xa cách với chính mình.',
                     A: {
-                        label: 'Kèm cặp tận tình',
-                        effects: { money: 0, health: 0, alienation: -10, commodity: 0, face: 15 },
-                        desc: '-10⚙️, +15😎'
+                        label: 'Viết nhật ký, nấu ăn cho bản thân',
+                        effects: { money: 0, health: 5, alienation: -6, commodity: -3, face: 0, connection: 0 },
+                        desc: '❤️ +5 | ⚡ -6 | 📱 -3'
                     },
                     B: {
-                        label: 'Mặc kệ để tự xoay sở',
-                        effects: { money: 0, health: 0, alienation: 8, commodity: 0, face: -5 },
-                        desc: '+8⚙️, -5😎'
+                        label: 'Nhận thêm hóa đơn để tiền đầy tài khoản',
+                        effects: { money: 7, health: -3, alienation: 6, commodity: 0, face: 0, connection: 0 },
+                        desc: '💰 +7 | ⚡ +6 | ❤️ -3'
                     }
                 }, {
                     id: 29,
-                    text: 'Bạn thấy mình bị mất cân bằng giữa công việc và cuộc sống.',
+                    text: 'Quyết định cuối cùng: Được mời làm quản lý với lương gấp rưỡi, sức ép gấp đôi.',
                     A: {
-                        label: 'Cân bằng lại, nghỉ nhiều hơn',
-                        effects: { money: -15, health: 15, alienation: -15, commodity: 0, face: 5 },
-                        desc: '-15💰, +15❤️, -15⚙️, +5😎'
+                        label: 'Chấp nhận "thành công" xã hội',
+                        effects: { money: 12, health: -8, alienation: 10, commodity: 0, face: 8, connection: 0 },
+                        desc: '💰 +12 | ❤️ -8 | ⚡ +10 | 😎 +8'
                     },
                     B: {
-                        label: 'Cày tiếp vì sự nghiệp',
-                        effects: { money: 25, health: -15, alienation: 15, commodity: 0, face: -5 },
-                        desc: '+25💰, -15❤️, +15⚙️, -5😎'
-                    }
-                }, {
-                    id: 30,
-                    text: 'Công ty mời chuyên gia tư vấn tâm lý cho nhân viên.',
-                    A: {
-                        label: 'Tham gia buổi tư vấn',
-                        effects: { money: 0, health: 10, alienation: -15, commodity: 0, face: 10 },
-                        desc: '+10❤️, -15⚙️, +10😎'
-                    },
-                    B: {
-                        label: 'Không quan tâm, việc gì phải lo',
-                        effects: { money: 0, health: -5, alienation: 10, commodity: 0, face: -5 },
-                        desc: '-5❤️, +10⚙️, -5😎'
-                    }
-                }, {
-                    id: 31,
-                    text: 'Bạn bị lừa mua hàng giả trên mạng, mất một khoản tiền.',
-                    A: {
-                        label: 'Kiện cáo đòi lại tiền',
-                        effects: { money: -15, health: -5, alienation: 10, commodity: 0, face: -10 },
-                        desc: '-15💰, -5❤️, +10⚙️, -10😎'
-                    },
-                    B: {
-                        label: 'Thôi bỏ qua, coi như bài học',
-                        effects: { money: -20, health: 0, alienation: 5, commodity: 0, face: -5 },
-                        desc: '-20💰, +5⚙️, -5😎'
-                    }
-                }, {
-                    id: 32,
-                    text: 'Người yêu cũ gặp bạn và muốn quay lại.',
-                    A: {
-                        label: 'Quay lại vì tình cảm',
-                        effects: { money: -10, health: 5, alienation: -5, commodity: 0, face: 10 },
-                        desc: '-10💰, +5❤️, -5⚙️, +10😎'
-                    },
-                    B: {
-                        label: 'Từ chối, tập trung cho tương lai',
-                        effects: { money: 0, health: -3, alienation: 5, commodity: 0, face: -5 },
-                        desc: '-3❤️, +5⚙️, -5😎'
-                    }
-                }, {
-                    id: 33,
-                    text: 'Môi trường làm việc độc hại khiến bạn căng thẳng.',
-                    A: {
-                        label: 'Tìm cách giải quyết văn minh',
-                        effects: { money: 0, health: 5, alienation: -15, commodity: 0, face: 10 },
-                        desc: '+5❤️, -15⚙️, +10😎'
-                    },
-                    B: {
-                        label: 'Chịu đựng và im lặng',
-                        effects: { money: 0, health: -10, alienation: 15, commodity: 0, face: -10 },
-                        desc: '-10❤️, +15⚙️, -10😎'
-                    }
-                }, {
-                    id: 34,
-                    text: 'Bạn có cơ hội thăng tiến nếu học thêm văn bằng 2.',
-                    A: {
-                        label: 'Đăng ký học ngay',
-                        effects: { money: -20, health: -8, alienation: 5, commodity: 0, face: 20 },
-                        desc: '-20💰, -8❤️, +5⚙️, +20😎'
-                    },
-                    B: {
-                        label: 'Không học vì quá mệt',
-                        effects: { money: 0, health: 5, alienation: -5, commodity: 0, face: -10 },
-                        desc: '+5❤️, -5⚙️, -10😎'
-                    }
-                }, {
-                    id: 35,
-                    text: 'Bạn thấy một chương trình đầu tư hứa hẹn lợi nhuận khủng.',
-                    A: {
-                        label: 'Đầu tư tất cả tiền tiết kiệm',
-                        effects: { money: 40, health: -10, alienation: 20, commodity: 5, face: 15 },
-                        desc: '+40💰, -10❤️, +20⚙️, +5📱, +15😎'
-                    },
-                    B: {
-                        label: 'Kiểm tra kỹ rồi mới đầu tư',
-                        effects: { money: 10, health: 0, alienation: -5, commodity: 0, face: 5 },
-                        desc: '+10💰, -5⚙️, +5😎'
-                    }
-                }, {
-                    id: 36,
-                    text: 'Gia đình bạn gặp khó khăn tài chính cần hỗ trợ.',
-                    A: {
-                        label: 'Gửi tiền về giúp đỡ',
-                        effects: { money: -30, health: 5, alienation: -15, commodity: 0, face: 15 },
-                        desc: '-30💰, +5❤️, -15⚙️, +15😎'
-                    },
-                    B: {
-                        label: 'Chỉ gửi một phần nhỏ',
-                        effects: { money: -15, health: 0, alienation: -5, commodity: 0, face: -5 },
-                        desc: '-15💰, -5⚙️, -5😎'
-                    }
-                }, {
-                    id: 37,
-                    text: 'Bạn thường xuyên bị áp lực phải giữ hình ảnh hoàn hảo.',
-                    A: {
-                        label: 'Sống thật với bản thân',
-                        effects: { money: 0, health: 10, alienation: -15, commodity: -10, face: -5 },
-                        desc: '+10❤️, -15⚙️, -10📱, -5😎'
-                    },
-                    B: {
-                        label: 'Tiếp tục sống ảo để được tôn trọng',
-                        effects: { money: -10, health: -5, alienation: 15, commodity: 15, face: 15 },
-                        desc: '-10💰, -5❤️, +15⚙️, +15📱, +15😎'
-                    }
-                }, {
-                    id: 38,
-                    text: 'Bạn nhận ra mình đang bị cô lập trong công ty.',
-                    A: {
-                        label: 'Chủ động kết nối với mọi người',
-                        effects: { money: 0, health: 0, alienation: -15, commodity: 0, face: 15 },
-                        desc: '-15⚙️, +15😎'
-                    },
-                    B: {
-                        label: 'Càng thu mình lại',
-                        effects: { money: 0, health: -5, alienation: 15, commodity: 0, face: -10 },
-                        desc: '-5❤️, +15⚙️, -10😎'
-                    }
-                }, {
-                    id: 39,
-                    text: 'Bạn có một ý tưởng kinh doanh táo bạo nhưng rủi ro cao.',
-                    A: {
-                        label: 'Liều thử một lần',
-                        effects: { money: 35, health: -10, alienation: 20, commodity: 0, face: 15 },
-                        desc: '+35💰, -10❤️, +20⚙️, +15😎'
-                    },
-                    B: {
-                        label: 'An toàn, không dám mạo hiểm',
-                        effects: { money: -5, health: 5, alienation: -10, commodity: 0, face: -5 },
-                        desc: '-5💰, +5❤️, -10⚙️, -5😎'
-                    }
-                }, {
-                    id: 40,
-                    text: 'Công ty tổ chức đánh giá hiệu suất cuối năm.',
-                    A: {
-                        label: 'Chuẩn bị kỹ để phỏng vấn',
-                        effects: { money: 20, health: -5, alienation: 5, commodity: 0, face: 20 },
-                        desc: '+20💰, -5❤️, +5⚙️, +20😎'
-                    },
-                    B: {
-                        label: 'Không quan tâm lắm',
-                        effects: { money: -10, health: 0, alienation: 5, commodity: 0, face: -15 },
-                        desc: '-10💰, +5⚙️, -15😎'
-                    }
-                }, {
-                    id: 41,
-                    text: 'Sức khỏe của bạn đang xuống dốc do ngồi nhiều.',
-                    A: {
-                        label: 'Mua ghế công thái học và tập yoga',
-                        effects: { money: -25, health: 20, alienation: -10, commodity: 0, face: 10 },
-                        desc: '-25💰, +20❤️, -10⚙️, +10😎'
-                    },
-                    B: {
-                        label: 'Tiếp tục như cũ vì tiết kiệm',
-                        effects: { money: 0, health: -15, alienation: 10, commodity: 0, face: -5 },
-                        desc: '-15❤️, +10⚙️, -5😎'
-                    }
-                }, {
-                    id: 42,
-                    text: 'Bạn thấy mình đang mất kết nối với gia đình.',
-                    A: {
-                        label: 'Xin nghỉ phép về thăm nhà',
-                        effects: { money: -20, health: 10, alienation: -15, commodity: 0, face: 10 },
-                        desc: '-20💰, +10❤️, -15⚙️, +10😎'
-                    },
-                    B: {
-                        label: 'Gọi điện video thường xuyên hơn',
-                        effects: { money: 0, health: 5, alienation: -5, commodity: 0, face: 5 },
-                        desc: '+5❤️, -5⚙️, +5😎'
-                    }
-                }, {
-                    id: 43,
-                    text: 'Đồng nghiệp của bạn bị sa thải đột ngột, không khí căng thẳng.',
-                    A: {
-                        label: 'Lo lắng và làm việc chăm chỉ hơn',
-                        effects: { money: 10, health: -8, alienation: 10, commodity: 0, face: -5 },
-                        desc: '+10💰, -8❤️, +10⚙️, -5😎'
-                    },
-                    B: {
-                        label: 'Bình tĩnh, biết mình có giá trị',
-                        effects: { money: 0, health: 5, alienation: -10, commodity: 0, face: 0 },
-                        desc: '+5❤️, -10⚙️'
-                    }
-                }, {
-                    id: 44,
-                    text: 'Bạn thấy mình bị nghiện mua sắm trực tuyến.',
-                    A: {
-                        label: 'Cai nghiện bằng cách chặn ứng dụng',
-                        effects: { money: 10, health: 5, alienation: -15, commodity: -20, face: 0 },
-                        desc: '+10💰, +5❤️, -15⚙️, -20📱'
-                    },
-                    B: {
-                        label: 'Tiếp tục vì nó giải tỏa stress',
-                        effects: { money: -25, health: -5, alienation: 10, commodity: 20, face: 5 },
-                        desc: '-25💰, -5❤️, +10⚙️, +20📱, +5😎'
-                    }
-                }, {
-                    id: 45,
-                    text: 'Bạn được mời làm diễn giả cho một sự kiện lớn.',
-                    A: {
-                        label: 'Nhận lời để khẳng định bản thân',
-                        effects: { money: 15, health: -5, alienation: 5, commodity: 0, face: 25 },
-                        desc: '+15💰, -5❤️, +5⚙️, +25😎'
-                    },
-                    B: {
-                        label: 'Từ chối vì sợ áp lực',
-                        effects: { money: -5, health: 5, alienation: -5, commodity: 0, face: -15 },
-                        desc: '-5💰, +5❤️, -5⚙️, -15😎'
+                        label: 'Từ chối, giữ cân bằng và tự kinh doanh nhỏ',
+                        effects: { money: 3, health: 6, alienation: -7, commodity: 0, face: -2, connection: 2 },
+                        desc: '💰 +3 | ❤️ +6 | ⚡ -7 | 😎 -2 | 🔗 +2'
                     }
                 }];
 
@@ -1797,6 +1616,7 @@
                     alienation: 10,
                     commodity: 5,
                     face: 30,
+                    connection: 0,
                     day: 1,
                     maxDay: 30,
                     isPlaying: true,
@@ -1832,8 +1652,13 @@
                     scenarioText: $('scenarioText'),
                     choiceA: $('choiceA'),
                     choiceB: $('choiceB'),
+                    choiceC: $('choiceC'),
+                    choiceATitle: $('choiceATitle'),
+                    choiceBTitle: $('choiceBTitle'),
+                    choiceCTitle: $('choiceCTitle'),
                     choiceAText: $('choiceAText'),
                     choiceBText: $('choiceBText'),
+                    choiceCText: $('choiceCText'),
                     resultPopup: $('resultPopup'),
                     resultIcon: $('resultIcon'),
                     resultTitle: $('resultTitle'),
@@ -1937,7 +1762,7 @@
                     // Update warning card
                     const warnings = [];
                     if (s.health < 30) warnings.push('⚠️ Sức khỏe nguy kịch! Hãy nghỉ ngơi.');
-                    if (s.alienation > 70) warnings.push('⚙️ Tha hóa quá cao! Bạn đang đánh mất chính mình.');
+                    if (s.alienation > 70) warnings.push('⚡ Tha hóa quá cao! Bạn đang đánh mất chính mình.');
                     if (s.commodity > 70) warnings.push('📱 Bái vật giáo! Bạn bị cuốn vào vòng xoáy tiêu dùng.');
                     if (s.money < 20) warnings.push('💰 Tiền bạc eo hẹp, hãy thận trọng với chi tiêu.');
                     if (s.face > 80) warnings.push('😎 Sĩ diện quá lớn, áp lực đè nặng.');
@@ -2004,9 +1829,10 @@
                             const labelMap = {
                                 money: '💰 Tiền',
                                 health: '❤️ Sức khỏe',
-                                alienation: '⚙️ Tha hóa',
+                                alienation: '⚡ Tha hóa',
                                 commodity: '📱 Bái vật giáo',
-                                face: '😎 Sĩ diện'
+                                face: '😎 Sĩ diện',
+                                connection: '🔗 Kết nối'
                             };
                             return `<span class="change-item">${labelMap[c.key] || c.key} <span class="delta ${color}">${c.delta > 0 ? '+' : ''}${fmtNum(c.delta)}</span></span>`;
                         });
@@ -2016,14 +1842,13 @@
                     DOM.resultChanges.innerHTML = desc;
 
                     popup.classList.add('active');
-                    sfxSuccess();
 
                     // Floating numbers on stats
                     const rect = DOM.scenarioCard.getBoundingClientRect();
                     changes.forEach((c, i) => {
-                        const x = rect.left + rect.width * (0.15 + i * 0.2);
+                        const x = rect.left + rect.width * (0.15 + i * 0.15);
                         const y = rect.top + 40 + i * 20;
-                        const labelMap = { money: '💰', health: '❤️', alienation: '⚙️', commodity: '📱', face: '😎' };
+                        const labelMap = { money: '💰', health: '❤️', alienation: '⚡', commodity: '📱', face: '😎', connection: '🔗' };
                         const icon = labelMap[c.key] || '';
                         spawnFloatStat(x, y, `${icon} ${c.delta > 0 ? '+' : ''}${fmtNum(c.delta)}`, c.delta > 0);
                     });
@@ -2046,47 +1871,88 @@
                     G.isWaitingResult = false;
                     DOM.resultPopup.classList.remove('active');
 
-                    const ending = checkEnding();
-                    if (ending) {
-                        endGame(ending);
-                        return;
-                    }
-
-                    G.day++;
-                    if (G.day > G.maxDay) {
+                    if (G.day >= G.maxDay) {
                         endGame('win');
                         return;
                     }
 
+                    G.day++;
                     updateStatsUI();
                     loadScenario();
                     sfxClick();
                 }
 
                 // ============================================================
-                // 11. CHECK ENDINGS
+                // 11. GET SOFT ENDINGS
                 // ============================================================
-                function checkEnding() {
+                function getEnding() {
                     const s = G;
-                    if (s.health <= 0) return {
-                        type: 'health',
-                        icon: '💀',
-                        title: 'Kiệt sức lao động',
-                        sub: 'Sức khỏe của bạn đã xuống quá thấp. Cơ thể không thể chịu đựng thêm được nữa.'
+                    // Calculate Real Happiness Score
+                    const happiness = (s.health * 1.5) + (s.money * 0.3) - (s.alienation * 0.9) - (s.commodity * 0.7) + (s.connection * 3.0) + (s.face * 0.2);
+                    s.totalHappiness = happiness;
+
+                    // 1. Sụp đổ thầm lặng
+                    if (s.health <= 2) {
+                        return {
+                            type: 'collapse',
+                            icon: '💀',
+                            title: 'Sụp đổ thầm lặng',
+                            sub: 'Dù có tiền, bạn vẫn phải nhập viện vì kiệt quệ. Bài học đắt giá đầu tiên về thể chất.'
+                        };
+                    }
+                    // 2. Cỗ máy vô cảm
+                    if (s.alienation >= 80 && s.commodity >= 60) {
+                        return {
+                            type: 'robot',
+                            icon: '⚙️',
+                            title: 'Cỗ máy vô cảm',
+                            sub: 'Bạn trở thành phiên bản thành công nhưng lạnh lùng, cô độc và bị mọi người xa lánh.'
+                        };
+                    }
+                    // 3. Vòng xoáy nô lệ
+                    if (s.commodity >= 80 && s.money <= 0) {
+                        return {
+                            type: 'debt',
+                            icon: '📉',
+                            title: 'Vòng xoáy nô lệ',
+                            sub: 'Dù sở hữu nhiều món đồ hiệu nhưng nợ ngập đầu, bạn hoàn toàn mất đi sự tự do và an toàn tài chính.'
+                        };
+                    }
+                    // 4. Vàng trong két, trống trong tim
+                    if (s.money >= 60 && s.health <= 20) {
+                        return {
+                            type: 'lonely_rich',
+                            icon: '🏦',
+                            title: 'Vàng trong két, trống trong tim',
+                            sub: 'Có mức thu nhập cực tốt, nhưng sức khỏe kiệt quệ, tối nào cũng ăn mì gói và không một ai ở bên chia sẻ.'
+                        };
+                    }
+                    // 5. Sống trọn vẹn
+                    if (happiness >= 70 && s.connection >= 5) {
+                        return {
+                            type: 'full_life',
+                            icon: '🌟',
+                            title: 'Sống trọn vẹn',
+                            sub: 'Tuy không phải người giàu nhất, nhưng bạn có một công việc ổn định, sức khỏe dồi dào, gia đình ấm áp và tâm hồn tự do thoải mái. Đây là chiến thắng vĩnh cửu.'
+                        };
+                    }
+                    // 6. Người thức tỉnh
+                    if (s.alienation <= 30 && s.commodity <= 30 && s.health >= 40) {
+                        return {
+                            type: 'awakened',
+                            icon: '🧘',
+                            title: 'Người thức tỉnh',
+                            sub: 'Chậm mà chắc, bạn biết thế nào là đủ, giữ vững ranh giới bản thân, trân trọng bạn bè và những giá trị thực chất.'
+                        };
+                    }
+
+                    // 7. Cuộc sống bình lặng (Default)
+                    return {
+                        type: 'normal',
+                        icon: '🏠',
+                        title: 'Cuộc sống bình lặng',
+                        sub: 'Hành trình 30 ngày khép lại. Bạn tiếp tục cuộc sống với những lo toan thường nhật, cố gắng duy trì sự cân bằng mong manh giữa áp lực và hạnh phúc.'
                     };
-                    if (s.alienation >= 100) return {
-                        type: 'alienation',
-                        icon: '⚙️',
-                        title: 'Tha hóa hoàn toàn',
-                        sub: 'Bạn đã trở thành cỗ máy lao động, đánh mất nhân tính của mình.'
-                    };
-                    if (s.commodity >= 100) return {
-                        type: 'commodity',
-                        icon: '📱',
-                        title: 'Nô lệ tiêu dùng',
-                        sub: 'Bạn bị cuốn vào vòng xoáy tiêu dùng, mất kiểm soát cuộc sống.'
-                    };
-                    return null;
                 }
 
                 // ============================================================
@@ -2098,51 +1964,28 @@
                     G.isPlaying = false;
 
                     const s = G;
-                    const happiness = s.money + s.health - s.alienation - s.commodity;
-                    G.totalHappiness = Math.max(0, happiness);
+                    const ending = getEnding();
+                    G.totalHappiness = s.totalHappiness;
 
                     let rank = 'D';
-                    if (G.totalHappiness >= 80) rank = 'S';
-                    else if (G.totalHappiness >= 60) rank = 'A';
+                    if (G.totalHappiness >= 120) rank = 'S';
+                    else if (G.totalHappiness >= 80) rank = 'A';
                     else if (G.totalHappiness >= 40) rank = 'B';
-                    else if (G.totalHappiness >= 20) rank = 'C';
+                    else if (G.totalHappiness >= 0) rank = 'C';
 
-                    let icon = '🏆',
-                        title = 'Sống sót!',
-                        sub = 'Bạn đã vượt qua 30 ngày đầy thử thách.';
-                    if (reason === 'win') {
-                        icon = '🏆';
-                        title = 'Sống sót!';
-                        sub = 'Bạn đã vượt qua 30 ngày đầy thử thách. Hạnh phúc là điều bạn tạo ra.';
-                    } else if (reason.type === 'health') {
-                        icon = reason.icon;
-                        title = reason.title;
-                        sub = reason.sub;
-                        sfxGameOver();
-                    } else if (reason.type === 'alienation') {
-                        icon = reason.icon;
-                        title = reason.title;
-                        sub = reason.sub;
-                        sfxGameOver();
-                    } else if (reason.type === 'commodity') {
-                        icon = reason.icon;
-                        title = reason.title;
-                        sub = reason.sub;
-                        sfxGameOver();
-                    }
-
-                    DOM.endingIcon.textContent = icon;
-                    DOM.endingTitle.textContent = title;
-                    DOM.endingSub.textContent = sub;
+                    DOM.endingIcon.textContent = ending.icon;
+                    DOM.endingTitle.textContent = ending.title;
+                    DOM.endingSub.textContent = ending.sub;
 
                     DOM.endingStats.innerHTML = `
                         <div><div class="es-label">💰 Tiền</div><div class="es-value gold">${fmtNum(s.money)}</div></div>
                         <div><div class="es-label">❤️ Sức khỏe</div><div class="es-value cyan">${fmtNum(s.health)}</div></div>
-                        <div><div class="es-label">⚙️ Tha hóa</div><div class="es-value purple">${fmtNum(s.alienation)}</div></div>
+                        <div><div class="es-label">⚡ Tha hóa</div><div class="es-value purple">${fmtNum(s.alienation)}</div></div>
                         <div><div class="es-label">📱 Bái vật giáo</div><div class="es-value pink">${fmtNum(s.commodity)}</div></div>
                         <div><div class="es-label">😎 Sĩ diện</div><div class="es-value orange">${fmtNum(s.face)}</div></div>
+                        <div><div class="es-label">🔗 Kết nối</div><div class="es-value cyan" style="color: #06b6d4;">${fmtNum(s.connection)}</div></div>
                         <div style="border-top:2px solid #1c1b1b;padding-top:4px;grid-column:span 2;">
-                            <div class="es-label">❤️ Hạnh phúc</div>
+                            <div class="es-label">🌟 Hạnh phúc thực sự</div>
                             <div class="es-value green" style="font-size:1.6rem;">${fmtNum(G.totalHappiness)}</div>
                         </div>
                     `;
@@ -2155,6 +1998,7 @@
                     if (rank === 'S' || rank === 'A') {
                         fireConfetti();
                     }
+                    sfxGameOver();
                 }
 
                 // ============================================================
@@ -2203,24 +2047,18 @@
                 function loadScenario() {
                     if (!G.isPlaying) return;
 
-                    let available = SCENARIOS.filter(s => !G.usedScenarios.includes(s.id));
-                    if (available.length === 0) {
-                        G.usedScenarios = [];
-                        available = SCENARIOS;
-                    }
-
-                    const idx = Math.floor(Math.random() * available.length);
-                    const scenario = available[idx];
-                    G.usedScenarios.push(scenario.id);
-                    G.currentScenarioIndex = scenario.id;
+                    // Load sequentially (G.day is 1-indexed)
+                    const scenario = SCENARIOS[G.day - 1];
+                    G.currentScenarioIndex = G.day - 1;
 
                     DOM.dayBadge.textContent = 'NGÀY ' + G.day;
-                    DOM.scenarioTitle.textContent = scenario.text.length > 60 ? scenario.text.substring(0, 60) + '...' : scenario
-                        .text;
+                    DOM.scenarioTitle.textContent = scenario.text.length > 60 ? scenario.text.substring(0, 60) + '...' : scenario.text;
                     DOM.scenarioText.textContent = scenario.text;
 
-                    DOM.choiceAText.textContent = scenario.A.desc || scenario.A.label;
-                    DOM.choiceBText.textContent = scenario.B.desc || scenario.B.label;
+                    DOM.choiceATitle.textContent = scenario.A.label;
+                    DOM.choiceAText.textContent = scenario.A.desc || '';
+                    DOM.choiceBTitle.textContent = scenario.B.label;
+                    DOM.choiceBText.textContent = scenario.B.desc || '';
 
                     // Store effects as data attributes for the click handler
                     DOM.choiceA.dataset.effects = JSON.stringify(scenario.A.effects);
@@ -2230,6 +2068,19 @@
 
                     DOM.choiceA.disabled = false;
                     DOM.choiceB.disabled = false;
+
+                    // Setup Choice C if present
+                    if (scenario.C) {
+                        DOM.choiceC.classList.remove('hidden');
+                        DOM.choiceCTitle.textContent = scenario.C.label;
+                        DOM.choiceCText.textContent = scenario.C.desc || '';
+                        DOM.choiceC.dataset.effects = JSON.stringify(scenario.C.effects);
+                        DOM.choiceC.dataset.label = scenario.C.label;
+                        DOM.choiceC.disabled = false;
+                    } else {
+                        DOM.choiceC.classList.add('hidden');
+                        DOM.choiceC.disabled = true;
+                    }
 
                     // Card animation
                     DOM.scenarioCard.style.animation = 'none';
@@ -2251,13 +2102,18 @@
 
                     DOM.choiceA.disabled = true;
                     DOM.choiceB.disabled = true;
+                    if (DOM.choiceC) DOM.choiceC.disabled = true;
 
                     sfxClick();
                     applyEffects(effects, label);
 
                     // Card slide effect
                     const isA = btn === DOM.choiceA;
-                    DOM.scenarioCard.style.transform = isA ? 'translateX(-16px)' : 'translateX(16px)';
+                    const isB = btn === DOM.choiceB;
+                    let translateX = '0px';
+                    if (isA) translateX = '-16px';
+                    else if (isB) translateX = '16px';
+                    DOM.scenarioCard.style.transform = `translateX(${translateX})`;
                     DOM.scenarioCard.style.opacity = '0.85';
                     setTimeout(() => {
                         DOM.scenarioCard.style.transform = '';
@@ -2274,6 +2130,7 @@
                     G.alienation = 10;
                     G.commodity = 5;
                     G.face = 30;
+                    G.connection = 0;
                     G.day = 1;
                     G.isPlaying = true;
                     G.isWaitingResult = false;
@@ -2287,6 +2144,10 @@
 
                     DOM.choiceA.disabled = false;
                     DOM.choiceB.disabled = false;
+                    if (DOM.choiceC) {
+                        DOM.choiceC.disabled = false;
+                        DOM.choiceC.classList.add('hidden');
+                    }
 
                     updateStatsUI();
                     loadScenario();
@@ -2297,11 +2158,14 @@
                 // 17. INIT
                 // ============================================================
                 function init() {
-                    shuffleArray(SCENARIOS);
+                    // Do not shuffle scenarios since the gameplay is sequential now!
 
                     // Event listeners
                     DOM.choiceA.addEventListener('click', handleChoice);
                     DOM.choiceB.addEventListener('click', handleChoice);
+                    if (DOM.choiceC) {
+                        DOM.choiceC.addEventListener('click', handleChoice);
+                    }
                     DOM.btnContinue.addEventListener('click', nextDay);
                     DOM.btnRestart.addEventListener('click', restartGame);
 
@@ -2312,6 +2176,11 @@
                         }
                         if (e.key === 'b' || e.key === 'B') {
                             if (!DOM.choiceB.disabled) DOM.choiceB.click();
+                        }
+                        if (e.key === 'c' || e.key === 'C') {
+                            if (DOM.choiceC && !DOM.choiceC.classList.contains('hidden') && !DOM.choiceC.disabled) {
+                                DOM.choiceC.click();
+                            }
                         }
                         if (e.key === 'Enter' || e.key === ' ') {
                             if (DOM.resultPopup.classList.contains('active')) {
