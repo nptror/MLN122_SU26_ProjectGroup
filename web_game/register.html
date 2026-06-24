@@ -6,20 +6,12 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Đăng Ký - Bạn Là Ai?</title>
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <!-- Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/shared.css" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <!-- Theme Configuration -->
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -188,33 +180,14 @@
             }
         }
     </script>
-    <style>
-        /* Neo-Brutalist Structural Grid Background */
-        .bg-brutal-grid {
-            background-color: #fcf9f8;
-            /* surface-bright */
-            background-image:
-                linear-gradient(to right, #dcd9d9 1px, transparent 1px),
-                linear-gradient(to bottom, #dcd9d9 1px, transparent 1px);
-            background-size: 64px 64px;
-            background-position: center top;
-        }
-
-        /* Remove webkit inner spin buttons for number inputs if used later */
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-    </style>
 </head>
 
-<body
-    class="font-body-md text-body-md text-on-background bg-surface-container-lowest antialiased overflow-x-hidden min-h-screen flex flex-col md:flex-row">
-    <!-- LEFT COLUMN: The Canvas & Form (Registration) -->
+<body class="font-body-md text-body-md text-on-background bg-surface-container-lowest antialiased overflow-x-hidden min-h-screen flex flex-col md:flex-row">
+    <div id="header-container"></div>
+    <div id="scroll-progress-bar"></div>
+    <div id="page-transition-overlay" class="page-transition-overlay"></div>
     <!-- Suppressing Shared Nav Components as this is a linear Onboarding intent -->
-    <main
-        class="flex-1 bg-brutal-grid relative flex flex-col justify-center items-center p-6 md:p-margin-desktop min-h-[716px] md:min-h-screen z-10">
+    <main class="flex-1 bg-brutal-grid relative flex flex-col justify-center items-center p-6 md:p-margin-desktop min-h-[716px] md:min-h-screen z-10">
         <!-- Brand / Context Anchor -->
         <div
             class="absolute top-6 left-6 md:top-margin-desktop md:left-margin-desktop bg-on-background text-on-primary px-4 py-2 border-2 border-on-background">
@@ -338,6 +311,9 @@
             </div>
         </div>
     </aside>
+    </main>
+    <div id="footer-container"></div>
+    <script src="../assets/js/layout.js"></script>
 </body>
 
 </html>

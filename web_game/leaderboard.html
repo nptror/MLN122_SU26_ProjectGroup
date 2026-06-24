@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html class="light" lang="vi">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>TOP HẠNH PHÚC - Leaderboard</title>
+    <title>TOP HẠNH PHÚC — HẠNH PHÚC HAY TIỀN BẠC?</title>
+    <meta name="description" content="Bảng xếp hạng những người chơi đã vượt qua thử thách 30 ngày trong mô phỏng kinh tế." />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/shared.css" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -70,10 +69,10 @@
                         "surface": "#fcf9f8"
                     },
                     "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
                     },
                     "spacing": {
                         "margin-desktop": "64px",
@@ -112,33 +111,16 @@
         body {
             background-color: #fcf9f8;
             color: #1c1b1b;
+            font-family: 'Inter', sans-serif;
         }
 
-        .brutalist-border {
-            border: 4px solid #1c1b1b;
-        }
+        .brutalist-border { border: 4px solid #1c1b1b; }
+        .brutalist-border-thin { border: 2px solid #1c1b1b; }
+        .brutalist-border-b { border-bottom: 4px solid #1c1b1b; }
+        .brutalist-border-b-thin { border-bottom: 2px solid #1c1b1b; }
+        .brutalist-border-r { border-right: 4px solid #1c1b1b; }
+        .brutalist-border-r-thin { border-right: 2px solid #1c1b1b; }
 
-        .brutalist-border-thin {
-            border: 2px solid #1c1b1b;
-        }
-
-        .brutalist-border-b {
-            border-bottom: 4px solid #1c1b1b;
-        }
-
-        .brutalist-border-b-thin {
-            border-bottom: 2px solid #1c1b1b;
-        }
-
-        .brutalist-border-r {
-            border-right: 4px solid #1c1b1b;
-        }
-
-        .brutalist-border-r-thin {
-            border-right: 2px solid #1c1b1b;
-        }
-
-        /* Grid Lines Background Pattern */
         .bg-grid {
             background-image: linear-gradient(to right, #e5e2e1 1px, transparent 1px),
                 linear-gradient(to bottom, #e5e2e1 1px, transparent 1px);
@@ -154,91 +136,31 @@
             padding: 8px 0;
             border-bottom: 4px solid #1c1b1b;
         }
-
         .marquee-content {
             display: inline-block;
             animation: marquee 20s linear infinite;
         }
-
         @keyframes marquee {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
+            0%   { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
-    <!-- TopNavBar -->
-    <nav
-        class="bg-background dark:bg-background docked full-width top-0 border-b-4 border-on-background dark:border-on-surface flex justify-between items-center w-full px-margin-desktop h-20 z-50 fixed">
-        <div class="font-headline-lg text-headline-lg text-primary dark:text-primary tracking-tighter">HẠNH PHÚC HAY
-            TIỀN BẠC?</div>
-        <div class="hidden md:flex gap-8">
-            <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2"
-                href="#">Theory</a>
-            <a class="font-label-bold text-label-bold uppercase text-primary font-bold border-b-2 border-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2 scale-x-105 transition-transform"
-                href="#">Game</a>
-            <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2"
-                href="#">Manifesto</a>
-        </div>
-        <button class="md:hidden text-primary">
-            <span class="material-symbols-outlined text-3xl">menu</span>
-        </button>
-    </nav>
-    <!-- SideNavBar (Hidden on Mobile, Visible on Desktop as per layout) -->
-    <aside
-        class="hidden md:flex flex-col border-r-2 border-black h-screen fixed left-0 top-20 h-full w-64 bg-surface-container-lowest dark:bg-surface-container-lowest z-40 border-r-4 border-on-background dark:border-on-surface">
-        <div class="p-6 brutalist-border-b-thin">
-            <div
-                class="w-full aspect-square bg-black mb-4 flex items-center justify-center text-white font-headline-md text-headline-md">
-                <!-- Placeholder for Header Avatar, styled brutalist -->
-                TP
-            </div>
-            <h2 class="font-headline-md text-headline-md text-primary">THEORY</h2>
-            <p class="font-label-bold text-label-bold text-on-surface-variant mt-1">DIALECTICAL MATERIALISM</p>
-        </div>
-        <nav class="flex-1 overflow-y-auto py-4">
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">factory</span>
-                <span class="font-label-bold text-label-bold">CLASS STRUGGLE</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">trending_up</span>
-                <span class="font-label-bold text-label-bold">SURPLUS VALUE</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 bg-primary text-on-primary font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors translate-x-1 transition-transform"
-                href="#">
-                <span class="material-symbols-outlined">link_off</span>
-                <span class="font-label-bold text-label-bold">ALIENATION</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">shopping_cart</span>
-                <span class="font-label-bold text-label-bold">COMMODITY</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">brightness_high</span>
-                <span class="font-label-bold text-label-bold">REVOLUTION</span>
-            </a>
-        </nav>
-        <div class="p-6 mt-auto brutalist-border-t-thin">
-            <button
-                class="w-full bg-black text-white font-label-bold text-label-bold uppercase py-4 hover:bg-primary transition-colors rounded-none">
-                JOIN THE MOVEMENT
-            </button>
-        </div>
-    </aside>
+<body class="min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden bg-surface">
+
+    <!-- ============================================================
+    HEADER CONTAINER — populated by layout.js
+    ============================================================ -->
+    <div id="header-container"></div>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- PAGE TRANSITION OVERLAY -->
+    <div id="page-transition-overlay" class="page-transition-overlay"></div>
     <!-- Main Canvas -->
-    <main
-        class="flex-1 mt-20 md:ml-64 bg-grid flex flex-col items-center pt-12 pb-24 px-margin-mobile md:px-margin-desktop">
+    <main class="flex-1 mt-[72px] bg-grid flex flex-col items-center pt-12 pb-24 px-margin-mobile md:px-margin-desktop">
         <!-- Live Ticker -->
         <div class="w-full max-w-container-max mb-8 brutalist-border">
             <div class="marquee-container font-label-bold text-label-bold uppercase">
@@ -392,21 +314,14 @@
             </div>
         </div>
     </main>
-    <!-- Footer -->
-    <footer
-        class="bg-on-background dark:bg-inverse-surface text-on-primary dark:text-on-primary docked full-width bottom-0 border-t-4 border-primary w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 md:ml-64 relative z-50">
-        <div class="font-headline-md text-headline-md text-primary">HẠNH PHÚC HAY TIỀN BẠC?</div>
-        <div class="font-body-md text-body-md text-center md:text-left">
-            © 2024 THE PROLETARIAT PRESS. ALL POWER TO THE IMAGINATION.
-        </div>
-        <div class="flex gap-6 font-label-bold text-label-bold uppercase">
-            <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Manifesto</a>
-            <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Labor
-                Rights</a>
-            <a class="text-primary underline hover:text-primary transition-colors" href="#">Capital Vol I</a>
-            <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Contact</a>
-        </div>
-    </footer>
+
+    <!-- ============================================================
+    FOOTER CONTAINER — populated by layout.js
+    ============================================================ -->
+    <div id="footer-container"></div>
+
+    <!-- LAYOUT.JS — loads header, footer, manages interactive features -->
+    <script src="../assets/js/layout.js"></script>
 </body>
 
 </html>

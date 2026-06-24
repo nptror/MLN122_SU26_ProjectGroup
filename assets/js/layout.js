@@ -9,11 +9,34 @@
     'use strict';
 
     // ============================================================
-    // 1. CONFIGURATION
+    // 1. CONFIGURATION — auto-resolve paths based on file location
     // ============================================================
+    function resolveComponentPath(filename) {
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(Boolean);
+        const depth = parts.length > 0 ? parts.length - 1 : 0;
+        const prefix = depth > 0 ? '../'.repeat(depth) : './';
+        return `${prefix}components/${filename}`;
+    }
+
+    // Resolve path to a page file from any directory
+    function resolvePagePath(page) {
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(Boolean);
+        const depth = parts.length > 0 ? parts.length - 1 : 0;
+        const prefix = depth > 0 ? '../'.repeat(depth) : './';
+
+        const PAGE_MAP = {
+            home:        'web/home.html',
+            game:        'web_game/game.html',
+            leaderboard: 'web_game/leaderboard.html',
+        };
+        return prefix + (PAGE_MAP[page] || '#');
+    }
+
     const CONFIG = {
-        headerPath: '../components/header.html',
-        footerPath: '../components/footer.html',
+        get headerPath() { return resolveComponentPath('header.html'); },
+        get footerPath() { return resolveComponentPath('footer.html'); },
         headerContainerId: 'header-container',
         footerContainerId: 'footer-container',
         scrollProgressId: 'scroll-progress-bar',
@@ -26,9 +49,10 @@
         const path = window.location.pathname.toLowerCase();
         const file = path.split('/').pop() || '';
 
-        if (file.includes('game')) return 'game';
+        if (file === '' || file === 'home.html' || file === 'index.html') return 'home';
+        if (file.includes('landing')) return 'home';  // landing_page maps to home/theory
         if (file.includes('leaderboard')) return 'leaderboard';
-        // Default to home for home.html, index.html, or empty
+        if (file.includes('game')) return 'game';
         return 'home';
     }
 
@@ -55,7 +79,22 @@
     }
 
     // ============================================================
-    // 4. SET ACTIVE NAVIGATION
+    // 4. RESOLVE NAV LINKS
+    // ============================================================
+    function resolveNavLinks() {
+        // Logo link
+        const logo = document.getElementById('header-logo');
+        if (logo) logo.href = resolvePagePath('home');
+
+        // All nav links with data-nav-link attribute
+        document.querySelectorAll('[data-nav-link]').forEach(link => {
+            const page = link.dataset.navLink;
+            link.href = resolvePagePath(page);
+        });
+    }
+
+    // ============================================================
+    // 5. SET ACTIVE NAVIGATION
     // ============================================================
     function setActiveNav(page) {
         // Desktop nav links
@@ -80,7 +119,17 @@
     }
 
     // ============================================================
-    // 5. MOBILE MENU LOGIC
+    // 5. FOOTER LINKS
+    // ============================================================
+    function resolveFooterLinks() {
+        document.querySelectorAll('.footer-link[data-nav-link]').forEach(link => {
+            const page = link.dataset.navLink;
+            link.href = resolvePagePath(page);
+        });
+    }
+
+    // ============================================================
+    // 6. MOBILE MENU LOGIC
     // ============================================================
     function initMobileMenu() {
         const hamburger = document.getElementById('header-hamburger');
@@ -124,7 +173,7 @@
     }
 
     // ============================================================
-    // 6. SCROLL PROGRESS INDICATOR
+    // 7. SCROLL PROGRESS INDICATOR
     // ============================================================
     function initScrollProgress() {
         const bar = document.getElementById(CONFIG.scrollProgressId);
@@ -142,7 +191,7 @@
     }
 
     // ============================================================
-    // 7. FADE-IN SECTIONS ON SCROLL
+    // 8. FADE-IN SECTIONS ON SCROLL
     // ============================================================
     function initScrollAnimations() {
         const sections = document.querySelectorAll('.fade-in-section');
@@ -161,7 +210,7 @@
     }
 
     // ============================================================
-    // 8. PAGE TRANSITION
+    // 9. PAGE TRANSITION
     // ============================================================
     function initPageTransition() {
         // Create transition overlay
@@ -196,7 +245,7 @@
     }
 
     // ============================================================
-    // 9. FLOATING CTA BUTTON
+    // 10. FLOATING CTA BUTTON
     // ============================================================
     function initFloatingCTA() {
         const btn = document.getElementById('floating-cta');
@@ -215,7 +264,7 @@
     }
 
     // ============================================================
-    // 10. STICKY SECTION NAVIGATION
+    // 11. STICKY SECTION NAVIGATION
     // ============================================================
     function initStickyNav() {
         const stickyNav = document.getElementById('sticky-section-nav');
@@ -276,12 +325,14 @@
         ]);
 
         if (headerLoaded) {
+            resolveNavLinks();
             setActiveNav(currentPage);
             initMobileMenu();
             console.log('[Layout] Header loaded ✓');
         }
 
         if (footerLoaded) {
+            resolveFooterLinks();
             console.log('[Layout] Footer loaded ✓');
         }
 

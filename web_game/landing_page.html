@@ -12,9 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/shared.css" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -70,10 +68,10 @@
                         "surface": "#fcf9f8"
                     },
                     "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
                     },
                     "spacing": {
                         "margin-desktop": "64px",
@@ -165,26 +163,19 @@
 
 <body
     class="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary overflow-x-hidden">
-    <!-- Top Navigation -->
-    <header
-        class="flex justify-between items-center w-full px-margin-desktop h-20 bg-background border-b-4 border-on-background fixed top-0 z-50">
-        <div class="font-headline-lg text-headline-lg text-primary tracking-tighter">
-            HẠNH PHÚC HAY TIỀN BẠC?
-        </div>
-        <nav class="hidden md:flex gap-8 items-center h-full">
-            <a class="font-label-bold text-label-bold uppercase text-on-background opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
-                href="#">Theory</a>
-            <a class="font-label-bold text-label-bold uppercase text-primary font-bold border-b-2 border-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
-                href="#">Game</a>
-            <a class="font-label-bold text-label-bold uppercase text-on-background opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
-                href="#">Manifesto</a>
-        </nav>
-        <button class="md:hidden flex items-center justify-center p-2">
-            <span class="material-symbols-outlined text-3xl">menu</span>
-        </button>
-    </header>
+
+    <!-- ============================================================
+    HEADER CONTAINER — populated by layout.js
+    ============================================================ -->
+    <div id="header-container"></div>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- PAGE TRANSITION OVERLAY -->
+    <div id="page-transition-overlay" class="page-transition-overlay"></div>
     <!-- Main Content Canvas -->
-    <main class="mt-20 relative min-h-screen grid-bg flex flex-col justify-center">
+    <main class="mt-[72px] relative min-h-screen grid-bg flex flex-col justify-center">
         <!-- Marquee Background -->
         <div class="absolute inset-0 z-0 flex flex-col justify-around pointer-events-none opacity-10">
             <div class="marquee-container font-headline-xl text-headline-xl text-primary transform -rotate-12">
@@ -227,13 +218,13 @@
                     </div>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                    <button onclick="location.href='../web_game/game.html'"
+                    <button onclick="location.href='game.html'"
                         class="brutalist-button brutalist-button-primary font-headline-md text-headline-md px-12 py-4 flex items-center justify-center gap-2 group">
                         BẮT ĐẦU
                         <span
                             class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </button>
-                    <button onclick="location.href='../web_game/leaderboard.html'"
+                    <button onclick="location.href='leaderboard.html'"
                         class="brutalist-button brutalist-button-secondary font-label-bold text-label-bold uppercase px-8 py-4 flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined">leaderboard</span>
                         TOP HẠNH PHÚC
@@ -261,22 +252,15 @@
             </div>
         </section>
     </main>
-    <!-- Footer Navigation (Hidden intentionally for a focused landing page feel, or simplified) -->
-    <footer
-        class="w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 bg-on-background text-on-primary border-t-4 border-primary mt-24">
-        <div class="font-headline-md text-headline-md text-primary">
-            THE PROLETARIAT PRESS
-        </div>
-        <div class="font-body-md text-body-md text-surface-container-low opacity-70">
-            © 2024 THE PROLETARIAT PRESS. ALL POWER TO THE IMAGINATION.
-        </div>
-        <nav class="flex gap-6">
-            <a class="font-label-bold text-label-bold uppercase text-surface-container-low opacity-70 hover:text-primary transition-colors"
-                href="#">Manifesto</a>
-            <a class="font-label-bold text-label-bold uppercase text-surface-container-low opacity-70 hover:text-primary transition-colors"
-                href="#">Contact</a>
-        </nav>
-    </footer>
+
+    <!-- ============================================================
+    FOOTER CONTAINER — populated by layout.js
+    ============================================================ -->
+    <div id="footer-container"></div>
+
+    <!-- LAYOUT.JS — loads header, footer, manages interactive features -->
+    <script src="../assets/js/layout.js"></script>
+
 </body>
 
 </html>
