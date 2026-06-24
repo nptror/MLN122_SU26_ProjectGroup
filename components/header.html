@@ -1,42 +1,22 @@
-<!-- ============================================================
-     SITE HEADER — BRUTALIST NAVIGATION
-     Fixed top, 72px height, shared across all pages
-     ============================================================ -->
-<nav id="site-header" class="site-header">
-    <!-- Logo -->
-    <a class="header-logo" href="home.html" id="header-logo">
-        <div class="header-logo-icon">
-            <span class="material-symbols-outlined"
-                style="font-variation-settings: 'FILL' 1; font-size: 24px; color: #fcf9f8;">account_balance</span>
+<nav class="bg-background dark:bg-background docked full-width top-0 border-b-4 border-on-background dark:border-on-surface flex justify-between items-center w-full px-margin-desktop h-20 z-50 fixed">
+    <a href="../web/home.html" class="flex items-center gap-3 min-w-0 group">
+        <div class="w-11 h-11 border-4 border-on-background bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shrink-0">HP</div>
+        <div class="min-w-0">
+            <div class="font-label-bold text-label-bold uppercase tracking-[0.18em] text-on-surface truncate">HẠNH PHÚC HAY TIỀN BẠC?</div>
+            <div class="font-caption text-caption text-on-surface-variant truncate">Retro economic survival game</div>
         </div>
-        <span class="header-logo-text">HẠNH PHÚC HAY TIỀN BẠC?</span>
     </a>
-
-    <!-- Desktop Navigation Links -->
-    <div class="header-nav-desktop" id="header-nav-desktop">
-        <a class="header-nav-link" href="home.html" data-page="home">
-            <span class="header-nav-link-text">THEORY</span>
-        </a>
-        <a class="header-nav-link" href="game.html" data-page="game">
-            <span class="header-nav-link-text">GAME</span>
-        </a>
-        <a class="header-nav-link" href="leaderboard.html" data-page="leaderboard">
-            <span class="header-nav-link-text">LEADERBOARD</span>
-        </a>
+    <div class="hidden md:flex gap-8">
+        <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2" href="../web/home.html" data-page="home">Theory</a>
+        <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2" href="landing_page.html" data-page="game">Game</a>
     </div>
-
-    <!-- Mobile Hamburger Button -->
-    <button class="header-hamburger" id="header-hamburger" aria-label="Menu">
-        <span class="hamburger-line hamburger-line-1"></span>
-        <span class="hamburger-line hamburger-line-2"></span>
-        <span class="hamburger-line hamburger-line-3"></span>
+    <button class="md:hidden text-primary" id="header-hamburger" aria-label="Menu">
+        <span class="material-symbols-outlined text-3xl">menu</span>
     </button>
 </nav>
 
-<!-- Mobile Menu Overlay -->
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
 
-<!-- Mobile Slide-in Menu -->
 <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-header">
         <span class="mobile-menu-title">MENU</span>
@@ -45,21 +25,11 @@
         </button>
     </div>
     <div class="mobile-menu-links">
-        <a class="mobile-nav-link" href="home.html" data-page="home">
-            <span class="material-symbols-outlined">menu_book</span>
-            <span>THEORY</span>
-        </a>
-        <a class="mobile-nav-link" href="game.html" data-page="game">
-            <span class="material-symbols-outlined">sports_esports</span>
-            <span>GAME</span>
-        </a>
-        <a class="mobile-nav-link" href="leaderboard.html" data-page="leaderboard">
-            <span class="material-symbols-outlined">leaderboard</span>
-            <span>LEADERBOARD</span>
-        </a>
+        <a class="mobile-nav-link" href="../web/home.html" data-page="home"><span class="material-symbols-outlined">menu_book</span><span>Theory</span></a>
+        <a class="mobile-nav-link" href="landing_page.html" data-page="game"><span class="material-symbols-outlined">sports_esports</span><span>Game</span></a>
     </div>
     <div class="mobile-menu-footer">
         <p>HẠNH PHÚC HAY TIỀN BẠC?</p>
-        <p class="mobile-menu-sub">Educational simulation game</p>
+        <p class="mobile-menu-sub">Retro economic survival game</p>
     </div>
 </div>
