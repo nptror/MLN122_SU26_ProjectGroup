@@ -36,9 +36,31 @@ const ROUNDS = [
 
 const LOCKED_STATE = { current_round: 0, max_question_index: 0, is_active: false };
 
+const path = require('path');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files từ web_game/ và web/
+app.use(express.static(path.join(__dirname, 'web_game')));
+app.use('/web_game', express.static(path.join(__dirname, 'web_game')));
+app.use('/web', express.static(path.join(__dirname, 'web')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/components', express.static(path.join(__dirname, 'components')));
+
+// Root redirect → landing page
+app.get('/', (_req, res) => {
+    res.redirect('/landing_page.html');
+});
+
+// Backward-compatible routes
+app.get('/web/landing_page.html', (_req, res) => {
+    res.redirect('/landing_page.html');
+});
+app.get('/web_game/landing_page.html', (_req, res) => {
+    res.redirect('/landing_page.html');
+});
 
 function roundConfig(round) {
     return ROUNDS.find((r) => r.round === round) || null;
@@ -144,6 +166,14 @@ app.post('/api/game-state/lock', async (_req, res) => {
 
 app.get('/api/health', (_req, res) => {
     res.json({ ok: true, service: 'mln-quiz-game', rounds: ROUNDS.length });
+});
+
+// GET /api/env — Expose public Supabase vars to frontend
+app.get('/api/env', (_req, res) => {
+    res.json({
+        SUPABASE_URL: process.env.SUPABASE_URL || '',
+        SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || ''
+    });
 });
 
 app.listen(PORT, () => {

@@ -1,5 +1,5 @@
 <nav class="bg-background dark:bg-background docked full-width top-0 border-b-4 border-on-background dark:border-on-surface flex justify-between items-center w-full px-margin-desktop h-20 z-50 fixed">
-    <a href="../web/home.html" class="flex items-center gap-3 min-w-0 group">
+    <a href="../web/home.html" class="flex items-center gap-3 min-w-0 group" data-nav-link="home">
         <div class="w-11 h-11 border-4 border-on-background bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shrink-0">HP</div>
         <div class="min-w-0">
             <div class="font-label-bold text-label-bold uppercase tracking-[0.18em] text-on-surface truncate">HẠNH PHÚC HAY TIỀN BẠC?</div>
@@ -7,8 +7,12 @@
         </div>
     </a>
     <div class="hidden md:flex gap-8">
-        <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2" href="../web/home.html" data-page="home">Theory</a>
-        <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2" href="landing_page.html" data-page="game">Game</a>
+        <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2" href="../web/home.html" data-page="home" data-nav-link="home">Theory</a>
+        <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2" href="/game.html" data-page="game" data-nav-link="game">Game</a>
+    </div>
+    <div id="header-player-pill" class="hidden md:flex items-center gap-2 border-2 border-on-background bg-surface-container-lowest px-3 py-2 font-label-bold text-label-bold uppercase tracking-[0.12em] text-on-surface">
+        <span class="w-2 h-2 bg-primary inline-block"></span>
+        <span id="header-player-name">Guest</span>
     </div>
     <button class="md:hidden text-primary" id="header-hamburger" aria-label="Menu">
         <span class="material-symbols-outlined text-3xl">menu</span>
@@ -16,20 +20,3 @@
 </nav>
 
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-
-<div class="mobile-menu" id="mobile-menu">
-    <div class="mobile-menu-header">
-        <span class="mobile-menu-title">MENU</span>
-        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close Menu">
-            <span class="material-symbols-outlined" style="font-size: 28px;">close</span>
-        </button>
-    </div>
-    <div class="mobile-menu-links">
-        <a class="mobile-nav-link" href="../web/home.html" data-page="home"><span class="material-symbols-outlined">menu_book</span><span>Theory</span></a>
-        <a class="mobile-nav-link" href="landing_page.html" data-page="game"><span class="material-symbols-outlined">sports_esports</span><span>Game</span></a>
-    </div>
-    <div class="mobile-menu-footer">
-        <p>HẠNH PHÚC HAY TIỀN BẠC?</p>
-        <p class="mobile-menu-sub">Retro economic survival game</p>
-    </div>
-</div>

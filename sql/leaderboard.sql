@@ -90,6 +90,19 @@ CREATE POLICY "leaderboard_select_anon"
 
 
 
+-- Cho phép UPDATE (dùng khi cập nhật điểm cuối mỗi lượt)
+CREATE POLICY "leaderboard_update_anon"
+
+    ON public.leaderboard FOR UPDATE
+
+    TO anon, authenticated
+
+    USING (true)
+
+    WITH CHECK (true);
+
+
+
 -- =============================================================================
 
 -- Migration (nếu bảng đã tồn tại từ trước — chạy riêng khi cần)
@@ -101,5 +114,4 @@ CREATE POLICY "leaderboard_select_anon"
 -- Xóa dữ liệu test cũ (tùy chọn):
 
 -- TRUNCATE public.leaderboard;
-
 

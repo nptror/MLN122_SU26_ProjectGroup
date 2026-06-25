@@ -1133,7 +1133,7 @@
 
     <header class="sticky top-0 z-50 border-b-4 border-on-surface bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-4 flex items-center justify-between gap-4">
-            <a href="landing_page.html" class="flex items-center gap-3 min-w-0 group">
+            <a href="/landing_page.html" class="flex items-center gap-3 min-w-0 group">
                 <div class="w-11 h-11 border-4 border-on-surface bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shrink-0">
                     HP
                 </div>
@@ -1218,6 +1218,7 @@
                             Lựa chọn C</div>
                     </button>
                 </div>
+                <button class="btn-continue mt-5 w-full max-w-4xl mx-auto" id="btnContinue">CHỜ</button>
             </div>
         </section>
 
@@ -1232,7 +1233,6 @@
             <div class="result-title" id="resultTitle">Kết quả</div>
             <div class="result-desc" id="resultDesc">Hệ quả từ lựa chọn của bạn.</div>
             <div class="result-changes" id="resultChanges"></div>
-            <button class="btn-continue" id="btnContinue">TIẾP TỤC →</button>
         </div>
     </div>
 
@@ -1262,8 +1262,7 @@
     <!-- ============================================================
     LAYOUT.JS — loads header, footer, and manages interactive features
     ============================================================ -->
-    <script src="../assets/js/layout.js">
-    </script>
+    <script src="../assets/js/layout.js"></script>
 
     <!-- ============================================================
     GAME ENGINE — Full JavaScript
@@ -1278,56 +1277,152 @@
             const SUPABASE_URL = envConfig.url;
             const SUPABASE_ANON_KEY = envConfig.anonKey;
             let supabase = null;
-            let adminMaxDay = 10; // Mặc định cho phép chơi hết nếu không có backend
+            let adminMaxDay = 0;
+            let lastSyncedMaxDay = null;
+            let adminSyncTimer = null;
+            let adminStateKnown = false;
+            let waitingForAdminContinue = false;
             
             if (SupabaseEnv.isConfigured(envConfig)) {
                 supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 initSupabase();
             }
 
+            function setWaitingVisible(visible, message) {
+                const overlay = document.getElementById('waitingOverlay');
+                const messageEl = overlay ? overlay.querySelector('span:last-child') : null;
+                if (!overlay) return;
+                if (messageEl && message) {
+                    messageEl.textContent = message;
+                }
+                if (visible) {
+                    overlay.classList.remove('hidden');
+                    overlay.classList.add('flex');
+                } else {
+                    overlay.classList.add('hidden');
+                    overlay.classList.remove('flex');
+                }
+            }
+
+            function setContinueWaitingState(waiting, message = 'Chờ người điều phối mở lượt tiếp theo...') {
+                waitingForAdminContinue = waiting;
+                DOM.btnContinue.textContent = waiting ? 'CHỜ' : 'TIẾP TỤC →';
+                DOM.btnContinue.disabled = waiting;
+                DOM.btnContinue.classList.toggle('opacity-60', waiting);
+                DOM.btnContinue.classList.toggle('cursor-not-allowed', waiting);
+                DOM.btnContinue.setAttribute('aria-disabled', waiting ? 'true' : 'false');
+                if (waiting) {
+                    DOM.resultTitle.textContent = 'Đang chờ';
+                    DOM.resultDesc.textContent = message;
+                }
+            }
+
+            function syncAdminProgress(nextMaxDay, source = 'unknown') {
+                const parsed = Number(nextMaxDay);
+                if (!Number.isFinite(parsed)) return;
+
+                const normalized = Math.max(0, Math.min(10, parsed));
+                const changed = normalized !== adminMaxDay;
+                adminMaxDay = normalized;
+                adminStateKnown = true;
+
+                if (!G.isPlaying) return;
+
+                if (adminMaxDay < 1) {
+                    setWaitingVisible(true, 'Câu 1 chưa được mở. Vui lòng chờ người điều phối...');
+                    setContinueWaitingState(true, 'Câu 1 chưa được mở. Vui lòng chờ người điều phối...');
+                    return;
+                }
+
+                // Nếu đang chờ ở result popup → kiểm tra câu tiếp đã mở chưa
+                if (G.isWaitingResult && waitingForAdminContinue) {
+                    const nextQ = G.day + 1;
+                    const isFinalPending = G.pendingFinalEnd;
+                    const nextIsOpen = isFinalPending || nextQ > G.maxDay || adminMaxDay >= nextQ;
+                    if (nextIsOpen) {
+                        // Admin vừa mở → enable nút Continue
+                        waitingForAdminContinue = false;
+                        DOM.btnContinue.textContent = 'TIẾP TỤC →';
+                        DOM.btnContinue.disabled = false;
+                        DOM.btnContinue.classList.remove('opacity-60', 'cursor-not-allowed');
+                        DOM.btnContinue.setAttribute('aria-disabled', 'false');
+                        sfxSuccess();
+                    }
+                    return; // không load scenario mới, đợi user bấm Continue
+                }
+
+                if (G.day > adminMaxDay) {
+                    const msg = `Câu ${G.day} chưa được mở. Vui lòng chờ người điều phối...`;
+                    setWaitingVisible(true, msg);
+                    return;
+                }
+
+                setWaitingVisible(false, '');
+
+                if (changed || lastSyncedMaxDay !== adminMaxDay) {
+                    lastSyncedMaxDay = adminMaxDay;
+                    queueMicrotask(() => {
+                        if (!G.isWaitingResult && G.isPlaying) {
+                            loadScenario();
+                        }
+                    });
+                }
+            }
+
+            async function fetchAdminStateFromApi() {
+                try {
+                    const res = await fetch('/api/game-state');
+                    if (!res.ok) return;
+                    const json = await res.json();
+                    if (json && json.ok && json.state) {
+                        syncAdminProgress(json.state.max_question_index, 'api');
+                    }
+                } catch (_) {
+                    // ignore fallback errors
+                }
+            }
+
+            async function fetchAdminState() {
+                if (!supabase) return;
+                const { data, error } = await supabase.from('game_state').select('max_question_index').eq('id', 1).single();
+                if (data && !error) {
+                    syncAdminProgress(data.max_question_index, 'poll');
+                }
+            }
+
+            function checkWaitingStatus() {
+                if (!adminStateKnown) {
+                    setWaitingVisible(true, 'Đang chờ người điều phối mở câu hỏi...');
+                    return;
+                }
+                syncAdminProgress(adminMaxDay, 'check');
+            }
+
             async function initSupabase() {
                 // Fetch initial state
                 const { data, error } = await supabase.from('game_state').select('max_question_index').eq('id', 1).single();
                 if (data && !error) {
-                    adminMaxDay = data.max_question_index;
-                    checkWaitingStatus();
+                    syncAdminProgress(data.max_question_index, 'initial');
                 }
 
                 // Listen for changes
                 supabase
                     .channel('game_state_changes')
                     .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'game_state' }, payload => {
-                        adminMaxDay = payload.new.max_question_index;
-                        checkWaitingStatus();
+                        syncAdminProgress(payload.new.max_question_index, 'realtime');
                     })
                     .subscribe();
+
+                adminSyncTimer = setInterval(fetchAdminState, 3000);
             }
 
             function checkWaitingStatus() {
-                if (!G.isPlaying) return;
-                
-                const overlay = document.getElementById('waitingOverlay');
-
-                if (G.day > adminMaxDay) {
-                    // Vượt quá câu hỏi cho phép -> Hiển thị màn hình chờ
-                    overlay.classList.remove('hidden');
-                    overlay.classList.add('flex');
-                } else {
-                    // Đã được phép đi tiếp -> Tắt màn hình chờ
-                    if (!overlay.classList.contains('hidden')) {
-                        overlay.classList.add('hidden');
-                        overlay.classList.remove('flex');
-                        
-                        // Resume game flow
-                        if (G.day > G.maxDay) {
-                            endGame();
-                        } else {
-                            setTimeout(() => {
-                                loadScenario();
-                            }, 300);
-                        }
-                    }
+                if (!adminStateKnown) {
+                    setWaitingVisible(true, 'Đang chờ người điều phối mở câu hỏi...');
+                    setContinueWaitingState(true, 'Đang chờ người điều phối mở câu hỏi...');
+                    return;
                 }
+                syncAdminProgress(adminMaxDay, 'check');
             }
 
             /**
@@ -1594,12 +1689,65 @@
                     return G.scoreStats || G;
                 }
 
+                // Các câu hỏi cuối mỗi lượt admin
+                // Lượt 1→Q1, Lượt 2→Q5, Lượt 3→Q7, Lượt 4→Q9, Lượt 5→Q10
+                const ROUND_BOUNDARIES = new Set([1, 5, 7, 9, 10]);
+
+                async function saveRoundScore() {
+                    if (!supabase) return;
+                    const playerName = sessionStorage.getItem('playerName');
+                    if (!playerName) return;
+
+                    // Dùng chỉ số hiện tại (hoặc snapshot nếu đã có)
+                    const stats = G.scoreStats || G;
+                    const ending = getEnding(stats);
+                    const score = calcHappinessScore(stats);
+
+                    const payload = {
+                        player_name: playerName,
+                        happiness_score: score,
+                        rank_badge: ending.rank,
+                        ending_type: ending.type,
+                        ending_title: ending.title,
+                        money: stats.money,
+                        health: stats.health,
+                        alienation: stats.alienation,
+                        commodity: stats.commodity,
+                        face: stats.face,
+                        connection: 0,
+                    };
+
+                    const existingRowId = sessionStorage.getItem('leaderboardRowId');
+                    if (existingRowId) {
+                        // UPDATE row hiện có
+                        const { error } = await supabase
+                            .from('leaderboard')
+                            .update(payload)
+                            .eq('id', existingRowId);
+                        if (error) console.error('[Leaderboard] Lỗi update lượt:', error.message);
+                        else console.log(`[Leaderboard] ✅ Updated sau câu ${G.day}, score=${score}`);
+                    } else {
+                        // INSERT lần đầu → lưu id
+                        const { data, error } = await supabase
+                            .from('leaderboard')
+                            .insert(payload)
+                            .select('id')
+                            .single();
+                        if (error) console.error('[Leaderboard] Lỗi insert lần đầu:', error.message);
+                        else if (data) {
+                            sessionStorage.setItem('leaderboardRowId', data.id);
+                            console.log(`[Leaderboard] ✅ Inserted sau câu ${G.day}, id=${data.id}, score=${score}`);
+                        }
+                    }
+                }
+
                 async function saveScoreToLeaderboard(score, rank, ending, stats) {
                     if (!supabase || G.scoreSaved) return;
                     const playerName = sessionStorage.getItem('playerName');
                     if (!playerName) return;
 
-                    const { error } = await supabase.from('leaderboard').insert({
+                    const existingRowId = sessionStorage.getItem('leaderboardRowId');
+                    const payload = {
                         player_name: playerName,
                         happiness_score: score,
                         rank_badge: rank,
@@ -1611,12 +1759,28 @@
                         commodity: stats.commodity,
                         face: stats.face,
                         connection: 0,
-                    });
+                    };
 
-                    if (error) {
-                        console.error('Lỗi lưu điểm leaderboard:', error);
+                    if (existingRowId) {
+                        // Đã có row từ các lượt trước → UPDATE
+                        const { error } = await supabase
+                            .from('leaderboard')
+                            .update(payload)
+                            .eq('id', existingRowId);
+                        if (error) console.error('[Leaderboard] Lỗi update cuối game:', error.message);
+                        else G.scoreSaved = true;
                     } else {
-                        G.scoreSaved = true;
+                        // Chưa có row (không qua lượt nào) → INSERT
+                        const { data, error } = await supabase
+                            .from('leaderboard')
+                            .insert(payload)
+                            .select('id')
+                            .single();
+                        if (error) console.error('[Leaderboard] Lỗi insert cuối game:', error.message);
+                        else if (data) {
+                            sessionStorage.setItem('leaderboardRowId', data.id);
+                            G.scoreSaved = true;
+                        }
                     }
                 }
 
@@ -1740,6 +1904,11 @@
 
                     updateStatsUI();
                     showResult(changes, choiceLabel, choiceDesc);
+
+                    // Lưu leaderboard cuối mỗi lượt (Q1, Q5, Q7, Q9)
+                    if (ROUND_BOUNDARIES.has(G.day)) {
+                        saveRoundScore();
+                    }
                 }
 
                 // ============================================================
@@ -1755,9 +1924,20 @@
                     DOM.resultChanges.style.display = 'none';
 
                     popup.classList.add('active');
-
                     G.isWaitingResult = true;
-                    DOM.btnContinue.disabled = false;
+
+                    const nextQ = G.day + 1;
+                    const canContinue = nextQ > G.maxDay || !adminStateKnown || adminMaxDay >= nextQ;
+
+                    if (canContinue) {
+                        setContinueWaitingState(false);
+                        DOM.btnContinue.textContent = 'TIẾP TỤC →';
+                        DOM.btnContinue.disabled = false;
+                        DOM.btnContinue.classList.remove('opacity-60', 'cursor-not-allowed');
+                        DOM.btnContinue.setAttribute('aria-disabled', 'false');
+                    } else {
+                        setContinueWaitingState(true, `Câu ${nextQ} chưa được mở. Vui lòng chờ người điều phối...`);
+                    }
 
                     if (changes.some(c => c.delta < 0 && (c.key === 'health' || c.key === 'money'))) {
                         sfxWarning();
@@ -1770,12 +1950,18 @@
                 // 16. NEXT DAY
                 // ============================================================
                 function nextDay() {
+                    if (waitingForAdminContinue) return;
                     G.isWaitingResult = false;
                     DOM.resultPopup.classList.remove('active');
 
                     if (G.pendingFinalEnd) {
                         G.pendingFinalEnd = false;
                         endGame();
+                        return;
+                    }
+
+                    if (G.isWaitingResult) {
+                        DOM.btnContinue.textContent = 'CHỜ';
                         return;
                     }
 
@@ -1790,7 +1976,7 @@
                         return;
                     }
 
-                    if (G.day > adminMaxDay) {
+                    if (G.day > adminMaxDay || adminMaxDay < G.day) {
                         checkWaitingStatus();
                         return;
                     }
@@ -1977,6 +2163,7 @@
 
                     DOM.choiceA.disabled = false;
                     DOM.choiceB.disabled = false;
+                    setContinueWaitingState(false);
 
                     // Reset Shadow Collapse mỗi câu mới
                     [DOM.choiceA, DOM.choiceB].forEach(b => b.classList.remove('selected', 'rejected'));
@@ -2022,6 +2209,8 @@
                         G.finalReflection = reflection;
                         G.pendingFinalEnd = true;
                         showResult([], label, desc);
+                        // Lưu leaderboard lượt cuối (Q10)
+                        saveRoundScore();
                         return;
                     }
 
@@ -2047,6 +2236,11 @@
                     G.scoreStats = null;
                     G.finalReflection = '';
                     G.pendingFinalEnd = false;
+                    waitingForAdminContinue = false;
+
+                    // Xóa DB IDs để lần chơi mới tạo row mới
+                    sessionStorage.removeItem('playerDbId');
+                    sessionStorage.removeItem('leaderboardRowId');
 
                     DOM.endingOverlay.classList.remove('active');
                     DOM.resultPopup.classList.remove('active');
@@ -2059,12 +2253,33 @@
 
                     updateStatsUI();
                     
-                    if (G.day > adminMaxDay) {
+                    if (adminMaxDay < 1 || G.day > adminMaxDay) {
                         checkWaitingStatus();
                     } else {
                         loadScenario();
                     }
                     sfxClick();
+                }
+
+                function refreshCurrentScenarioIfNeeded() {
+                    if (!G.isPlaying || G.isWaitingResult) return;
+                    if (adminMaxDay < 1 || G.day > adminMaxDay) {
+                        checkWaitingStatus();
+                        return;
+                    }
+                    if (waitingForAdminContinue) {
+                        DOM.btnContinue.textContent = 'TIẾP TỤC →';
+                        DOM.btnContinue.disabled = false;
+                        DOM.btnContinue.classList.remove('opacity-60', 'cursor-not-allowed');
+                        DOM.btnContinue.setAttribute('aria-disabled', 'false');
+                    }
+                    const scenario = SCENARIOS[G.day - 1];
+                    if (!scenario) return;
+                    DOM.dayBadge.textContent = 'CÂU ' + G.day;
+                    DOM.scenarioTitle.textContent = scenario.text.length > 60 ? scenario.text.substring(0, 60) + '...' : scenario.text;
+                    DOM.scenarioText.textContent = scenario.text;
+                    DOM.choiceATitle.textContent = scenario.A.label;
+                    DOM.choiceBTitle.textContent = scenario.B.label;
                 }
 
                 // ============================================================
@@ -2082,6 +2297,7 @@
                         nameBadge.textContent = '👤 ' + playerName;
                         nameBadge.classList.remove('hidden');
                     }
+                    sessionStorage.setItem('playerSessionReady', '1');
 
                     // Event listeners
                     DOM.choiceA.addEventListener('click', handleChoice);
@@ -2114,7 +2330,15 @@
                     });
 
                     updateStatsUI();
-                    loadScenario();
+                    fetchAdminStateFromApi().then(() => checkWaitingStatus());
+                    setContinueWaitingState(true);
+
+                    window.addEventListener('focus', refreshCurrentScenarioIfNeeded);
+                    window.addEventListener('storage', (event) => {
+                        if (event.key === 'game_state') {
+                            refreshCurrentScenarioIfNeeded();
+                        }
+                    });
 
                     console.log('💎 Hạnh Phúc Hay Tiền Bạc? — Game loaded.');
                     console.log(`📚 ${SCENARIOS.length} scenarios available.`);

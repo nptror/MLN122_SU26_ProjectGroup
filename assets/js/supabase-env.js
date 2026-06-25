@@ -40,18 +40,18 @@
     /**
      * @param {string[]} [paths] — đường dẫn tương đối từ trang HTML (mặc định ../.env.example)
      */
-    async function load(paths) {
-        const candidates = paths || ['../.env.example', '../.env'];
-        for (const path of candidates) {
-            try {
-                const res = await fetch(path, { cache: 'no-store' });
-                if (!res.ok) continue;
-                const cfg = fromEnvObject(parseEnv(await res.text()));
+    async function load() {
+        try {
+            const res = await fetch('/api/env', { cache: 'no-store' });
+            if (res.ok) {
+                const data = await res.json();
+                const cfg = fromEnvObject(data);
                 if (cfg.url && cfg.anonKey) return cfg;
-            } catch (_) {
-                /* file:// hoặc không có static server */
             }
+        } catch (_) {
+            /* file:// hoặc server không chạy /api/env */
         }
+
         return fromEnvObject({});
     }
 
