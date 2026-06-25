@@ -1,11 +1,85 @@
-<footer class="bg-on-background dark:bg-inverse-surface text-on-primary dark:text-on-primary docked full-width bottom-0 border-t-4 border-primary w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 md:ml-64 relative z-50">
-    <div class="font-headline-md text-headline-md text-primary">HẠNH PHÚC HAY TIỀN BẠC?</div>
-    <div class="font-body-md text-body-md text-center md:text-left">© 2026 HẠNH PHÚC HAY TIỀN BẠC? • All rights reserved.</div>
+<!-- Wavy Energy Border at the Top of Footer -->
+<div class="absolute top-0 left-0 w-full h-[6px] overflow-hidden">
+    <div class="wave-container w-[200%] h-full flex opacity-80">
+        <svg class="w-1/2 h-full" viewBox="0 0 100 10" preserveAspectRatio="none">
+            <path d="M0,5 Q25,1 50,5 T100,5" fill="none" stroke="#b20112" stroke-width="2" />
+        </svg>
+        <svg class="w-1/2 h-full" viewBox="0 0 100 10" preserveAspectRatio="none">
+            <path d="M0,5 Q25,1 50,5 T100,5" fill="none" stroke="#b20112" stroke-width="2" />
+        </svg>
+    </div>
+</div>
+
+<footer class="bg-black/90 dark:bg-black/95 text-white/80 docked full-width bottom-0 w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 relative z-50 border-t border-white/5">
+    <!-- Brand Title -->
+    <div class="font-headline-md text-headline-md text-primary tracking-wider uppercase select-none">
+        HẠNH PHÚC HAY TIỀN BẠC?
+    </div>
+    
+    <!-- Copyright Info -->
+    <div class="font-body-md text-body-md text-center md:text-left text-white/40">
+        © 2026, HẠNH PHÚC HAY TIỀN BẠC? • All rights reserved.
+    </div>
+    
+    <!-- Floating Links with Anti-gravity Interaction -->
     <div class="flex gap-6 font-label-bold text-label-bold uppercase">
-        <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="../web/home.html">Theory</a>
-        <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="landing_page.html">Game</a>
-        <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="leaderboard.html">Leaderboard</a>
-        <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Privacy</a>
-        <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Terms</a>
+        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="../web/home.html">Theory</a>
+        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="landing_page.html">Game</a>
+        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="leaderboard.html">Leaderboard</a>
+        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="#">Privacy</a>
+        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="#">Terms</a>
     </div>
 </footer>
+
+<style>
+    /* Continuous Wavy Energy Slide */
+    .wave-container {
+        animation: wave-slide 6s linear infinite;
+    }
+    @keyframes wave-slide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    /* Floating Link (Anti-gravity) styling */
+    .floating-link {
+        position: relative;
+        display: inline-block;
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.3s ease;
+    }
+    
+    .floating-link:hover {
+        transform: translateY(-6px); /* Elevate up on hover */
+    }
+    
+    /* Cursor trace glow dot underneath link */
+    .floating-link::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        width: 5px;
+        height: 5px;
+        background-color: #b20112;
+        border-radius: 50%;
+        opacity: 0;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        pointer-events: none;
+    }
+    
+    .floating-link:hover::after {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+        animation: pulse-dot 1.2s infinite alternate;
+    }
+    
+    @keyframes pulse-dot {
+        0% {
+            box-shadow: 0 0 0 0 rgba(178, 1, 18, 0.8), 0 0 4px rgba(178, 1, 18, 0.5);
+        }
+        100% {
+            box-shadow: 0 0 0 8px rgba(178, 1, 18, 0), 0 0 10px rgba(178, 1, 18, 0.8);
+        }
+    }
+</style>
