@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Điều Phối Trò Chơi</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../assets/js/supabase-env.js"></script>
+    <script src="/assets/js/supabase-env.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f0f0f0; }
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Oswald', sans-serif; background-color: #f0f0f0; }
         .btn-round-active { background-color: #bbf7d0 !important; border-color: #16a34a !important; }
     </style>
 </head>
@@ -93,9 +93,9 @@
         // Cấu hình — đọc từ .env.example (root project)
         // =========================================================================
         const envConfig = await SupabaseEnv.load();
-        const SUPABASE_URL = envConfig.url;
-        const SUPABASE_ANON_KEY = envConfig.anonKey;
-        const API_URL = envConfig.apiUrl || '';
+
+        // Luôn dùng server API (chạy cùng origin) — tránh vấn đề quyền với ANON key
+        const API_BASE = window.location.origin;
 
         // =========================================================================
         const ROUNDS = [
@@ -105,17 +105,6 @@
             { round: 4, maxIndex: 9, newQuestions: [8, 9], label: 'Câu 8, 9' },
             { round: 5, maxIndex: 10, newQuestions: [10], label: 'Câu 10 (Kết thúc)' },
         ];
-
-        const useApi = Boolean(API_URL);
-        let supabase = null;
-
-        if (!useApi) {
-            if (!SupabaseEnv.isConfigured(envConfig)) {
-                alert('Cập nhật SUPABASE_URL và SUPABASE_ANON_KEY trong file .env.example (ở thư mục gốc project)!');
-            } else {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            }
-        }
 
         function getRoundConfig(round) {
             return ROUNDS.find((r) => r.round === round) || null;
@@ -173,22 +162,10 @@
 
         async function fetchState() {
             try {
-                if (useApi) {
-                    const res = await fetch(`${API_URL}/api/game-state`);
-                    const json = await res.json();
-                    if (!json.ok) throw new Error(json.error || 'API lỗi');
-                    updateUI(json.state);
-                    return;
-                }
-
-                const { data, error } = await supabase
-                    .from('game_state')
-                    .select('*')
-                    .eq('id', 1)
-                    .single();
-
-                if (error) throw error;
-                updateUI(data);
+                const res = await fetch(`${API_BASE}/api/game-state`);
+                const json = await res.json();
+                if (!json.ok) throw new Error(json.error || 'API lỗi');
+                updateUI(json.state);
             } catch (err) {
                 console.error(err);
                 document.getElementById('currentStatus').textContent = '⚠️ LỖI KẾT NỐI';
@@ -196,38 +173,17 @@
         }
 
         async function applyState(round) {
-            const cfg = round === 0 ? null : getRoundConfig(round);
-            const payload = round === 0
-                ? { current_round: 0, max_question_index: 0, is_active: false }
-                : {
-                    current_round: cfg.round,
-                    max_question_index: cfg.maxIndex,
-                    is_active: true,
-                    updated_at: new Date().toISOString(),
-                };
-
-            if (useApi) {
-                const endpoint = round === 0 ? '/api/game-state/lock' : '/api/game-state';
-                const method = round === 0 ? 'POST' : 'PUT';
-                const body = round === 0 ? undefined : JSON.stringify({ round });
-                const res = await fetch(`${API_URL}${endpoint}`, {
-                    method,
-                    headers: { 'Content-Type': 'application/json' },
-                    body,
-                });
-                const json = await res.json();
-                if (!json.ok) throw new Error(json.error || 'Cập nhật thất bại');
-                updateUI(json.state);
-                return;
-            }
-
-            const { error } = await supabase
-                .from('game_state')
-                .update(payload)
-                .eq('id', 1);
-
-            if (error) throw error;
-            await fetchState();
+            const endpoint = round === 0 ? '/api/game-state/lock' : '/api/game-state';
+            const method = round === 0 ? 'POST' : 'PUT';
+            const body = round === 0 ? undefined : JSON.stringify({ round });
+            const res = await fetch(`${API_BASE}${endpoint}`, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body,
+            });
+            const json = await res.json();
+            if (!json.ok) throw new Error(json.error || 'Cập nhật thất bại');
+            updateUI(json.state);
         }
 
         async function updateState(round) {
@@ -241,28 +197,10 @@
 
         async function nextRound() {
             try {
-                if (useApi) {
-                    const res = await fetch(`${API_URL}/api/game-state/next`, { method: 'POST' });
-                    const json = await res.json();
-                    if (!json.ok) throw new Error(json.error || 'Không thể mở lượt tiếp');
-                    updateUI(json.state);
-                    return;
-                }
-
-                const { data, error } = await supabase
-                    .from('game_state')
-                    .select('current_round, is_active')
-                    .eq('id', 1)
-                    .single();
-
-                if (error) throw error;
-
-                const next = data.is_active ? data.current_round + 1 : 1;
-                if (next > 5) {
-                    alert('Đã ở lượt cuối (Lượt 5)!');
-                    return;
-                }
-                await updateState(next);
+                const res = await fetch(`${API_BASE}/api/game-state/next`, { method: 'POST' });
+                const json = await res.json();
+                if (!json.ok) throw new Error(json.error || 'Không thể mở lượt tiếp');
+                updateUI(json.state);
             } catch (err) {
                 alert(err.message || 'Lỗi khi mở lượt tiếp theo!');
                 console.error(err);
@@ -273,20 +211,14 @@
             await updateState(0);
         }
 
-        // Realtime — đồng bộ khi nhiều tab Admin mở cùng lúc
-        if (!useApi && supabase) {
-            supabase
-                .channel('admin_game_state')
-                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'game_state' }, (payload) => {
-                    updateUI(payload.new);
-                })
-                .subscribe();
+        // Expose functions to global scope for HTML onclick handlers
+        window.updateState = updateState;
+        window.nextRound = nextRound;
+        window.lockAll = lockAll;
 
-            fetchState();
-        } else if (useApi) {
-            fetchState();
-            setInterval(fetchState, 5000);
-        }
+        // Load trạng thái ban đầu + polling 5s
+        fetchState();
+        setInterval(fetchState, 5000);
     })();
     </script>
 </body>

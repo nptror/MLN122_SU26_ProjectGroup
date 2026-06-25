@@ -19,6 +19,14 @@
         scrollProgressId: 'scroll-progress-bar',
     };
 
+    function resolveComponentPath(path) {
+        const currentPath = window.location.pathname.toLowerCase();
+        if (currentPath.includes('/web/')) {
+            return '../' + path.replace(/^\.\.\//, '').replace(/^\//, '');
+        }
+        return path;
+    }
+
     // ============================================================
     // 2. PAGE DETECTION
     // ============================================================
@@ -28,6 +36,8 @@
 
         if (file.includes('game')) return 'game';
         if (file.includes('leaderboard')) return 'leaderboard';
+        if (file.includes('register')) return 'register';
+        if (file.includes('landing_page')) return 'game';
         // Default to home for home.html, index.html, or empty
         return 'home';
     }
@@ -58,20 +68,10 @@
     // 4. SET ACTIVE NAVIGATION
     // ============================================================
     function setActiveNav(page) {
-        // Desktop nav links
-        const desktopLinks = document.querySelectorAll('.header-nav-link[data-page]');
-        desktopLinks.forEach(link => {
-            if (link.dataset.page === page) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-
-        // Mobile nav links
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link[data-page]');
-        mobileLinks.forEach(link => {
-            if (link.dataset.page === page) {
+        const links = document.querySelectorAll('[data-nav-link], .header-nav-link[data-page], .mobile-nav-link[data-page]');
+        links.forEach(link => {
+            const targetPage = link.dataset.page || link.dataset.navLink;
+            if (targetPage === page) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -163,6 +163,20 @@
     // ============================================================
     // 8. PAGE TRANSITION
     // ============================================================
+    function syncPlayerName() {
+        const name = sessionStorage.getItem('playerName') || '';
+        const pill = document.getElementById('header-player-pill');
+        const nameEl = document.getElementById('header-player-name');
+
+        if (name && name.trim()) {
+            if (pill) pill.classList.remove('hidden');
+            if (nameEl) nameEl.textContent = name.trim();
+        } else {
+            if (pill) pill.classList.add('hidden');
+            if (nameEl) nameEl.textContent = 'Guest';
+        }
+    }
+
     function initPageTransition() {
         // Create transition overlay
         let overlay = document.getElementById('page-transition-overlay');
@@ -186,6 +200,14 @@
             if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:')) return;
 
             e.preventDefault();
+
+            // Gate: if navigating to game.html, check game_state first
+            const isGameLink = href.includes('game.html');
+            if (isGameLink) {
+                handleGameNavigation(overlay);
+                return;
+            }
+
             overlay.classList.add('active');
             document.body.classList.remove('page-loaded');
 
@@ -195,6 +217,51 @@
         });
     }
 
+    /**
+     * Check game_state before allowing navigation to game.html.
+     * If admin hasn't opened round 1, redirect to register.html.
+     */
+    async function handleGameNavigation(overlay) {
+        const playerName = (sessionStorage.getItem('playerName') || '').trim();
+
+        // No name → always go to register
+        if (!playerName) {
+            navigateWithTransition(overlay, '/register.html');
+            return;
+        }
+
+        // Check game_state via API
+        try {
+            const res = await fetch('/api/game-state');
+            const json = await res.json();
+            if (json.ok && json.state) {
+                const state = json.state;
+                if (state.is_active && state.max_question_index >= 1) {
+                    // Admin đã mở → vào game
+                    navigateWithTransition(overlay, '/game.html');
+                } else {
+                    // Admin chưa mở → về register (đã có tên, hiện waiting)
+                    navigateWithTransition(overlay, '/register.html');
+                }
+                return;
+            }
+        } catch (_) {
+            // Server không chạy → cho vào game (offline mode)
+        }
+
+        navigateWithTransition(overlay, '/game.html');
+    }
+
+    function navigateWithTransition(overlay, url) {
+        if (overlay) {
+            overlay.classList.add('active');
+            document.body.classList.remove('page-loaded');
+        }
+        setTimeout(() => {
+            window.location.href = url;
+        }, 350);
+    }
+
     // ============================================================
     // 9. FLOATING CTA BUTTON
     // ============================================================
@@ -202,7 +269,6 @@
         const btn = document.getElementById('floating-cta');
         if (!btn) return;
 
-        let lastScrollY = 0;
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             if (scrollY > 400) {
@@ -210,7 +276,6 @@
             } else {
                 btn.classList.remove('visible');
             }
-            lastScrollY = scrollY;
         }, { passive: true });
     }
 
@@ -271,12 +336,13 @@
 
         // Load header and footer
         const [headerLoaded, footerLoaded] = await Promise.all([
-            loadComponent(CONFIG.headerPath, CONFIG.headerContainerId),
-            loadComponent(CONFIG.footerPath, CONFIG.footerContainerId),
+            loadComponent(resolveComponentPath(CONFIG.headerPath), CONFIG.headerContainerId),
+            loadComponent(resolveComponentPath(CONFIG.footerPath), CONFIG.footerContainerId),
         ]);
 
         if (headerLoaded) {
             setActiveNav(currentPage);
+            syncPlayerName();
             initMobileMenu();
             console.log('[Layout] Header loaded ✓');
         }
@@ -291,6 +357,13 @@
         initPageTransition();
         initFloatingCTA();
         initStickyNav();
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'playerName') {
+                syncPlayerName();
+            }
+        });
+        window.addEventListener('focus', syncPlayerName);
 
         console.log('[Layout] All systems initialized ✓');
     }
