@@ -598,6 +598,67 @@
             }
         }
 
+        /* ----- FLIP CARD ----- */
+        .flip-card .relative {
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .relative {
+            transform: rotateY(180deg);
+        }
+
+        /* ----- COUNTER PULSE ----- */
+        @keyframes counter-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        [data-pulse="true"].counted {
+            animation: counter-pulse 1.2s ease-in-out 2;
+        }
+
+        /* ----- FORMULA CHAR ANIMATION ----- */
+        .formula-char {
+            opacity: 0;
+            transform: translateX(-12px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .formula-visible .formula-char {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ----- STAGGER ITEMS (cards that appear one by one) ----- */
+        [data-stagger] > [data-stagger-item] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        [data-stagger].stagger-visible > [data-stagger-item] {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ----- SLIDE-IN FROM SIDES ----- */
+        [data-slide="left"] {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        [data-slide="right"] {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        [data-slide].slide-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         /* ----- SITE FOOTER (styles for component, applied by layout.js) ----- */
         .site-footer {
             background: #1c1b1b;
@@ -763,8 +824,17 @@
     <nav id="sticky-section-nav">
         <a href="#" data-target="hero" title="Hero">●</a>
         <a href="#" data-target="surplus" title="Giá trị thặng dư">●</a>
+        <a href="#" data-target="origin" title="Nguồn gốc tư bản">●</a>
+        <a href="#" data-target="secret-intro" title="Bí mật">●</a>
+        <a href="#" data-target="bakery" title="Ví dụ tiệm bánh">●</a>
+        <a href="#" data-target="money-formula" title="Công thức T-H-T'">●</a>
+        <a href="#" data-target="special-labor" title="Hàng hóa đặc biệt">●</a>
+        <a href="#" data-target="working-time" title="Cơ chế thời gian">●</a>
+        <a href="#" data-target="two-masks" title="Hai lớp vỏ">●</a>
+        <a href="#" data-target="measurement" title="Đo lường">●</a>
         <a href="#" data-target="alienation" title="Tha hóa lao động">●</a>
         <a href="#" data-target="fetishism" title="Bái vật giáo hàng hóa">●</a>
+        <a href="#" data-target="modern-era" title="Bối cảnh hiện đại">●</a>
         <a href="#" data-target="cta" title="Call to action">●</a>
     </nav>
 
@@ -872,46 +942,462 @@
             </div>
         </section>
 
+        <!-- NGUỒN GỐC CỦA TƯ BẢN -->
+        <section id="origin" data-section-id="origin" class="border-b-4 border-on-surface bg-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                    <!-- Left: text -->
+                    <div class="md:col-span-6 flex flex-col justify-center">
+                        <p class="font-label-bold uppercase tracking-widest text-primary mb-4">NGUỒN GỐC CỦA TƯ BẢN</p>
+                        <h2 class="font-headline-xl uppercase mb-6">TIỀN CÓ PHẢI<br/>LÀ TƯ BẢN?</h2>
+                        <p class="font-body-lg mb-8">
+                            Một lầm tưởng phổ biến: Không phải cứ có nhiều tiền là có Tư bản. Theo Marx, tiền chỉ là tiền.
+                            Tiền chỉ biến thành tư bản khi nó được đưa vào vận động nhằm mục đích tạo ra giá trị thặng dư.
+                        </p>
+                        <div class="bg-surface-container-highest p-8 border-4 border-on-surface relative">
+                            <span class="absolute -top-3 -left-3 w-6 h-6 bg-primary"></span>
+                            <p class="font-caption uppercase tracking-widest text-secondary mb-2">BẢN CHẤT CỦA TƯ BẢN</p>
+                            <p class="font-body-md font-medium">
+                                Tư bản không phải là một vật (như máy móc, tiền bạc), mà là quan hệ sản xuất xã hội
+                                giữa giai cấp tư sản (chủ sở hữu) và giai cấp vô sản (người làm thuê).
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Right: image + 2 conditions -->
+                    <div class="md:col-span-5 md:col-start-8 mt-12 md:mt-0 flex flex-col gap-8">
+                        <div class="border-4 border-on-surface p-2 bg-on-surface">
+                            <img alt="Nhà máy thời kỳ cách mạng công nghiệp" class="w-full h-auto aspect-[4/3] object-cover filter grayscale contrast-125"
+                                src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 điều kiện -->
+                <div class="mt-16">
+                    <p class="font-headline-md uppercase text-center mb-8">HAI ĐIỀU KIỆN ĐỂ TIỀN BIẾN THÀNH TƯ BẢN</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto">
+                        <div class="border-4 border-on-surface p-8 bg-surface-container-lowest" data-slide="left">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-14 h-14 border-2 border-on-surface flex items-center justify-center bg-surface-container-highest flex-shrink-0">
+                                    <span class="material-symbols-outlined text-3xl text-primary">person</span>
+                                </div>
+                                <h3 class="font-label-bold uppercase">NGƯỜI LAO ĐỘNG TỰ DO NHƯNG "TRẮNG TAY"</h3>
+                            </div>
+                            <p class="font-body-md text-secondary">
+                                Tự do về thân thể (không phải nô lệ hay nông nô) nhưng không có tư liệu sản xuất.
+                                Để sinh tồn, họ buộc phải bán thứ duy nhất mình có: sức lao động.
+                            </p>
+                        </div>
+                        <div class="border-4 border-on-surface p-8 bg-surface-container-lowest" data-slide="right">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-14 h-14 border-2 border-on-surface flex items-center justify-center bg-surface-container-highest flex-shrink-0">
+                                    <span class="material-symbols-outlined text-3xl text-primary">savings</span>
+                                </div>
+                                <h3 class="font-label-bold uppercase">SỰ TÍCH LŨY TIỀN TỆ LỚN</h3>
+                            </div>
+                            <p class="font-body-md text-secondary">
+                                Tiền bạc và tư liệu sản xuất phải tập trung vào tay một số ít người
+                                để mở nhà xưởng, xí nghiệp.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        BÍ MẬT CỦA NỀN KINH TẾ TƯ BẢN — 7 SECTION
+        ============================================================ -->
+
+        <!-- SECRET INTRO — Mở màn chương mới -->
+        <section id="secret-intro" data-section-id="secret-intro"
+            class="border-b-4 border-on-surface bg-inverse-surface text-inverse-on-surface fade-in-section relative overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.06]">
+                <span class="font-display-lg text-[200px] md:text-[360px] text-surface tracking-widest" style="font-family:'Bebas Neue',sans-serif;">ΔT</span>
+            </div>
+            <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32 md:py-48 flex flex-col items-center text-center min-h-[85vh] justify-center">
+                <p class="font-label-bold uppercase tracking-widest text-inverse-primary mb-8">BÍ MẬT CỦA NỀN KINH TẾ TƯ BẢN CHỦ NGHĨA</p>
+                <h2 class="font-headline-xl md:font-display-lg uppercase mb-10 text-surface leading-tight">VÌ SAO TIỀN<br/>ĐẺ RA TIỀN?</h2>
+                <p class="font-body-lg text-surface-dim max-w-2xl">
+                    Một người bỏ tiền ra kinh doanh, sau một thời gian lại thu về nhiều tiền hơn lúc đầu.
+                    Phần tăng thêm đó từ đâu mà có? Câu trả lời nằm ở khái niệm giá trị thặng dư —
+                    phần giá trị mới do người lao động tạo ra, vượt quá tiền công của họ,
+                    và được nhà tư bản <span class="text-inverse-primary font-bold">giữ lại</span>.
+                </p>
+            </div>
+        </section>
+
+        <!-- BAKERY — Ví dụ tiệm bánh -->
+        <section id="bakery" data-section-id="bakery" class="border-b-4 border-on-surface bg-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                    <!-- Left: image -->
+                    <div class="md:col-span-5">
+                        <div class="border-4 border-on-surface p-2 bg-on-surface">
+                            <img alt="Thợ làm bánh đang nhào bột" class="w-full h-auto aspect-[4/3] object-cover filter grayscale contrast-125"
+                                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80" />
+                        </div>
+                        <div class="flex items-center gap-3 mt-4">
+                            <span class="material-symbols-outlined text-primary text-3xl">bakery_dining</span>
+                            <p class="font-caption uppercase tracking-widest text-secondary">MINH HỌA · TIỆM BÁNH</p>
+                        </div>
+                    </div>
+                    <!-- Right: calculation -->
+                    <div class="md:col-span-6 md:col-start-7 mt-12 md:mt-0">
+                        <h2 class="font-headline-xl uppercase mb-2">MỘT NGÀY Ở TIỆM BÁNH</h2>
+                        <p class="font-body-md text-secondary mb-8">Một phép tính đơn giản cho thấy phần dôi ra hình thành như thế nào.</p>
+
+                        <div class="border-4 border-on-surface p-6 md:p-8 bg-surface-container-lowest space-y-6">
+                            <!-- Row: Nguyên liệu -->
+                            <div class="flex items-center justify-between border-b-2 border-on-surface pb-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-2xl">inventory_2</span>
+                                    <span class="font-label-bold uppercase">Nguyên liệu</span>
+                                </div>
+                                <span class="font-headline-md text-on-surface" data-counter data-target-val="200" data-suffix="k">0k</span>
+                            </div>
+                            <!-- Row: Tiền công -->
+                            <div class="flex items-center justify-between border-b-2 border-on-surface pb-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-2xl">engineering</span>
+                                    <span class="font-label-bold uppercase">Tiền công thợ</span>
+                                </div>
+                                <span class="font-headline-md text-on-surface" data-counter data-target-val="200" data-suffix="k">0k</span>
+                            </div>
+                            <!-- Row: Bánh bán được -->
+                            <div class="flex items-center justify-between border-b-2 border-on-surface pb-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-2xl">storefront</span>
+                                    <span class="font-label-bold uppercase">Bánh bán được</span>
+                                </div>
+                                <span class="font-headline-md text-on-surface" data-counter data-target-val="500" data-suffix="k">0k</span>
+                            </div>
+                            <!-- Derived -->
+                            <div class="border-2 border-dashed border-secondary p-4 bg-surface-container">
+                                <p class="font-body-md text-secondary mb-1">Người thợ tạo thêm: <strong>300k</strong> — Chỉ được trả: <strong>200k</strong></p>
+                            </div>
+                            <!-- HIGHLIGHT -->
+                            <div class="bg-primary text-on-primary p-6 border-4 border-on-surface text-center">
+                                <p class="font-label-bold uppercase tracking-widest mb-2">Phần dôi ra (m)</p>
+                                <span class="font-headline-xl md:font-display-lg-mobile" data-counter data-target-val="100" data-suffix="k" data-pulse="true">0k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MONEY FORMULA — Công thức T-H-T' -->
+        <section id="money-formula" data-section-id="money-formula"
+            class="border-b-4 border-on-surface bg-inverse-surface text-inverse-on-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-xl uppercase text-surface mb-4">TIỀN ĐẺ RA TIỀN?</h2>
+                    <div class="h-1 w-24 bg-primary mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto">
+                    <!-- Lưu thông thường -->
+                    <div class="border-4 border-surface/30 p-8 text-center">
+                        <p class="font-label-bold uppercase tracking-widest text-inverse-primary mb-6">LƯU THÔNG THƯỜNG</p>
+                        <div class="flex items-center justify-center gap-2 md:gap-4 flex-wrap" data-formula>
+                            <span class="font-headline-xl text-surface formula-char">H</span>
+                            <span class="font-headline-lg text-surface-dim formula-char">→</span>
+                            <span class="font-headline-xl text-surface formula-char">T</span>
+                            <span class="font-headline-lg text-surface-dim formula-char">→</span>
+                            <span class="font-headline-xl text-surface formula-char">H</span>
+                        </div>
+                        <p class="font-caption text-surface-dim mt-6 uppercase tracking-wider">Bán hàng → Lấy tiền → Mua hàng — để dùng</p>
+                    </div>
+                    <!-- Lưu thông tư bản -->
+                    <div class="border-4 border-primary p-8 text-center relative">
+                        <span class="absolute -top-3 -left-3 w-6 h-6 bg-primary"></span>
+                        <p class="font-label-bold uppercase tracking-widest text-inverse-primary mb-6">LƯU THÔNG TƯ BẢN</p>
+                        <div class="flex items-center justify-center gap-2 md:gap-4 flex-wrap" data-formula>
+                            <span class="font-headline-xl text-surface formula-char">T</span>
+                            <span class="font-headline-lg text-surface-dim formula-char">→</span>
+                            <span class="font-headline-xl bg-primary text-on-primary px-3 py-1 border-2 border-on-primary formula-char">H</span>
+                            <span class="font-headline-lg text-surface-dim formula-char">→</span>
+                            <span class="font-headline-xl text-surface formula-char">T'</span>
+                        </div>
+                        <p class="font-body-md text-surface-dim mt-4">T' = T + <span class="text-inverse-primary font-bold">ΔT</span></p>
+                    </div>
+                </div>
+
+                <div class="mt-12 max-w-2xl mx-auto text-center border-t-2 border-surface/20 pt-8">
+                    <p class="font-body-lg text-surface-dim">
+                        Bí mật nằm ở chữ <span class="bg-primary text-on-primary px-2 py-1 font-bold">H</span> :
+                        <span class="text-inverse-primary font-bold">hàng hóa sức lao động</span>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPECIAL LABOR — Hàng hóa đặc biệt -->
+        <section id="special-labor" data-section-id="special-labor" class="border-b-4 border-on-surface bg-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-xl uppercase mb-4">LOẠI HÀNG HÓA KỲ LẠ</h2>
+                    <div class="h-1 w-24 bg-primary mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto border-4 border-on-surface">
+                    <!-- Cột trái -->
+                    <div class="p-8 md:p-10 border-b-4 md:border-b-0 md:border-r-4 border-on-surface">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="material-symbols-outlined text-4xl text-secondary">precision_manufacturing</span>
+                            <h3 class="font-headline-md uppercase">MÁY MÓC · NGUYÊN LIỆU</h3>
+                        </div>
+                        <div class="bg-surface-container-highest p-6 border-2 border-on-surface">
+                            <p class="font-body-lg">Dùng đến đâu, chuyển <span class="font-bold">đúng</span> giá trị đến đó. Không hơn, không kém.</p>
+                        </div>
+                        <p class="font-caption uppercase tracking-widest text-secondary mt-4">TƯ BẢN BẤT BIẾN (c)</p>
+                    </div>
+                    <!-- Cột phải -->
+                    <div class="p-8 md:p-10">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="material-symbols-outlined text-4xl text-primary">engineering</span>
+                            <h3 class="font-headline-md uppercase text-primary">SỨC LAO ĐỘNG</h3>
+                        </div>
+                        <div class="bg-primary/10 p-6 border-2 border-primary">
+                            <p class="font-body-lg">Càng dùng càng tạo ra giá trị <span class="text-primary font-bold">lớn hơn chính nó</span>.</p>
+                        </div>
+                        <p class="font-caption uppercase tracking-widest text-primary mt-4">TƯ BẢN KHẢ BIẾN (v)</p>
+                    </div>
+                </div>
+
+                <div class="max-w-4xl mx-auto mt-8 text-center">
+                    <p class="font-body-lg">
+                        <span class="text-primary font-bold">→</span> Đây là nguồn gốc của <span class="bg-primary text-on-primary px-2 py-1 font-bold font-headline-md">ΔT</span>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKING TIME — Cơ chế thời gian -->
+        <section id="working-time" data-section-id="working-time"
+            class="border-b-4 border-on-surface bg-inverse-surface text-inverse-on-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-xl uppercase text-surface mb-4">MỘT NGÀY LÀM VIỆC<br/>CHIA HAI PHẦN</h2>
+                    <div class="h-1 w-24 bg-primary mx-auto"></div>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <!-- Time bar -->
+                    <div class="border-4 border-surface/30 p-6 md:p-8">
+                        <div class="flex w-full h-16 md:h-20 border-2 border-surface/40 overflow-hidden">
+                            <div class="bg-surface-dim h-full flex items-center justify-center transition-all duration-1000 ease-out" data-bar data-bar-width="50" style="width:0%;">
+                                <span class="font-label-bold text-on-surface text-xs md:text-sm px-2 text-center">TẤT YẾU</span>
+                            </div>
+                            <div class="bg-primary h-full flex items-center justify-center transition-all duration-1000 ease-out" data-bar data-bar-width="50" style="width:0%;">
+                                <span class="font-label-bold text-on-primary text-xs md:text-sm px-2 text-center">THẶNG DƯ</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-surface-dim text-3xl mt-1">schedule</span>
+                                <div>
+                                    <h3 class="font-label-bold text-surface uppercase mb-2">THỜI GIAN TẤT YẾU</h3>
+                                    <p class="font-body-md text-surface-dim">Tạo ra giá trị bằng đúng tiền công mà người lao động được trả.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary text-3xl mt-1">more_time</span>
+                                <div>
+                                    <h3 class="font-label-bold text-inverse-primary uppercase mb-2">THỜI GIAN THẶNG DƯ</h3>
+                                    <p class="font-body-md text-surface-dim">Phần làm thêm — tạo ra giá trị thặng dư mà nhà tư bản giữ lại.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TWO MASKS — Hai lớp vỏ -->
+        <section id="two-masks" data-section-id="two-masks" class="border-b-4 border-on-surface bg-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-xl uppercase mb-4">VÌ SAO GỌI LÀ "BÍ MẬT"?</h2>
+                    <div class="h-1 w-24 bg-primary mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto mb-12">
+                    <!-- Flip Card 1 -->
+                    <div class="flip-card cursor-pointer group" onclick="this.classList.toggle('flipped')" style="perspective:1000px;">
+                        <div class="relative w-full transition-transform duration-500" style="transform-style:preserve-3d; min-height:280px;">
+                            <!-- Front -->
+                            <div class="absolute inset-0 border-4 border-on-surface p-8 flex flex-col items-center justify-center bg-surface-container-lowest" style="backface-visibility:hidden;">
+                                <span class="material-symbols-outlined text-5xl text-primary mb-4">receipt_long</span>
+                                <h3 class="font-headline-lg uppercase mb-4">TIỀN CÔNG</h3>
+                                <p class="font-caption uppercase tracking-widest text-secondary">Bấm để lật</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 border-4 border-primary p-8 flex flex-col items-center justify-center bg-primary text-on-primary" style="backface-visibility:hidden; transform:rotateY(180deg);">
+                                <p class="font-body-lg text-center">Khiến quan hệ trông như <span class="font-bold">mua bán ngang giá</span> — che giấu thời gian thặng dư.</p>
+                                <p class="font-caption uppercase tracking-widest mt-4 opacity-70">Bấm để lật lại</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Flip Card 2 -->
+                    <div class="flip-card cursor-pointer group" onclick="this.classList.toggle('flipped')" style="perspective:1000px;">
+                        <div class="relative w-full transition-transform duration-500" style="transform-style:preserve-3d; min-height:280px;">
+                            <!-- Front -->
+                            <div class="absolute inset-0 border-4 border-on-surface p-8 flex flex-col items-center justify-center bg-surface-container-lowest" style="backface-visibility:hidden;">
+                                <span class="material-symbols-outlined text-5xl text-primary mb-4">trending_up</span>
+                                <h3 class="font-headline-lg uppercase mb-4">LỢI NHUẬN</h3>
+                                <p class="font-caption uppercase tracking-widest text-secondary">Bấm để lật</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 border-4 border-primary p-8 flex flex-col items-center justify-center bg-primary text-on-primary" style="backface-visibility:hidden; transform:rotateY(180deg);">
+                                <p class="font-body-lg text-center">Khiến phần dôi ra trông như do <span class="font-bold">cả khối vốn</span> sinh ra — che giấu nguồn gốc thực.</p>
+                                <p class="font-caption uppercase tracking-widest mt-4 opacity-70">Bấm để lật lại</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formula W = c + v + m -->
+                <div class="max-w-3xl mx-auto border-4 border-on-surface p-6 md:p-8 bg-surface-container-lowest text-center">
+                    <p class="font-label-bold uppercase tracking-widest text-secondary mb-4">CẤU TRÚC GIÁ TRỊ HÀNG HÓA</p>
+                    <div class="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
+                        <span class="font-headline-xl">W</span>
+                        <span class="font-headline-lg text-secondary">=</span>
+                        <span class="font-headline-xl">c</span>
+                        <span class="font-headline-lg text-secondary">+</span>
+                        <span class="font-headline-xl">v</span>
+                        <span class="font-headline-lg text-secondary">+</span>
+                        <span class="font-headline-xl text-primary">m</span>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4">
+                        <span class="font-caption text-secondary">c: tư liệu sản xuất</span>
+                        <span class="font-caption text-secondary">v: tiền công</span>
+                        <span class="font-caption text-primary font-bold">m: thặng dư</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEASUREMENT — Đo lường -->
+        <section id="measurement" data-section-id="measurement"
+            class="border-b-4 border-on-surface bg-inverse-surface text-inverse-on-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-xl uppercase text-surface mb-4">ĐO BẰNG CON SỐ</h2>
+                    <div class="h-1 w-24 bg-primary mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto">
+                    <!-- m' = m/v -->
+                    <div class="border-4 border-surface/30 p-6 md:p-8">
+                        <p class="font-label-bold uppercase tracking-widest text-inverse-primary mb-2">TỈ SUẤT GIÁ TRỊ THẶNG DƯ</p>
+                        <p class="font-headline-md text-surface mb-6">m' = m / v × 100%</p>
+                        <div class="w-full h-10 border-2 border-surface/40 overflow-hidden mb-3">
+                            <div class="h-full bg-primary transition-all duration-1000 ease-out flex items-center justify-end pr-3" data-bar data-bar-width="50" style="width:0%;">
+                                <span class="font-label-bold text-on-primary text-sm">50%</span>
+                            </div>
+                        </div>
+                        <p class="font-body-md text-surface-dim">100 / 200 = <span class="text-inverse-primary font-bold">50%</span> — mức độ thực sự</p>
+                    </div>
+                    <!-- p' = m/(c+v) -->
+                    <div class="border-4 border-surface/30 p-6 md:p-8">
+                        <p class="font-label-bold uppercase tracking-widest text-inverse-primary mb-2">TỈ SUẤT LỢI NHUẬN</p>
+                        <p class="font-headline-md text-surface mb-6">p' = m / (c+v) × 100%</p>
+                        <div class="w-full h-10 border-2 border-surface/40 overflow-hidden mb-3">
+                            <div class="h-full bg-surface-dim transition-all duration-1000 ease-out flex items-center justify-end pr-3" data-bar data-bar-width="25" style="width:0%;">
+                                <span class="font-label-bold text-on-surface text-sm">25%</span>
+                            </div>
+                        </div>
+                        <p class="font-body-md text-surface-dim">100 / 400 = <span class="text-surface font-bold">25%</span> — khi tính trên tổng vốn</p>
+                    </div>
+                </div>
+
+                <div class="max-w-3xl mx-auto mt-12 text-center border-t-2 border-surface/20 pt-8">
+                    <p class="font-body-lg text-surface-dim">
+                        Cùng một khoản, hai con số khác nhau — cho thấy cách <span class="text-inverse-primary font-bold">"lợi nhuận"</span> làm mờ mức độ thật.
+                    </p>
+                    <p class="font-body-md text-surface-dim mt-4 opacity-70">
+                        Tóm lại, bí mật của nền kinh tế tư bản chủ nghĩa gói gọn trong ba chữ: <span class="text-inverse-primary font-bold">giá trị thặng dư</span>.
+                        Tiền và máy móc không tự sinh lời; nguồn gốc là sức lao động của người lao động.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- THEORY SECTION 2: THA HÓA LAO ĐỘNG -->
         <section id="alienation" data-section-id="alienation"
             class="border-b-4 border-on-surface bg-inverse-surface text-inverse-on-surface fade-in-section">
             <div class="grid grid-cols-1 lg:grid-cols-2">
-                <div
-                    class="p-margin-mobile md:p-margin-desktop xl:p-24 flex flex-col justify-center border-b-4 lg:border-b-0 lg:border-r-4 border-on-surface lg:border-surface">
-                    <h2 class="font-headline-xl uppercase text-surface mb-6">THA HÓA LAO ĐỘNG</h2>
-                    <p
-                        class="font-caption uppercase tracking-widest text-inverse-primary mb-8 border-b border-surface/20 pb-4">
-                        LABOR ALIENATION</p>
-                    <p class="font-body-lg mb-8 text-surface-dim">
-                        Quá trình làm việc không còn là sự tự khẳng định bản chất con người, mà trở thành sự chối bỏ. Sự
-                        <span class="text-primary-fixed-dim font-bold">Tha hóa</span> cắt đứt liên kết giữa người lao
-                        động và sản phẩm của họ.
+                <!-- Left: content -->
+                <div class="p-margin-mobile md:p-margin-desktop xl:p-24 flex flex-col justify-center border-b-4 lg:border-b-0 lg:border-r-4 border-on-surface lg:border-surface">
+                    <h2 class="font-headline-xl uppercase text-surface mb-4">THA HÓA LAO ĐỘNG</h2>
+                    <p class="font-caption uppercase tracking-widest text-inverse-primary mb-8 border-b border-surface/20 pb-4">LABOR ALIENATION</p>
+                    <p class="font-body-lg mb-6 text-surface-dim">
+                        Sự xa lạ về tâm lý, trong đó người lao động cảm thấy bị tách biệt về cảm xúc và nhận thức
+                        đối với công việc của chính mình.
                     </p>
-                    <ul class="space-y-6">
-                        <li class="flex items-start gap-4">
-                            <span class="w-4 h-4 bg-primary mt-2 flex-shrink-0"></span>
-                            <div>
-                                <h3 class="font-label-bold text-surface mb-2">XA LÁNH SẢN PHẨM</h3>
-                                <p class="font-body-md text-surface-container-high">Sản phẩm làm ra trở thành một thế
-                                    lực xa lạ, đứng đối lập và thống trị người làm ra nó.</p>
+                    <p class="font-body-md mb-10 text-surface-container-high">
+                        Hệ thống tư bản chủ nghĩa dựa trên việc tách rời người lao động khỏi tư liệu sản xuất.
+                        Người lao động bán sức lao động để tồn tại, biến sức lao động thành một món hàng.
+                    </p>
+
+                    <p class="font-headline-md uppercase text-surface mb-6">BỐN KHÍA CẠNH</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-stagger>
+                        <div class="flex items-start gap-4" data-stagger-item>
+                            <div class="w-10 h-10 border-2 border-primary flex items-center justify-center flex-shrink-0 bg-primary/20">
+                                <span class="material-symbols-outlined text-inverse-primary text-xl">inventory_2</span>
                             </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span class="w-4 h-4 bg-primary mt-2 flex-shrink-0"></span>
                             <div>
-                                <h3 class="font-label-bold text-surface mb-2">XA LÁNH QUÁ TRÌNH</h3>
-                                <p class="font-body-md text-surface-container-high">Lao động trở thành cưỡng bức, là
-                                    phương tiện để sinh tồn chứ không phải là mục đích sống.</p>
+                                <h3 class="font-label-bold text-surface mb-1">1. TÁCH BIỆT KHỎI SẢN PHẨM</h3>
+                                <p class="font-body-md text-surface-container-high">Tạo ra giá trị nhưng không sở hữu hay kiểm soát sản phẩm đó.</p>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="flex items-start gap-4" data-stagger-item>
+                            <div class="w-10 h-10 border-2 border-primary flex items-center justify-center flex-shrink-0 bg-primary/20">
+                                <span class="material-symbols-outlined text-inverse-primary text-xl">conveyor_belt</span>
+                            </div>
+                            <div>
+                                <h3 class="font-label-bold text-surface mb-1">2. TÁCH BIỆT KHỎI QUÁ TRÌNH</h3>
+                                <p class="font-body-md text-surface-container-high">Công việc trở nên cưỡng bức, người lao động bị biến thành công cụ tạo ra lợi nhuận thay vì thể hiện khả năng sáng tạo.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4" data-stagger-item>
+                            <div class="w-10 h-10 border-2 border-primary flex items-center justify-center flex-shrink-0 bg-primary/20">
+                                <span class="material-symbols-outlined text-inverse-primary text-xl">self_improvement</span>
+                            </div>
+                            <div>
+                                <h3 class="font-label-bold text-surface mb-1">3. TÁCH BIỆT KHỎI BẢN CHẤT</h3>
+                                <p class="font-body-md text-surface-container-high">Lao động chỉ còn là phương tiện đáp ứng nhu cầu sinh tồn, không còn là hoạt động tự do.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4" data-stagger-item>
+                            <div class="w-10 h-10 border-2 border-primary flex items-center justify-center flex-shrink-0 bg-primary/20">
+                                <span class="material-symbols-outlined text-inverse-primary text-xl">groups</span>
+                            </div>
+                            <div>
+                                <h3 class="font-label-bold text-surface mb-1">4. GIỮA NGƯỜI VỚI NGƯỜI</h3>
+                                <p class="font-body-md text-surface-container-high">Quan hệ đồng nghiệp bị thay thế bằng cạnh tranh và đối đầu.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hệ lụy tâm lý -->
+                    <div class="mt-10 bg-primary/20 p-6 border-2 border-primary">
+                        <p class="font-label-bold text-inverse-primary uppercase mb-2">HỆ LỤY TÂM LÝ</p>
+                        <p class="font-body-md text-surface-dim">
+                            Dẫn đến cảm giác bất lực, mất phẩm giá, oán giận và thất vọng.
+                            Liên quan trực tiếp đến các vấn đề sức khỏe tâm thần như kiệt sức (burnout) và các triệu chứng nghiêm trọng khác.
+                        </p>
+                    </div>
                 </div>
+                <!-- Right: image -->
                 <div class="relative h-[60vh] lg:h-auto border-l-4 lg:border-l-0 border-on-surface">
-                    <img alt="" class="w-full h-full object-cover filter grayscale contrast-125"
+                    <img alt="Người lao động đơn độc trong môi trường công nghiệp" class="w-full h-full object-cover filter grayscale contrast-125"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAr7akZcGDyOAqjUSJVq5DpIMe9lUJW6Y72oESspeDRZ0R1NmWnHztFkS4pbp_ajoZU8pOkgNbfR2wydCwldNRWqAFgFUGnvv0N7OsSUYd7-Br-RDH91sANjQxveOxWFlIvgemht1t5WULzeoa83YdntWBE4hzDTRdr6TdwdpCMBhJhEGlFUCxn58jgc8OGNudONoq4jqT5P4CFl-Adr2QAybPAXfhnn6VIQYftoxPm-H7p7X3PHcdg1ChGFTlq7Fg89iEZoLsMoo" />
                     <div class="absolute inset-0 bg-red-900 mix-blend-multiply opacity-40"></div>
-                    <div
-                        class="absolute bottom-8 right-8 bg-surface text-on-surface px-6 py-3 border-2 border-on-surface">
+                    <div class="absolute bottom-8 right-8 bg-surface text-on-surface px-6 py-3 border-2 border-on-surface">
                         <span class="font-label-bold">HUMAN VS SYSTEM</span>
                     </div>
                 </div>
@@ -922,40 +1408,135 @@
         <section id="fetishism" data-section-id="fetishism"
             class="border-b-4 border-on-surface bg-surface fade-in-section">
             <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
-                <div class="text-center mb-16 md:mb-24">
-                    <h2 class="font-headline-xl uppercase mb-4">BÁI VẬT GIÁO HÀNG HÓA</h2>
-                    <div class="h-1 w-24 bg-primary mx-auto"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-                    <div class="md:col-span-6 relative group">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+                    <!-- Left: image -->
+                    <div class="md:col-span-5 relative group">
                         <div class="border-4 border-on-surface p-2 bg-on-surface">
-                            <img alt=""
+                            <img alt="Hàng hóa và tiêu dùng"
                                 class="w-full h-auto aspect-square object-cover filter contrast-125 transition-transform duration-500 group-hover:scale-[1.02]"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqQnoCR3Ld1-cFTowplr8Y7trryB_2ZZ-b5_yHe1M04qHOy1DLwOJc3BTEAm4f187kW5uksI5sgz_2RBmbspjHRcRrZKr8GvC57ymBZg6oKAChpSNY5LcXr13jI_gwaN6rVLTx47-njXSrmsDq9YmmQtnO-RqXVpCghLho5gA5xVMkKbQ8DPBqTjp0scZOGXzzLBMJISL91C1yqrnCyGKecJnq56us5JDRKR9w-lE-FeSjqH5WtjL6bD_Vnx75pTvK_cyw5QqWepI" />
                         </div>
                     </div>
-                    <div class="md:col-span-5 md:col-start-8 mt-12 md:mt-0">
-                        <p class="font-label-bold text-primary mb-4">(COMMODITY FETISHISM)</p>
-                        <p class="font-body-lg mb-8 leading-relaxed">
-                            Mối quan hệ xã hội giữa con người bị che khuất và thay thế bằng mối quan hệ hư ảo giữa những
-                            đồ vật. Tiêu dùng trở thành tôn giáo mới, nơi hàng hóa được gán cho những quyền năng siêu
-                            nhiên.
+                    <!-- Right: text + 3 cards -->
+                    <div class="md:col-span-6 md:col-start-7 mt-12 md:mt-0">
+                        <h2 class="font-headline-xl uppercase mb-2">BÁI VẬT GIÁO HÀNG HÓA</h2>
+                        <p class="font-label-bold text-primary mb-6">(COMMODITY FETISHISM)</p>
+                        <p class="font-body-lg mb-10 leading-relaxed">
+                            Hiện tượng các mối quan hệ xã hội trực tiếp giữa con người bị che lấp và xuất hiện
+                            dưới hình thức quan hệ giữa các vật (hàng hóa và tiền tệ).
                         </p>
-                        <div class="grid grid-cols-2 gap-6 border-t-2 border-on-surface pt-8">
-                            <div>
-                                <span class="material-symbols-outlined text-4xl mb-4">diamond</span>
-                                <h4 class="font-label-bold uppercase mb-2">Ảo Ảnh Giá Trị</h4>
-                                <p class="font-caption text-secondary">Giá trị sử dụng bị lấn át bởi giá trị trao đổi
-                                    mang tính biểu tượng.</p>
+
+                        <div class="space-y-6" data-stagger>
+                            <div class="border-4 border-on-surface p-6 bg-surface-container-lowest" data-stagger-item>
+                                <div class="flex items-start gap-4">
+                                    <span class="material-symbols-outlined text-3xl text-primary flex-shrink-0 mt-1">swap_horiz</span>
+                                    <div>
+                                        <h4 class="font-label-bold uppercase mb-2">SỰ ĐẢO LỘN NHẬN THỨC</h4>
+                                        <p class="font-body-md text-secondary">
+                                            Giá trị trao đổi trở thành mục đích tối thượng thay vì giá trị sử dụng.
+                                            Tiền tệ không còn là phương tiện mà trở thành "điểm khởi đầu và kết thúc" của mọi hoạt động.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <span class="material-symbols-outlined text-4xl mb-4">visibility_off</span>
-                                <h4 class="font-label-bold uppercase mb-2">Sự Che Khuất</h4>
-                                <p class="font-caption text-secondary">Nguồn gốc lao động đằng sau sản phẩm bị giấu kín
-                                    hoàn toàn.</p>
+                            <div class="border-4 border-on-surface p-6 bg-surface-container-lowest" data-stagger-item>
+                                <div class="flex items-start gap-4">
+                                    <span class="material-symbols-outlined text-3xl text-primary flex-shrink-0 mt-1">paid</span>
+                                    <div>
+                                        <h4 class="font-label-bold uppercase mb-2">TÂM LÝ SÙNG BÁI TIỀN TỆ</h4>
+                                        <p class="font-body-md text-secondary">
+                                            Người nắm giữ tư bản thường rơi vào ham muốn làm giàu vô hạn,
+                                            hành động như "tư bản được nhân cách hóa".
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-4 border-on-surface p-6 bg-surface-container-lowest" data-stagger-item>
+                                <div class="flex items-start gap-4">
+                                    <span class="material-symbols-outlined text-3xl text-primary flex-shrink-0 mt-1">visibility_off</span>
+                                    <div>
+                                        <h4 class="font-label-bold uppercase mb-2">XÓA NHÒA Ý THỨC GIAI CẤP</h4>
+                                        <p class="font-body-md text-secondary">
+                                            Văn hóa tiêu dùng và chủ nghĩa cá nhân khiến người lao động bị cuốn vào lối sống mua sắm
+                                            và nền tảng số, làm lu mờ nhận thức về xung đột giai cấp.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BỐI CẢNH HIỆN ĐẠI — Kỷ nguyên AI & Kinh tế số -->
+        <section id="modern-era" data-section-id="modern-era"
+            class="border-b-4 border-on-surface bg-inverse-surface text-inverse-on-surface fade-in-section">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32">
+                <div class="text-center mb-16">
+                    <p class="font-label-bold uppercase tracking-widest text-inverse-primary mb-4">BỐI CẢNH HIỆN ĐẠI</p>
+                    <h2 class="font-headline-xl uppercase text-surface mb-4">TRONG KỶ NGUYÊN<br/>AI & KINH TẾ SỐ</h2>
+                    <div class="h-1 w-24 bg-primary mx-auto mb-8"></div>
+                    <p class="font-body-lg text-surface-dim max-w-2xl mx-auto">
+                        Sự tha hóa và bái vật giáo không mất đi, mà chuyển sang những hình thái tinh vi hơn.
+                    </p>
+                </div>
+
+                <!-- 3 thẻ hệ lụy hiện đại -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter max-w-5xl mx-auto mb-16" data-stagger>
+                    <div class="border-4 border-surface/30 p-8" data-stagger-item>
+                        <span class="material-symbols-outlined text-4xl text-inverse-primary mb-4">smart_toy</span>
+                        <h3 class="font-label-bold text-surface uppercase mb-3">THA HÓA TRONG KỶ NGUYÊN AI</h3>
+                        <p class="font-body-md text-surface-dim">
+                            Người lao động bị loại trừ khỏi các quy trình sản xuất tự động hóa,
+                            dẫn đến thất nghiệp tương đối và gia tăng bất bình đẳng.
+                        </p>
+                    </div>
+                    <div class="border-4 border-surface/30 p-8" data-stagger-item>
+                        <span class="material-symbols-outlined text-4xl text-inverse-primary mb-4">database</span>
+                        <h3 class="font-label-bold text-surface uppercase mb-3">SỰ THA HÓA KỸ THUẬT SỐ</h3>
+                        <p class="font-body-md text-surface-dim">
+                            Các tập đoàn công nghệ khai thác dữ liệu hành vi, thông tin cá nhân và khả năng sáng tạo
+                            của người dùng để tạo ra giá trị thặng dư mà không trả công tương xứng.
+                            Ngay cả hoạt động trí tuệ và thông tin cũng bị biến thành hàng hóa.
+                        </p>
+                    </div>
+                    <div class="border-4 border-surface/30 p-8" data-stagger-item>
+                        <span class="material-symbols-outlined text-4xl text-inverse-primary mb-4">psychology</span>
+                        <h3 class="font-label-bold text-surface uppercase mb-3">HỆ LỤY ĐẾN PHÁT TRIỂN CÁ NHÂN</h3>
+                        <p class="font-body-md text-surface-dim">
+                            Sự tha hóa ngăn cản con người phát triển năng lực toàn diện,
+                            do công việc bị cưỡng bức và kiểm soát từ bên ngoài.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Hướng giảm thiểu -->
+                <div class="max-w-4xl mx-auto bg-primary p-8 md:p-10 border-4 border-on-surface mb-16">
+                    <p class="font-headline-md uppercase text-on-primary mb-6">HƯỚNG GIẢM THIỂU</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-label-bold text-on-primary uppercase mb-2">Ý THỨC GIAI CẤP</h4>
+                            <p class="font-body-md text-on-primary/80">Hiểu rõ quan hệ giai cấp giúp nhận diện nguồn gốc tha hóa.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-label-bold text-on-primary uppercase mb-2">HOẠT ĐỘNG TÍCH CỰC</h4>
+                            <p class="font-body-md text-on-primary/80">Tham gia phong trào xã hội mang lại cảm giác kiểm soát, kết nối và ý nghĩa.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-label-bold text-on-primary uppercase mb-2">TỰ HIỆN THỰC HÓA</h4>
+                            <p class="font-body-md text-on-primary/80">Mô hình sản xuất xã hội hóa, cho phép người lao động lấy lại quyền kiểm soát.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Câu kết bài -->
+                <div class="max-w-3xl mx-auto text-center">
+                    <p class="font-headline-lg md:font-headline-xl uppercase text-surface leading-tight">
+                        Hiểu rõ các cơ chế này là bước đầu tiên để hướng tới một xã hội
+                        <span class="text-inverse-primary">công bằng và nhân văn hơn</span>,
+                        nơi con người là trung tâm thay vì lợi nhuận.
+                    </p>
                 </div>
             </div>
         </section>
@@ -991,6 +1572,92 @@
     <!-- ============================================================
     LAYOUT.JS — loads header, footer, and manages all interactive features
     ============================================================ -->
+    <!-- Inline animations for new sections — separate IntersectionObserver, does NOT conflict with layout.js -->
+    <script>
+    (function () {
+        // Counter animation
+        var counterObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting || e.target.classList.contains('counted')) return;
+                e.target.classList.add('counted');
+                var target = parseInt(e.target.getAttribute('data-target-val'), 10);
+                var suffix = e.target.getAttribute('data-suffix') || '';
+                var duration = 1200;
+                var start = performance.now();
+                function step(now) {
+                    var p = Math.min((now - start) / duration, 1);
+                    var val = Math.round(p * target);
+                    e.target.textContent = val + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            });
+        }, { threshold: 0.4 });
+
+        document.querySelectorAll('[data-counter]').forEach(function (el) {
+            counterObs.observe(el);
+        });
+
+        // Bar width animation
+        var barObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting || e.target.classList.contains('bar-done')) return;
+                e.target.classList.add('bar-done');
+                var w = e.target.getAttribute('data-bar-width') || '50';
+                e.target.style.width = w + '%';
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('[data-bar]').forEach(function (el) {
+            barObs.observe(el);
+        });
+
+        // Formula sequential reveal
+        var formulaObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting || e.target.classList.contains('formula-visible')) return;
+                e.target.classList.add('formula-visible');
+                var chars = e.target.querySelectorAll('.formula-char');
+                chars.forEach(function (c, i) {
+                    c.style.transitionDelay = (i * 0.15) + 's';
+                });
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('[data-formula]').forEach(function (el) {
+            formulaObs.observe(el);
+        });
+
+        // Stagger items (cards appearing one by one)
+        var staggerObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting || e.target.classList.contains('stagger-visible')) return;
+                e.target.classList.add('stagger-visible');
+                var items = e.target.querySelectorAll('[data-stagger-item]');
+                items.forEach(function (item, i) {
+                    item.style.transitionDelay = (i * 0.15) + 's';
+                });
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('[data-stagger]').forEach(function (el) {
+            staggerObs.observe(el);
+        });
+
+        // Slide-in from sides
+        var slideObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting || e.target.classList.contains('slide-visible')) return;
+                e.target.classList.add('slide-visible');
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('[data-slide]').forEach(function (el) {
+            slideObs.observe(el);
+        });
+    })();
+    </script>
+
     <script src="../assets/js/layout.js">
     </script>
 
