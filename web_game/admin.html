@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Điều Phối Trò Chơi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/js/supabase-env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f0f0f0; }
+        .btn-round-active { background-color: #bbf7d0 !important; border-color: #16a34a !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-3xl mx-auto bg-white border-4 border-black p-6 md:p-8 shadow-[8px_8px_0_0_#000]">
+        <h1 class="text-2xl md:text-3xl font-black mb-2 uppercase">Quản Trị — Điều Phối Game</h1>
+        <p class="text-sm text-gray-600 mb-6">Chỉ điều phối lượt câu hỏi. Dashboard &amp; bảng xếp hạng dùng trang riêng.</p>
+
+        <!-- Trạng thái hiện tại -->
+        <div class="mb-6 p-5 bg-yellow-100 border-4 border-black">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+                <div>
+                    <div class="text-xs font-bold uppercase text-gray-500 mb-1">Trạng thái</div>
+                    <div id="currentStatus" class="text-xl font-black uppercase text-red-600">Đang tải...</div>
+                </div>
+                <div>
+                    <div class="text-xs font-bold uppercase text-gray-500 mb-1">Lượt hiện tại</div>
+                    <div id="currentRound" class="text-3xl font-black text-blue-700">—</div>
+                </div>
+            </div>
+            <div>
+                <div class="text-xs font-bold uppercase text-gray-500 mb-1">Câu hỏi đang mở (tích lũy)</div>
+                <div id="openQuestions" class="text-lg font-bold text-gray-800">—</div>
+            </div>
+            <div class="mt-2">
+                <div class="text-xs font-bold uppercase text-gray-500 mb-1">Mở mới ở lượt này</div>
+                <div id="newQuestions" class="text-base font-semibold text-green-800">—</div>
+            </div>
+            <div class="mt-3 text-sm text-gray-600">
+                Giới hạn tích lũy: <span id="currentMaxDay" class="font-black text-blue-600">...</span>
+            </div>
+        </div>
+
+        <!-- Nút hành động nhanh -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            <button id="btnNextRound" onclick="nextRound()"
+                class="p-4 bg-green-500 text-white border-4 border-black font-black text-lg hover:bg-green-600 transition shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-y-0.5 hover:translate-x-0.5">
+                ⏭ MỞ LƯỢT TIẾP THEO
+            </button>
+            <button onclick="lockAll()"
+                class="p-4 bg-red-500 text-white border-4 border-black font-black text-lg hover:bg-red-600 transition shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-y-0.5 hover:translate-x-0.5">
+                ⏸ KHÓA TẤT CẢ CÂU HỎI
+            </button>
+        </div>
+
+        <!-- Chọn lượt cụ thể -->
+        <div class="space-y-3">
+            <h2 class="font-black uppercase text-sm text-gray-500 border-b-2 border-gray-300 pb-2">Chọn lượt cụ thể</h2>
+
+            <button onclick="updateState(1)" id="btn-round-1"
+                class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-gray-100 transition">
+                ▶ Lượt 1 — Mở <span class="text-blue-700">Câu 1</span>
+            </button>
+            <button onclick="updateState(2)" id="btn-round-2"
+                class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-gray-100 transition">
+                ▶ Lượt 2 — Mở <span class="text-blue-700">Câu 2, 3, 4, 5</span> (tích lũy đến Câu 5)
+            </button>
+            <button onclick="updateState(3)" id="btn-round-3"
+                class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-gray-100 transition">
+                ▶ Lượt 3 — Mở <span class="text-blue-700">Câu 6, 7</span> (tích lũy đến Câu 7)
+            </button>
+            <button onclick="updateState(4)" id="btn-round-4"
+                class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-gray-100 transition">
+                ▶ Lượt 4 — Mở <span class="text-blue-700">Câu 8, 9</span> (tích lũy đến Câu 9)
+            </button>
+            <button onclick="updateState(5)" id="btn-round-5"
+                class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-purple-50 transition">
+                ▶ Lượt 5 — Mở <span class="text-purple-700">Câu 10 (Kết thúc game)</span>
+            </button>
+        </div>
+
+        <p class="mt-6 text-sm text-gray-500 italic">
+            * Người chơi thấy màn hình chờ khi vượt quá <code class="bg-gray-200 px-1">max_question_index</code>.
+            Realtime tự đồng bộ qua Supabase — không cần refresh trang Player.
+        </p>
+    </div>
+
+    <script>
+    (async function () {
+        // =========================================================================
+        // Cấu hình — đọc từ .env.example (root project)
+        // =========================================================================
+        const envConfig = await SupabaseEnv.load();
+        const SUPABASE_URL = envConfig.url;
+        const SUPABASE_ANON_KEY = envConfig.anonKey;
+        const API_URL = envConfig.apiUrl || '';
+
+        // =========================================================================
+        const ROUNDS = [
+            { round: 1, maxIndex: 1, newQuestions: [1], label: 'Câu 1' },
+            { round: 2, maxIndex: 5, newQuestions: [2, 3, 4, 5], label: 'Câu 2, 3, 4, 5' },
+            { round: 3, maxIndex: 7, newQuestions: [6, 7], label: 'Câu 6, 7' },
+            { round: 4, maxIndex: 9, newQuestions: [8, 9], label: 'Câu 8, 9' },
+            { round: 5, maxIndex: 10, newQuestions: [10], label: 'Câu 10 (Kết thúc)' },
+        ];
+
+        const useApi = Boolean(API_URL);
+        let supabase = null;
+
+        if (!useApi) {
+            if (!SupabaseEnv.isConfigured(envConfig)) {
+                alert('Cập nhật SUPABASE_URL và SUPABASE_ANON_KEY trong file .env.example (ở thư mục gốc project)!');
+            } else {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        }
+
+        function getRoundConfig(round) {
+            return ROUNDS.find((r) => r.round === round) || null;
+        }
+
+        function formatOpenRange(maxIndex, isActive) {
+            if (!isActive || maxIndex <= 0) return 'Không có câu nào được mở';
+            if (maxIndex >= 10) return 'Câu 1 → 10 (Toàn bộ game)';
+            return `Câu 1 → ${maxIndex} (tích lũy)`;
+        }
+
+        function formatNewQuestions(round, isActive) {
+            if (!isActive || round <= 0) return '—';
+            const cfg = getRoundConfig(round);
+            return cfg ? `Lượt này mở thêm: ${cfg.label}` : '—';
+        }
+
+        function updateUI(state) {
+            if (!state) return;
+
+            const statusEl = document.getElementById('currentStatus');
+            const roundEl = document.getElementById('currentRound');
+            const openEl = document.getElementById('openQuestions');
+            const maxEl = document.getElementById('currentMaxDay');
+            const nextBtn = document.getElementById('btnNextRound');
+
+            if (state.is_active) {
+                statusEl.textContent = 'ĐANG MỞ';
+                statusEl.className = 'text-xl font-black uppercase text-green-600';
+                roundEl.textContent = `Lượt ${state.current_round}`;
+            } else {
+                statusEl.textContent = 'ĐÃ KHÓA TOÀN BỘ';
+                statusEl.className = 'text-xl font-black uppercase text-red-600';
+                roundEl.textContent = '—';
+            }
+
+            openEl.textContent = formatOpenRange(state.max_question_index, state.is_active);
+            document.getElementById('newQuestions').textContent = formatNewQuestions(state.current_round, state.is_active);
+
+            let maxText = state.max_question_index > 0 ? `Đến Câu ${state.max_question_index}` : 'KHÔNG MỞ';
+            if (state.max_question_index >= 10) maxText = 'TẤT CẢ (Kết thúc Game)';
+            maxEl.textContent = maxText;
+
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`btn-round-${i}`);
+                if (!btn) continue;
+                btn.classList.toggle('btn-round-active', state.current_round === i && state.is_active);
+            }
+
+            const atLastRound = state.is_active && state.current_round >= 5;
+            nextBtn.disabled = atLastRound;
+            nextBtn.classList.toggle('opacity-50', atLastRound);
+            nextBtn.classList.toggle('cursor-not-allowed', atLastRound);
+        }
+
+        async function fetchState() {
+            try {
+                if (useApi) {
+                    const res = await fetch(`${API_URL}/api/game-state`);
+                    const json = await res.json();
+                    if (!json.ok) throw new Error(json.error || 'API lỗi');
+                    updateUI(json.state);
+                    return;
+                }
+
+                const { data, error } = await supabase
+                    .from('game_state')
+                    .select('*')
+                    .eq('id', 1)
+                    .single();
+
+                if (error) throw error;
+                updateUI(data);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('currentStatus').textContent = '⚠️ LỖI KẾT NỐI';
+            }
+        }
+
+        async function applyState(round) {
+            const cfg = round === 0 ? null : getRoundConfig(round);
+            const payload = round === 0
+                ? { current_round: 0, max_question_index: 0, is_active: false }
+                : {
+                    current_round: cfg.round,
+                    max_question_index: cfg.maxIndex,
+                    is_active: true,
+                    updated_at: new Date().toISOString(),
+                };
+
+            if (useApi) {
+                const endpoint = round === 0 ? '/api/game-state/lock' : '/api/game-state';
+                const method = round === 0 ? 'POST' : 'PUT';
+                const body = round === 0 ? undefined : JSON.stringify({ round });
+                const res = await fetch(`${API_URL}${endpoint}`, {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body,
+                });
+                const json = await res.json();
+                if (!json.ok) throw new Error(json.error || 'Cập nhật thất bại');
+                updateUI(json.state);
+                return;
+            }
+
+            const { error } = await supabase
+                .from('game_state')
+                .update(payload)
+                .eq('id', 1);
+
+            if (error) throw error;
+            await fetchState();
+        }
+
+        async function updateState(round) {
+            try {
+                await applyState(round);
+            } catch (err) {
+                alert('Lỗi khi cập nhật trạng thái!');
+                console.error(err);
+            }
+        }
+
+        async function nextRound() {
+            try {
+                if (useApi) {
+                    const res = await fetch(`${API_URL}/api/game-state/next`, { method: 'POST' });
+                    const json = await res.json();
+                    if (!json.ok) throw new Error(json.error || 'Không thể mở lượt tiếp');
+                    updateUI(json.state);
+                    return;
+                }
+
+                const { data, error } = await supabase
+                    .from('game_state')
+                    .select('current_round, is_active')
+                    .eq('id', 1)
+                    .single();
+
+                if (error) throw error;
+
+                const next = data.is_active ? data.current_round + 1 : 1;
+                if (next > 5) {
+                    alert('Đã ở lượt cuối (Lượt 5)!');
+                    return;
+                }
+                await updateState(next);
+            } catch (err) {
+                alert(err.message || 'Lỗi khi mở lượt tiếp theo!');
+                console.error(err);
+            }
+        }
+
+        async function lockAll() {
+            await updateState(0);
+        }
+
+        // Realtime — đồng bộ khi nhiều tab Admin mở cùng lúc
+        if (!useApi && supabase) {
+            supabase
+                .channel('admin_game_state')
+                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'game_state' }, (payload) => {
+                    updateUI(payload.new);
+                })
+                .subscribe();
+
+            fetchState();
+        } else if (useApi) {
+            fetchState();
+            setInterval(fetchState, 5000);
+        }
+    })();
+    </script>
+</body>
+</html>

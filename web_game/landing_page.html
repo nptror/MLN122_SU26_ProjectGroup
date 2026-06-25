@@ -164,27 +164,14 @@
 </head>
 
 <body
-    class="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary overflow-x-hidden">
-    <!-- Top Navigation -->
-    <header
-        class="flex justify-between items-center w-full px-margin-desktop h-20 bg-background border-b-4 border-on-background fixed top-0 z-50">
-        <div class="font-headline-lg text-headline-lg text-primary tracking-tighter">
-            HẠNH PHÚC HAY TIỀN BẠC?
-        </div>
-        <nav class="hidden md:flex gap-8 items-center h-full">
-            <a class="font-label-bold text-label-bold uppercase text-on-background opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
-                href="#">Theory</a>
-            <a class="font-label-bold text-label-bold uppercase text-primary font-bold border-b-2 border-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
-                href="#">Game</a>
-            <a class="font-label-bold text-label-bold uppercase text-on-background opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 h-full flex items-center px-4"
-                href="#">Manifesto</a>
-        </nav>
-        <button class="md:hidden flex items-center justify-center p-2">
-            <span class="material-symbols-outlined text-3xl">menu</span>
-        </button>
-    </header>
+    class="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary overflow-x-hidden flex flex-col min-h-screen">
+
+    <!-- Header (shared via layout.js) -->
+    <div id="header-container"></div>
+    <div id="scroll-progress-bar" style="position:fixed;top:72px;left:0;height:3px;background:#b20112;width:0%;z-index:9999;transition:width .1s ease-out"></div>
+
     <!-- Main Content Canvas -->
-    <main class="mt-20 relative min-h-screen grid-bg flex flex-col justify-center">
+    <main class="mt-20 relative min-h-screen grid-bg flex flex-col justify-center flex-grow">
         <!-- Marquee Background -->
         <div class="absolute inset-0 z-0 flex flex-col justify-around pointer-events-none opacity-10">
             <div class="marquee-container font-headline-xl text-headline-xl text-primary transform -rotate-12">
@@ -221,14 +208,14 @@
                     <div class="bg-surface-variant border-2 border-on-background p-6 max-w-xl">
                         <p class="font-label-bold text-label-bold uppercase text-secondary mb-2 tracking-widest">CÔNG THỨC HẠNH PHÚC THỰC SỰ</p>
                         <p class="font-headline-md text-headline-md" style="font-size: 1.1rem; line-height: 1.6;">
-                            Hạnh Phúc = (❤️ Sức Khỏe × 1.5) + (💰 Tiền × 0.3) <br>
-                            <span class="text-primary">− (⚡ Tha Hóa × 0.9) − (📱 Bái Vật Giáo × 0.7)</span> <br>
-                            + (🔗 Kết Nối × 3) + (😎 Sĩ Diện × 0.2)
+                            Điểm = (❤️ Sức Khỏe × 2) <span class="text-primary">− (⚡ Tha Hóa × 1.5) − (📱 Bái Vật Giáo × 2)</span><br>
+                            − phạt sĩ diện quá cao + thưởng tiền vừa phải (150–700)<br>
+                            <span class="text-secondary text-sm">* Chỉ tính chỉ số sau câu 1–9. Câu 10 là tổng kết tư tưởng.</span>
                         </p>
                     </div>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                    <button onclick="location.href='../web_game/game.html'"
+                    <button onclick="location.href='../web_game/register.html'"
                         class="brutalist-button brutalist-button-primary font-headline-md text-headline-md px-12 py-4 flex items-center justify-center gap-2 group">
                         BẮT ĐẦU
                         <span
@@ -262,22 +249,13 @@
             </div>
         </section>
     </main>
-    <!-- Footer Navigation (Hidden intentionally for a focused landing page feel, or simplified) -->
-    <footer
-        class="w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 bg-on-background text-on-primary border-t-4 border-primary mt-24">
-        <div class="font-headline-md text-headline-md text-primary">
-            THE PROLETARIAT PRESS
-        </div>
-        <div class="font-body-md text-body-md text-surface-container-low opacity-70">
-            © 2024 THE PROLETARIAT PRESS. ALL POWER TO THE IMAGINATION.
-        </div>
-        <nav class="flex gap-6">
-            <a class="font-label-bold text-label-bold uppercase text-surface-container-low opacity-70 hover:text-primary transition-colors"
-                href="#">Manifesto</a>
-            <a class="font-label-bold text-label-bold uppercase text-surface-container-low opacity-70 hover:text-primary transition-colors"
-                href="#">Contact</a>
-        </nav>
-    </footer>
+
+    <!-- Footer (shared via layout.js) -->
+    <div id="footer-container"></div>
+
+    <!-- Layout JS (shared header/footer/mobile-menu) -->
+    <script src="../assets/js/layout.js"></script>
+
 </body>
 
 </html>

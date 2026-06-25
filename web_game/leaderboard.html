@@ -6,6 +6,8 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>TOP HẠNH PHÚC - Leaderboard</title>
+    <script src="../assets/js/supabase-env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;700&amp;display=swap"
         rel="stylesheet" />
@@ -173,72 +175,13 @@
 </head>
 
 <body class="min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
-    <!-- TopNavBar -->
-    <nav
-        class="bg-background dark:bg-background docked full-width top-0 border-b-4 border-on-background dark:border-on-surface flex justify-between items-center w-full px-margin-desktop h-20 z-50 fixed">
-        <div class="font-headline-lg text-headline-lg text-primary dark:text-primary tracking-tighter">HẠNH PHÚC HAY
-            TIỀN BẠC?</div>
-        <div class="hidden md:flex gap-8">
-            <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2"
-                href="#">Theory</a>
-            <a class="font-label-bold text-label-bold uppercase text-primary font-bold border-b-2 border-primary hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2 scale-x-105 transition-transform"
-                href="#">Game</a>
-            <a class="font-label-bold text-label-bold uppercase text-on-background dark:text-on-surface opacity-80 hover:bg-primary hover:text-on-primary transition-colors duration-200 px-4 py-2"
-                href="#">Manifesto</a>
-        </div>
-        <button class="md:hidden text-primary">
-            <span class="material-symbols-outlined text-3xl">menu</span>
-        </button>
-    </nav>
-    <!-- SideNavBar (Hidden on Mobile, Visible on Desktop as per layout) -->
-    <aside
-        class="hidden md:flex flex-col border-r-2 border-black h-screen fixed left-0 top-20 h-full w-64 bg-surface-container-lowest dark:bg-surface-container-lowest z-40 border-r-4 border-on-background dark:border-on-surface">
-        <div class="p-6 brutalist-border-b-thin">
-            <div
-                class="w-full aspect-square bg-black mb-4 flex items-center justify-center text-white font-headline-md text-headline-md">
-                <!-- Placeholder for Header Avatar, styled brutalist -->
-                TP
-            </div>
-            <h2 class="font-headline-md text-headline-md text-primary">THEORY</h2>
-            <p class="font-label-bold text-label-bold text-on-surface-variant mt-1">DIALECTICAL MATERIALISM</p>
-        </div>
-        <nav class="flex-1 overflow-y-auto py-4">
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">factory</span>
-                <span class="font-label-bold text-label-bold">CLASS STRUGGLE</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">trending_up</span>
-                <span class="font-label-bold text-label-bold">SURPLUS VALUE</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 bg-primary text-on-primary font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors translate-x-1 transition-transform"
-                href="#">
-                <span class="material-symbols-outlined">link_off</span>
-                <span class="font-label-bold text-label-bold">ALIENATION</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">shopping_cart</span>
-                <span class="font-label-bold text-label-bold">COMMODITY</span>
-            </a>
-            <a class="flex items-center gap-4 px-6 py-4 text-on-background dark:text-on-surface hover:bg-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">brightness_high</span>
-                <span class="font-label-bold text-label-bold">REVOLUTION</span>
-            </a>
-        </nav>
-        <div class="p-6 mt-auto brutalist-border-t-thin">
-            <button
-                class="w-full bg-black text-white font-label-bold text-label-bold uppercase py-4 hover:bg-primary transition-colors rounded-none">
-                JOIN THE MOVEMENT
-            </button>
-        </div>
-    </aside>
+    <!-- Header (shared via layout.js) -->
+    <div id="header-container"></div>
+    <div id="scroll-progress-bar" style="position:fixed;top:72px;left:0;height:3px;background:#b20112;width:0%;z-index:9999;transition:width .1s ease-out"></div>
+
     <!-- Main Canvas -->
     <main
-        class="flex-1 mt-20 md:ml-64 bg-grid flex flex-col items-center pt-12 pb-24 px-margin-mobile md:px-margin-desktop">
+        class="flex-1 mt-20 bg-grid flex flex-col items-center pt-12 pb-24 px-margin-mobile md:px-margin-desktop">
         <!-- Live Ticker -->
         <div class="w-full max-w-container-max mb-8 brutalist-border">
             <div class="marquee-container font-label-bold text-label-bold uppercase">
@@ -256,8 +199,8 @@
                     TOP <span class="text-primary">HẠNH PHÚC</span>
                 </h1>
                 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-4">
-                    THE CURRENT STATE OF THE HUMAN CONDITION IN THE LATE CAPITALIST SIMULATION. RANKED BY SURVIVAL AND
-                    IDEOLOGICAL PURITY.
+                    XẾP HẠNG THEO ĐIỂM HẠNH PHÚC (Câu 1–9). Danh hiệu:
+                    <strong>Đất nước cần bạn</strong> · <strong>Cỗ máy in tiền</strong> · <strong>Chúa tể Flexing</strong> · <strong>Kẻ sinh tồn vật vờ</strong>.
                 </p>
             </div>
             <div class="bg-black text-white px-6 py-3 font-label-bold text-label-bold flex items-center gap-2">
@@ -278,72 +221,9 @@
                     <div class="col-span-4 text-right">ENDING</div>
                 </div>
                 <!-- Table Body -->
-                <div class="flex-1 overflow-y-auto">
-                    <!-- Row 1 (Top 1) -->
-                    <div
-                        class="grid grid-cols-12 items-center py-6 px-6 brutalist-border-b-thin bg-surface-container-low hover:bg-surface-variant transition-colors group">
-                        <div class="col-span-2 font-headline-xl text-headline-xl text-primary leading-none">#1</div>
-                        <div class="col-span-4 flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 bg-black text-white flex items-center justify-center font-headline-md text-headline-md rounded-none">
-                                M</div>
-                            <span class="font-headline-md text-headline-md uppercase">Minh</span>
-                        </div>
-                        <div class="col-span-2 text-right font-headline-md text-headline-md">120</div>
-                        <div class="col-span-4 text-right">
-                            <span
-                                class="inline-block bg-primary text-white font-label-bold text-label-bold px-3 py-1 uppercase">CÂN
-                                BẰNG CUỘC SỐNG</span>
-                        </div>
-                    </div>
-                    <!-- Row 2 -->
-                    <div
-                        class="grid grid-cols-12 items-center py-6 px-6 brutalist-border-b-thin hover:bg-surface-variant transition-colors">
-                        <div class="col-span-2 font-headline-lg text-headline-lg text-black leading-none">#2</div>
-                        <div class="col-span-4 flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 border-2 border-black flex items-center justify-center font-headline-md text-headline-md rounded-none">
-                                H</div>
-                            <span class="font-headline-md text-headline-md uppercase">Hoang</span>
-                        </div>
-                        <div class="col-span-2 text-right font-headline-md text-headline-md">105</div>
-                        <div class="col-span-4 text-right">
-                            <span
-                                class="inline-block border-2 border-black text-black font-label-bold text-label-bold px-3 py-1 uppercase">TỰ
-                                DO TÀI CHÍNH</span>
-                        </div>
-                    </div>
-                    <!-- Row 3 -->
-                    <div
-                        class="grid grid-cols-12 items-center py-6 px-6 brutalist-border-b-thin hover:bg-surface-variant transition-colors">
-                        <div class="col-span-2 font-headline-lg text-headline-lg text-black leading-none">#3</div>
-                        <div class="col-span-4 flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 border-2 border-black flex items-center justify-center font-headline-md text-headline-md rounded-none">
-                                T</div>
-                            <span class="font-headline-md text-headline-md uppercase">Tuấn</span>
-                        </div>
-                        <div class="col-span-2 text-right font-headline-md text-headline-md">98</div>
-                        <div class="col-span-4 text-right">
-                            <span
-                                class="inline-block border-2 border-black text-black font-label-bold text-label-bold px-3 py-1 uppercase">GIA
-                                ĐÌNH LÀ SỐ 1</span>
-                        </div>
-                    </div>
-                    <!-- Standard Rows -->
-                    <div
-                        class="grid grid-cols-12 items-center py-4 px-6 brutalist-border-b-thin hover:bg-surface-variant transition-colors text-on-surface-variant opacity-80">
-                        <div class="col-span-2 font-body-lg text-body-lg font-bold">#4</div>
-                        <div class="col-span-4 font-body-lg text-body-lg uppercase">Linh</div>
-                        <div class="col-span-2 text-right font-body-lg text-body-lg">85</div>
-                        <div class="col-span-4 text-right font-label-bold text-label-bold">MỘNG MƠ NGÀY TÀN</div>
-                    </div>
-                    <div
-                        class="grid grid-cols-12 items-center py-4 px-6 hover:bg-surface-variant transition-colors text-on-surface-variant opacity-80">
-                        <div class="col-span-2 font-body-lg text-body-lg font-bold">#5</div>
-                        <div class="col-span-4 font-body-lg text-body-lg uppercase">Duy</div>
-                        <div class="col-span-2 text-right font-body-lg text-body-lg">70</div>
-                        <div class="col-span-4 text-right font-label-bold text-label-bold">NÔ LỆ TƯ BẢN</div>
+                <div class="flex-1 overflow-y-auto" id="leaderboardBody">
+                    <div class="py-16 px-6 text-center font-body-lg text-on-surface-variant" id="leaderboardEmpty">
+                        Đang tải bảng xếp hạng...
                     </div>
                 </div>
             </div>
@@ -354,59 +234,207 @@
                     <div class="absolute top-0 right-0 w-16 h-16 bg-primary opacity-10"></div>
                     <h3 class="font-headline-md text-headline-md mb-2 uppercase">AVERAGE HEALTH</h3>
                     <div class="flex items-end gap-4 mb-4">
-                        <span class="font-display-lg-mobile text-display-lg-mobile leading-none">64%</span>
+                        <span class="font-display-lg-mobile text-display-lg-mobile leading-none" id="avgHealth">—</span>
                         <span class="material-symbols-outlined text-primary text-3xl mb-1">trending_down</span>
                     </div>
-                    <!-- Brutalist Bar Chart -->
                     <div class="w-full h-4 bg-surface-variant relative">
-                        <div class="absolute top-0 left-0 h-full bg-black" style="width: 64%;"></div>
+                        <div class="absolute top-0 left-0 h-full bg-black" id="avgHealthBar" style="width: 0%;"></div>
                     </div>
                 </div>
-                <!-- Stat Card 2 -->
                 <div class="brutalist-border bg-white p-6">
                     <h3 class="font-headline-md text-headline-md mb-2 uppercase">AVERAGE ALIENATION</h3>
                     <div class="flex items-end gap-4 mb-4">
-                        <span class="font-display-lg-mobile text-display-lg-mobile leading-none text-primary">89%</span>
+                        <span class="font-display-lg-mobile text-display-lg-mobile leading-none text-primary" id="avgAlienation">—</span>
                         <span class="material-symbols-outlined text-black text-3xl mb-1">warning</span>
                     </div>
-                    <!-- Brutalist Bar Chart -->
                     <div class="w-full h-4 bg-surface-variant relative">
-                        <div class="absolute top-0 left-0 h-full bg-primary" style="width: 89%;"></div>
+                        <div class="absolute top-0 left-0 h-full bg-primary" id="avgAlienationBar" style="width: 0%;"></div>
                     </div>
-                    <p class="font-caption text-caption text-on-surface-variant mt-2 uppercase">CRITICAL LEVELS REACHED
-                    </p>
+                    <p class="font-caption text-caption text-on-surface-variant mt-2 uppercase" id="avgAlienationNote">—</p>
                 </div>
-                <!-- Stat Card 3 -->
                 <div class="brutalist-border bg-black text-white p-6">
-                    <h3 class="font-headline-md text-headline-md mb-2 uppercase text-on-tertiary">AVERAGE CONSUMERISM
-                    </h3>
+                    <h3 class="font-headline-md text-headline-md mb-2 uppercase text-on-tertiary">AVERAGE CONSUMERISM</h3>
                     <div class="flex items-end gap-4 mb-4">
-                        <span class="font-display-lg-mobile text-display-lg-mobile leading-none">95%</span>
+                        <span class="font-display-lg-mobile text-display-lg-mobile leading-none" id="avgConsumerism">—</span>
                         <span class="material-symbols-outlined text-primary text-3xl mb-1">trending_up</span>
                     </div>
-                    <!-- Brutalist Bar Chart -->
                     <div class="w-full h-4 bg-secondary-fixed-dim relative">
-                        <div class="absolute top-0 left-0 h-full bg-primary" style="width: 95%;"></div>
+                        <div class="absolute top-0 left-0 h-full bg-primary" id="avgConsumerismBar" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <!-- Footer -->
-    <footer
-        class="bg-on-background dark:bg-inverse-surface text-on-primary dark:text-on-primary docked full-width bottom-0 border-t-4 border-primary w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 md:ml-64 relative z-50">
-        <div class="font-headline-md text-headline-md text-primary">HẠNH PHÚC HAY TIỀN BẠC?</div>
-        <div class="font-body-md text-body-md text-center md:text-left">
-            © 2024 THE PROLETARIAT PRESS. ALL POWER TO THE IMAGINATION.
-        </div>
-        <div class="flex gap-6 font-label-bold text-label-bold uppercase">
-            <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Manifesto</a>
-            <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Labor
-                Rights</a>
-            <a class="text-primary underline hover:text-primary transition-colors" href="#">Capital Vol I</a>
-            <a class="text-surface-container-low opacity-70 hover:text-primary transition-colors" href="#">Contact</a>
-        </div>
-    </footer>
+
+    <!-- Footer (shared via layout.js) -->
+    <div id="footer-container"></div>
+
+    <!-- Layout JS -->
+    <script src="../assets/js/layout.js"></script>
+    <script>
+    (async function () {
+        const envConfig = await SupabaseEnv.load();
+        const SUPABASE_URL = envConfig.url;
+        const SUPABASE_ANON_KEY = envConfig.anonKey;
+
+        const currentPlayer = sessionStorage.getItem('playerName') || '';
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        const BADGE_LABELS = {
+            S: 'Chiến thần Tỉnh thức',
+            A: 'Chiến thần OT',
+            C: 'Nô lệ Tiêu sản',
+            B: 'Sinh tồn Vật vờ',
+        };
+
+        const ENDING_BY_TYPE = {
+            awakened: 'ĐẤT NƯỚC CẦN BẠN',
+            robot: 'CỖ MÁY IN TIỀN CỦA TƯ BẢN',
+            debt: 'CHÚA TỂ "FLEXING" – NÔ LỆ TIÊU SẢN',
+            normal: 'KẺ SINH TỒN VẬT VỜ',
+        };
+
+        function getDanhHieuLabel(row) {
+            if (row.ending_title) return row.ending_title;
+            const badge = BADGE_LABELS[row.rank_badge] || row.rank_badge;
+            const name = ENDING_BY_TYPE[row.ending_type] || '';
+            return name && badge && row.rank_badge !== 'B'
+                ? `${name} (${badge})`
+                : name || badge;
+        }
+
+        function endingBadgeClass(rankBadge, position) {
+            if (position === 1 || rankBadge === 'S') {
+                return 'inline-block bg-primary text-white font-label-bold text-label-bold px-3 py-1 uppercase';
+            }
+            if (rankBadge === 'A' || rankBadge === 'B') {
+                return 'inline-block border-2 border-black text-black font-label-bold text-label-bold px-3 py-1 uppercase';
+            }
+            return 'inline-block font-label-bold text-label-bold px-3 py-1 uppercase text-on-surface-variant';
+        }
+
+        function renderRows(rows) {
+            const body = document.getElementById('leaderboardBody');
+            if (!rows || rows.length === 0) {
+                body.innerHTML = '<div class="py-16 px-6 text-center font-body-lg text-on-surface-variant">Chưa có dữ liệu. Hãy chơi game để ghi điểm!</div>';
+                return;
+            }
+
+            body.innerHTML = rows.map((row, index) => {
+                const position = index + 1;
+                const isTop = position <= 3;
+                const isCurrent = currentPlayer && row.player_name === currentPlayer;
+                const initial = (row.player_name || '?').charAt(0).toUpperCase();
+                const rankNumClass = position === 1
+                    ? 'col-span-2 font-headline-xl text-headline-xl text-primary leading-none'
+                    : isTop
+                        ? 'col-span-2 font-headline-lg text-headline-lg text-black leading-none'
+                        : 'col-span-2 font-body-lg text-body-lg font-bold';
+                const rowClass = [
+                    'grid grid-cols-12 items-center px-6 brutalist-border-b-thin hover:bg-surface-variant transition-colors',
+                    isTop ? 'py-6' : 'py-4',
+                    position === 1 ? 'bg-surface-container-low' : '',
+                    isTop ? '' : 'text-on-surface-variant opacity-80',
+                    isCurrent ? 'ring-2 ring-inset ring-primary' : '',
+                ].filter(Boolean).join(' ');
+                const avatarClass = position === 1
+                    ? 'w-12 h-12 bg-black text-white flex items-center justify-center font-headline-md text-headline-md rounded-none'
+                    : isTop
+                        ? 'w-10 h-10 border-2 border-black flex items-center justify-center font-headline-md text-headline-md rounded-none'
+                        : 'hidden';
+                const nameClass = isTop
+                    ? 'font-headline-md text-headline-md uppercase'
+                    : 'font-body-lg text-body-lg uppercase';
+                const scoreClass = isTop
+                    ? 'col-span-2 text-right font-headline-md text-headline-md'
+                    : 'col-span-2 text-right font-body-lg text-body-lg';
+
+                return `
+                    <div class="${rowClass}">
+                        <div class="${rankNumClass}">#${position}</div>
+                        <div class="col-span-4 flex items-center gap-4">
+                            ${isTop ? `<div class="${avatarClass}">${escapeHtml(initial)}</div>` : ''}
+                            <div class="flex flex-col">
+                                <span class="${nameClass}">${escapeHtml(row.player_name)}</span>
+                            </div>
+                        </div>
+                        <div class="${scoreClass}">${row.happiness_score}</div>
+                        <div class="col-span-4 text-right flex flex-col items-end gap-1">
+                            <span class="font-label-bold text-label-bold text-xs text-primary">${escapeHtml(BADGE_LABELS[row.rank_badge] || row.rank_badge)}</span>
+                            <span class="${endingBadgeClass(row.rank_badge, position)}">${escapeHtml(getDanhHieuLabel(row))}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderStats(rows) {
+            if (!rows || rows.length === 0) {
+                document.getElementById('avgHealth').textContent = '—';
+                document.getElementById('avgAlienation').textContent = '—';
+                document.getElementById('avgConsumerism').textContent = '—';
+                document.getElementById('avgAlienationNote').textContent = 'CHƯA CÓ DỮ LIỆU';
+                return;
+            }
+
+            const avg = (key) => Math.round(rows.reduce((sum, r) => sum + (r[key] || 0), 0) / rows.length);
+            const health = avg('health');
+            const alienation = avg('alienation');
+            const commodity = avg('commodity');
+
+            document.getElementById('avgHealth').textContent = health + '%';
+            document.getElementById('avgHealthBar').style.width = health + '%';
+            document.getElementById('avgAlienation').textContent = alienation + '%';
+            document.getElementById('avgAlienationBar').style.width = alienation + '%';
+            document.getElementById('avgAlienationNote').textContent = alienation >= 70
+                ? 'CRITICAL LEVELS REACHED'
+                : 'WITHIN TOLERABLE RANGE';
+            document.getElementById('avgConsumerism').textContent = commodity + '%';
+            document.getElementById('avgConsumerismBar').style.width = commodity + '%';
+        }
+
+        async function loadLeaderboard(supabase) {
+            const { data, error } = await supabase
+                .from('leaderboard')
+                .select('*')
+                .order('happiness_score', { ascending: false })
+                .order('created_at', { ascending: true })
+                .limit(50);
+
+            if (error) {
+                console.error(error);
+                document.getElementById('leaderboardBody').innerHTML =
+                    '<div class="py-16 px-6 text-center font-body-lg text-primary">⚠️ Không thể tải bảng xếp hạng. Kiểm tra Supabase config.</div>';
+                return;
+            }
+
+            renderRows(data);
+            renderStats(data);
+        }
+
+        if (!SupabaseEnv.isConfigured(envConfig)) {
+            document.getElementById('leaderboardBody').innerHTML =
+                '<div class="py-16 px-6 text-center font-body-lg text-on-surface-variant">Cập nhật SUPABASE_URL và SUPABASE_ANON_KEY trong file .env.example (thư mục gốc project).</div>';
+        } else {
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            loadLeaderboard(supabase);
+
+            supabase
+                .channel('leaderboard_live')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'leaderboard' }, () => {
+                    loadLeaderboard(supabase);
+                })
+                .subscribe();
+        }
+    })();
+    </script>
 </body>
 
 </html>

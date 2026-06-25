@@ -209,135 +209,63 @@
     </style>
 </head>
 
-<body
-    class="font-body-md text-body-md text-on-background bg-surface-container-lowest antialiased overflow-x-hidden min-h-screen flex flex-col md:flex-row">
-    <!-- LEFT COLUMN: The Canvas & Form (Registration) -->
-    <!-- Suppressing Shared Nav Components as this is a linear Onboarding intent -->
-    <main
-        class="flex-1 bg-brutal-grid relative flex flex-col justify-center items-center p-6 md:p-margin-desktop min-h-[716px] md:min-h-screen z-10">
-        <!-- Brand / Context Anchor -->
-        <div
-            class="absolute top-6 left-6 md:top-margin-desktop md:left-margin-desktop bg-on-background text-on-primary px-4 py-2 border-2 border-on-background">
-            <span class="font-label-bold text-label-bold uppercase tracking-widest">HẠNH PHÚC HAY TIỀN BẠC?</span>
-        </div>
-        <!-- Brutalist Form Container -->
-        <div
-            class="w-full max-w-4xl bg-surface-container-lowest border-4 border-on-background p-8 md:p-16 relative shadow-[16px_16px_0px_0px_#1c1b1b] transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[20px_20px_0px_0px_#1c1b1b] duration-300">
-            <!-- Headline -->
-            <h1
-                class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-[140px] leading-[0.85] uppercase text-on-background mb-16 tracking-tighter break-words">
-                Bạn Là Ai?
-            </h1>
-            <form action="#" class="flex flex-col gap-12 w-full" method="POST">
-                <!-- Large Input Field -->
-                <div class="relative flex flex-col w-full group">
-                    <label
-                        class="font-label-bold text-label-bold uppercase text-on-surface-variant mb-4 tracking-widest flex items-center gap-2"
-                        for="player_name">
-                        <span class="w-2 h-2 bg-primary inline-block"></span>
-                        Nhập Tên
-                    </label>
-                    <input autocomplete="off"
-                        class="w-full border-0 border-b-4 border-on-background bg-transparent font-headline-xl text-headline-xl py-4 focus:ring-0 focus:border-primary focus:text-primary transition-colors placeholder:text-tertiary-fixed-dim uppercase"
-                        id="player_name" name="player_name" placeholder="VÍ DỤ: NGUYỄN VĂN A" required="" type="text" />
+<body class="font-body-md text-body-md text-on-background bg-surface-container-lowest antialiased overflow-x-hidden min-h-screen flex flex-col">
+    <div id="header-container"></div>
+
+    <main class="flex-1 grid lg:grid-cols-[1.05fr_0.95fr] min-h-0 pt-20 md:pt-[72px]">
+        <section class="relative bg-brutal-grid flex items-center justify-center p-6 md:p-10 lg:p-margin-desktop">
+            <div class="w-full max-w-3xl bg-surface-container-lowest border-4 border-on-background p-8 md:p-12 lg:p-16 relative shadow-[16px_16px_0px_0px_#1c1b1b] transition-all duration-300 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[20px_20px_0px_0px_#1c1b1b]">
+                <div class="inline-flex items-center gap-2 bg-on-background text-on-primary px-3 py-2 border-2 border-on-background mb-6">
+                    <span class="w-2 h-2 bg-primary inline-block"></span>
+                    <span class="font-label-bold text-label-bold uppercase tracking-widest">Bắt đầu hành trình</span>
                 </div>
-                <!-- Call To Action Button -->
-                <button
-                    class="w-full bg-on-background text-on-primary font-headline-lg text-headline-lg uppercase py-6 px-8 hover:bg-primary transition-colors duration-200 border-4 border-transparent flex justify-between items-center group cursor-pointer mt-8"
-                    type="submit">
-                    <span class="tracking-wide">Bắt Đầu Hành Trình</span>
-                    <span
-                        class="material-symbols-outlined text-[48px] group-hover:translate-x-4 transition-transform duration-300">arrow_right_alt</span>
-                </button>
-            </form>
-        </div>
+                <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-[140px] leading-[0.85] uppercase text-on-background mb-8 tracking-tighter break-words">Bạn Là Ai?</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mb-10 leading-relaxed">Nhập tên của bạn để bước vào thế giới nơi tiền bạc, sức khỏe và lựa chọn sẽ quyết định kết cục.</p>
+                <form action="#" class="flex flex-col gap-6 w-full" method="POST">
+                    <div class="relative flex flex-col w-full group">
+                        <label class="font-label-bold text-label-bold uppercase text-on-surface-variant mb-3 tracking-widest flex items-center gap-2" for="player_name"><span class="w-2 h-2 bg-primary inline-block"></span>Nhập Tên</label>
+                        <input autocomplete="off" class="w-full border-2 border-on-background bg-surface-container-lowest font-headline-xl text-headline-xl py-4 px-4 focus:outline-none focus:ring-0 focus:border-primary focus:shadow-[0_0_0_4px_rgba(178,1,18,0.08)] transition-all duration-300 placeholder:text-tertiary-fixed-dim uppercase" id="player_name" name="player_name" placeholder="VÍ DỤ: NGUYỄN VĂN A" required type="text" />
+                    </div>
+                    <button class="w-full bg-on-background text-on-primary font-headline-lg text-headline-lg uppercase py-5 px-8 hover:bg-primary transition-all duration-300 border-4 border-transparent flex justify-between items-center group cursor-pointer mt-4 active:translate-y-[1px]" type="submit"><span class="tracking-wide">Bắt Đầu Hành Trình</span><span class="material-symbols-outlined text-[42px] group-hover:translate-x-3 transition-transform duration-300">arrow_right_alt</span></button>
+                </form>
+            </div>
+        </section>
+
+        <aside class="bg-surface-container border-t-4 lg:border-t-0 lg:border-l-4 border-on-background flex flex-col min-h-0">
+            <div class="p-6 md:p-10 lg:p-margin-desktop flex-1 flex flex-col overflow-y-auto">
+                <header class="mb-10 border-b-4 border-primary pb-5">
+                    <span class="font-label-bold text-label-bold text-primary uppercase tracking-widest mb-2 block">Cẩm nang sinh tồn</span>
+                    <h2 class="font-headline-xl text-headline-xl uppercase text-on-background leading-none">Quy Tắc<br />Trò Chơi</h2>
+                </header>
+                <div class="flex flex-col gap-0 border-t-4 border-on-background">
+                    <article class="border-b-2 border-on-background py-7 flex items-start gap-5 group hover:bg-surface-container-high transition-all duration-300 px-4 -mx-4 cursor-default"><span class="font-display-lg text-[76px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">01</span><div><h3 class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">Sống Sót 30 Ngày</h3><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Vượt qua một tháng cọ xát với thực tế tàn khốc của chủ nghĩa tư bản. Quản lý chi tiêu, đối mặt với lạm phát và giữ vững lập trường.</p></div></article>
+                    <article class="border-b-2 border-on-background py-7 flex items-start gap-5 group hover:bg-surface-container-high transition-all duration-300 px-4 -mx-4 cursor-default"><span class="font-display-lg text-[76px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">02</span><div><h3 class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">Quản Lý Sức Khỏe</h3><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Sức lao động là tài sản duy nhất của giai cấp vô sản. Đừng để nó cạn kiệt vì những giờ làm thêm vô nghĩa.</p></div></article>
+                    <article class="border-b-2 border-on-background py-7 flex items-start gap-5 group hover:bg-surface-container-high transition-all duration-300 px-4 -mx-4 cursor-default"><span class="font-display-lg text-[76px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">03</span><div><h3 class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">Kiểm Soát Tha Hóa</h3><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Bảo vệ tinh thần trước guồng quay công nghiệp. Giữ lấy nhân tính và khả năng tư duy độc lập trước sức ép biến con người thành cỗ máy.</p></div></article>
+                    <article class="border-b-4 border-on-background py-7 flex items-start gap-5 group hover:bg-surface-container-high transition-all duration-300 px-4 -mx-4 cursor-default"><span class="font-display-lg text-[76px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">04</span><div><h3 class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">Tránh Trở Thành<br />Nô Lệ Tiêu Dùng</h3><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Tỉnh táo trước những cám dỗ vật chất giả tạo được tạo ra bởi quảng cáo. Tích lũy giá trị thực, từ chối sự sùng bái hàng hóa.</p></div></article>
+                </div>
+                <div class="mt-10 w-full h-52 border-4 border-on-background relative overflow-hidden bg-on-background">
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-80 scale-105 hover:scale-100 transition-transform duration-700" data-alt="A high-contrast, black and white neo-brutalist digital collage. The composition features sharp, aggressive geometric grids layered with fragmented typography and distorted industrial silhouettes. A stark, solid crimson red diagonal slash cuts violently across the center, acting as the sole source of color. The mood is oppressive yet highly stylized, reminiscent of an avant-garde dystopian propaganda poster." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCYbKD6ignIh4ifBMMx5mDi35zQ9aGelxpvwRzVoNb-lqfHUxjVOYJGbdm3nhXNnE8bXsXoL54UhJHHWNr_2FxZ-PdOA38VAQFKYsArBIWCfCPRfRcdmz9LxU-Z1Dgqa6ctdtsnln9X74Ostip3kxUZqMg_sLlV4il_YN8sfyl9-zAregJqiNgXDMWLQ1pCx4JaXTZJcdo0HSm1SNtgxH1tHU7KIKU3ukbK3HaVLPUdHUcYX6IG4kruedEFbJZucXW7V84gBHTIJ44')"></div>
+                    <div class="absolute inset-0 bg-primary opacity-20 mix-blend-multiply"></div>
+                </div>
+            </div>
+        </aside>
     </main>
-    <!-- RIGHT COLUMN: Editorial Side Panel (Rules) -->
-    <aside
-        class="w-full md:w-[480px] lg:w-[600px] bg-surface-container flex flex-col border-t-4 md:border-t-0 md:border-l-4 border-on-background shrink-0 relative overflow-y-auto">
-        <div class="p-8 md:p-12 lg:p-margin-desktop flex-1 flex flex-col">
-            <!-- Panel Header -->
-            <header class="mb-16 border-b-4 border-primary pb-6">
-                <span class="font-label-bold text-label-bold text-primary uppercase tracking-widest mb-2 block">Cẩm nang
-                    sinh tồn</span>
-                <h2 class="font-headline-xl text-headline-xl uppercase text-on-background leading-none">
-                    Quy Tắc<br />Trò Chơi
-                </h2>
-            </header>
-            <!-- Rules List (Editorial Magazine Style) -->
-            <div class="flex flex-col gap-0 border-t-4 border-on-background">
-                <!-- Rule 1 -->
-                <article
-                    class="border-b-2 border-on-background py-8 flex items-start gap-6 group hover:bg-surface-container-high transition-colors px-4 -mx-4 cursor-default">
-                    <span
-                        class="font-display-lg text-[80px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">01</span>
-                    <div>
-                        <h3
-                            class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">
-                            Sống Sót 30 Ngày</h3>
-                        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                            Vượt qua một tháng cọ xát với thực tế tàn khốc của chủ nghĩa tư bản. Quản lý chi tiêu, đối
-                            mặt với lạm phát và giữ vững lập trường.
-                        </p>
-                    </div>
-                </article>
-                <!-- Rule 2 -->
-                <article
-                    class="border-b-2 border-on-background py-8 flex items-start gap-6 group hover:bg-surface-container-high transition-colors px-4 -mx-4 cursor-default">
-                    <span
-                        class="font-display-lg text-[80px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">02</span>
-                    <div>
-                        <h3
-                            class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">
-                            Quản Lý Sức Khỏe</h3>
-                        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                            Sức lao động là tài sản duy nhất của giai cấp vô sản. Đừng để nó cạn kiệt vì những giờ làm
-                            thêm vô nghĩa.
-                        </p>
-                    </div>
-                </article>
-                <!-- Rule 3 -->
-                <article
-                    class="border-b-2 border-on-background py-8 flex items-start gap-6 group hover:bg-surface-container-high transition-colors px-4 -mx-4 cursor-default">
-                    <span
-                        class="font-display-lg text-[80px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">03</span>
-                    <div>
-                        <h3
-                            class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">
-                            Kiểm Soát Tha Hóa</h3>
-                        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                            Bảo vệ tinh thần trước guồng quay công nghiệp. Giữ lấy nhân tính và khả năng tư duy độc lập
-                            trước sức ép biến con người thành cỗ máy.
-                        </p>
-                    </div>
-                </article>
-                <!-- Rule 4 -->
-                <article
-                    class="border-b-4 border-on-background py-8 flex items-start gap-6 group hover:bg-surface-container-high transition-colors px-4 -mx-4 cursor-default">
-                    <span
-                        class="font-display-lg text-[80px] leading-[0.8] text-primary mt-1 opacity-80 group-hover:opacity-100 transition-opacity">04</span>
-                    <div>
-                        <h3
-                            class="font-headline-md text-headline-md uppercase mb-2 text-on-background group-hover:text-primary transition-colors">
-                            Tránh Trở Thành<br />Nô Lệ Tiêu Dùng</h3>
-                        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                            Tỉnh táo trước những cám dỗ vật chất giả tạo được tạo ra bởi quảng cáo. Tích lũy giá trị
-                            thực, từ chối sự sùng bái hàng hóa.
-                        </p>
-                    </div>
-                </article>
-            </div>
-            <!-- Abstract Propoganda Graphic Embed -->
-            <div class="mt-16 mb-4 w-full h-64 border-4 border-on-background relative overflow-hidden bg-on-background">
-                <div class="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-80 scale-105 hover:scale-100 transition-transform duration-700"
-                    data-alt="A high-contrast, black and white neo-brutalist digital collage. The composition features sharp, aggressive geometric grids layered with fragmented typography and distorted industrial silhouettes. A stark, solid crimson red diagonal slash cuts violently across the center, acting as the sole source of color. The mood is oppressive yet highly stylized, reminiscent of an avant-garde dystopian propaganda poster."
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCYbKD6ignIh4ifBMMx5mDi35zQ9aGelxpvwRzVoNb-lqfHUxjVOYJGbdm3nhXNnE8bXsXoL54UhJHHWNr_2FxZ-PdOA38VAQFKYsArBIWCfCPRfRcdmz9LxU-Z1Dgqa6ctdtsnln9X74Ostip3kxUZqMg_sLlV4il_YN8sfyl9-zAregJqiNgXDMWLQ1pCx4JaXTZJcdo0HSm1SNtgxH1tHU7KIKU3ukbK3HaVLPUdHUcYX6IG4kruedEFbJZucXW7V84gBHTIJ44')">
-                </div>
-                <!-- Overlay tint to enforce brand colors if image is too bright -->
-                <div class="absolute inset-0 bg-primary opacity-20 mix-blend-multiply"></div>
-            </div>
-        </div>
-    </aside>
+
+    <div id="footer-container"></div>
+    <script src="../assets/js/layout.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const input = document.getElementById('player_name');
+            const name = (input.value || '').trim();
+            if (name.length < 2) {
+                input.focus();
+                return;
+            }
+            sessionStorage.setItem('playerName', name);
+            window.location.href = 'game.html';
+        });
+    </script>
 </body>
 
 </html>

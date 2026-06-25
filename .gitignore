@@ -1,0 +1,6 @@
+# Biến môi trường thật (secret) — không push
+.env
+.env.local
+.env.*.local
+
+node_modules/
