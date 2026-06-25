@@ -10,25 +10,16 @@
     </div>
 </div>
 
-<footer class="bg-black/90 dark:bg-black/95 text-white/80 docked full-width bottom-0 w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 relative z-50 border-t border-white/5">
+<footer
+    class="bg-black/90 dark:bg-black/95 text-white/80 docked full-width bottom-0 w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 relative z-50 border-t border-white/5">
     <!-- Brand Title -->
     <div class="font-headline-md text-headline-md text-primary tracking-wider uppercase select-none">
         HẠNH PHÚC HAY TIỀN BẠC?
     </div>
-    
+
     <!-- Copyright Info -->
     <div class="font-body-md text-body-md text-center md:text-left text-white/40">
-        © 2026, HẠNH PHÚC HAY TIỀN BẠC? • All rights reserved.
-    </div>
-    
-    <!-- Floating Links with Anti-gravity Interaction -->
-    <div class="flex gap-6 font-label-bold text-label-bold uppercase">
-        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="../web/home.html">Theory</a>
-        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="landing_page.html">Game</a>
-        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="leaderboard.html">Leaderboard</a>
-        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="#">Privacy</a>
-        <a class="floating-link text-white/60 hover:text-white transition-colors duration-300" href="#">Terms</a>
-    </div>
+        © 2026, HẠNH PHÚC HAY TIỀN BẠC?
 </footer>
 
 <style>
@@ -36,9 +27,15 @@
     .wave-container {
         animation: wave-slide 6s linear infinite;
     }
+
     @keyframes wave-slide {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
     }
 
     /* Floating Link (Anti-gravity) styling */
@@ -47,11 +44,12 @@
         display: inline-block;
         transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.3s ease;
     }
-    
+
     .floating-link:hover {
-        transform: translateY(-6px); /* Elevate up on hover */
+        transform: translateY(-6px);
+        /* Elevate up on hover */
     }
-    
+
     /* Cursor trace glow dot underneath link */
     .floating-link::after {
         content: '';
@@ -67,17 +65,18 @@
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
         pointer-events: none;
     }
-    
+
     .floating-link:hover::after {
         transform: translateX(-50%) scale(1);
         opacity: 1;
         animation: pulse-dot 1.2s infinite alternate;
     }
-    
+
     @keyframes pulse-dot {
         0% {
             box-shadow: 0 0 0 0 rgba(178, 1, 18, 0.8), 0 0 4px rgba(178, 1, 18, 0.5);
         }
+
         100% {
             box-shadow: 0 0 0 8px rgba(178, 1, 18, 0), 0 0 10px rgba(178, 1, 18, 0.8);
         }
