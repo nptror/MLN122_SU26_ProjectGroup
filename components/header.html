@@ -1,18 +1,340 @@
-<nav class="bg-background dark:bg-background docked full-width top-0 border-b-4 border-on-background dark:border-on-surface flex justify-between items-center w-full px-margin-desktop h-20 z-50 fixed">
-    <a href="../web/home.html" class="flex items-center gap-3 min-w-0 group" data-nav-link="home">
-        <div class="w-11 h-11 border-4 border-on-background bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shrink-0">HP</div>
-        <div class="min-w-0">
-            <div class="font-label-bold text-label-bold uppercase tracking-[0.18em] text-on-surface truncate">HẠNH PHÚC HAY TIỀN BẠC?</div>
-            <div class="font-caption text-caption text-on-surface-variant truncate">Retro economic survival game</div>
+<nav
+    class="bg-[#050505] border-b border-white/10 flex justify-between items-center w-full px-margin-desktop h-24 z-50 fixed backdrop-blur-md">
+    <!-- Brand Logo Left -->
+    <a href="../web/home.html" class="flex items-center gap-3 min-w-0 group shrink-0">
+        <div
+            class="w-11 h-11 border-2 border-white/20 bg-black text-white flex items-center justify-center font-headline-md text-headline-md shrink-0 relative overflow-hidden transition-all duration-300 group-hover:border-primary">
+            <span
+                class="absolute inset-0 bg-gradient-to-tr from-[#10b981]/20 to-[#f43f5e]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span class="relative z-10 font-bold text-[20px]">MLN</span>
+        </div>
+        <div class="min-w-0 hidden lg:block">
+            <div class="font-label-bold text-[10px] tracking-[0.25em] text-white/50 uppercase leading-none">PROJECT
+            </div>
+
         </div>
     </a>
-    <div id="header-player-pill" class="hidden md:flex items-center gap-2 border-2 border-on-background bg-surface-container-lowest px-3 py-2 font-label-bold text-label-bold uppercase tracking-[0.12em] text-on-surface">
-        <span class="w-2 h-2 bg-primary inline-block"></span>
-        <span id="header-player-name">Guest</span>
+
+    <!-- Anti-gravity Balance Title (Center Core) -->
+    <div
+        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-6 md:gap-10 select-none">
+
+        <!-- Left: HẠNH PHÚC (Emerald Core) -->
+        <div class="flex items-center gap-3 group/green cursor-pointer relative py-2">
+            <!-- Green Radial Space Glow -->
+            <div
+                class="glow-space glow-green absolute -inset-6 rounded-full bg-[#10b981]/15 opacity-0 group-hover/green:opacity-100 transition-all duration-500 blur-xl pointer-events-none">
+            </div>
+
+            <!-- Emerald Liquid Nucleus -->
+            <div
+                class="w-7 h-7 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] shadow-[0_0_15px_rgba(16,185,129,0.6)] animate-liquid-blob animate-float-emerald relative z-10">
+            </div>
+
+            <!-- Floating Text -->
+            <span
+                class="font-headline-md text-headline-md tracking-wider text-[#10b981] text-lg uppercase animate-float-emerald-text relative z-10 transition-all duration-300 group-hover/green:text-[#34d399] group-hover/green:scale-105">HẠNH
+                PHÚC</span>
+        </div>
+
+        <!-- Center Divider: HAY -->
+        <div class="relative flex items-center justify-center py-2">
+            <span
+                class="font-label-bold text-white/40 text-xs px-1 relative z-10 tracking-widest animate-float-hay">HAY</span>
+            <div class="absolute w-12 h-[1px] bg-white/10 top-1/2 -translate-y-1/2 pointer-events-none"></div>
+        </div>
+
+        <!-- Right: TIỀN BẠC (Rose Red Core) -->
+        <div class="flex items-center gap-3 group/red cursor-pointer relative py-2">
+            <!-- Red Radial Space Glow -->
+            <div
+                class="glow-space glow-rose absolute -inset-6 rounded-full bg-[#f43f5e]/15 opacity-0 group-hover/red:opacity-100 transition-all duration-500 blur-xl pointer-events-none">
+            </div>
+
+            <!-- Rose Crystal Coin -->
+            <div class="w-7 h-7 bg-gradient-to-br from-[#f43f5e] to-[#be123c] shadow-[0_0_15px_rgba(244,63,94,0.6)] animate-crystal-rotate animate-float-rose relative z-10"
+                style="clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);"></div>
+
+            <!-- Floating Text -->
+            <span
+                class="font-headline-md text-headline-md tracking-wider text-[#f43f5e] text-lg uppercase animate-float-rose-text relative z-10 transition-all duration-300 group-hover/red:text-[#fb7185] group-hover/red:scale-105">TIỀN
+                BẠC</span>
+        </div>
+
     </div>
-    <button class="md:hidden text-primary" id="header-hamburger" aria-label="Menu">
+
+    <!-- Hamburger menu button -->
+    <button class="md:hidden text-white/80 hover:text-white" id="header-hamburger" aria-label="Menu">
         <span class="material-symbols-outlined text-3xl">menu</span>
     </button>
 </nav>
 
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+        <span class="mobile-menu-title">MENU</span>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close Menu">
+            <span class="material-symbols-outlined" style="font-size: 28px;">close</span>
+        </button>
+    </div>
+    <div class="mobile-menu-links">
+        <a class="mobile-nav-link" href="../web/home.html" data-page="home"><span
+                class="material-symbols-outlined">menu_book</span><span>Theory</span></a>
+        <a class="mobile-nav-link" href="landing_page.html" data-page="game"><span
+                class="material-symbols-outlined">sports_esports</span><span>Game</span></a>
+    </div>
+    <div class="mobile-menu-footer">
+        <p>HẠNH PHÚC HAY TIỀN BẠC?</p>
+        <p class="mobile-menu-sub">Retro economic survival game</p>
+    </div>
+</div>
+
+<style>
+    /* ---------------- ANIMATIONS & EFFECT CODES ---------------- */
+
+    /* Core Floating animations */
+    @keyframes float-emerald {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-5px) rotate(6deg);
+        }
+    }
+
+    .animate-float-emerald {
+        animation: float-emerald 4s ease-in-out infinite;
+    }
+
+    @keyframes float-emerald-text {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-3px);
+        }
+    }
+
+    .animate-float-emerald-text {
+        animation: float-emerald-text 4s ease-in-out infinite;
+    }
+
+    @keyframes float-rose {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-7px) rotate(-8deg);
+        }
+    }
+
+    .animate-float-rose {
+        animation: float-rose 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float-rose-text {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-4px);
+        }
+    }
+
+    .animate-float-rose-text {
+        animation: float-rose-text 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float-hay {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-2px);
+        }
+    }
+
+    .animate-float-hay {
+        animation: float-hay 5s ease-in-out infinite;
+    }
+
+    /* Emerald Liquid shape animation */
+    @keyframes liquid-blob {
+
+        0%,
+        100% {
+            border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+        }
+
+        33% {
+            border-radius: 42% 58% 46% 54% / 54% 46% 58% 42%;
+        }
+
+        66% {
+            border-radius: 56% 44% 58% 42% / 42% 58% 44% 56%;
+        }
+    }
+
+    .animate-liquid-blob {
+        animation: liquid-blob 8s ease-in-out infinite;
+    }
+
+    /* Rose Crystal Coin Rotation */
+    @keyframes crystal-rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(180deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .animate-crystal-rotate {
+        animation: crystal-rotate 15s linear infinite;
+    }
+
+    /* Active nav links */
+    .header-nav-link.active {
+        color: #ffffff !important;
+        border-bottom-color: #b20112 !important;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Mobile Menu Drawer & Overlay Styles */
+    .mobile-menu-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 998;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .mobile-menu-overlay.open {
+        display: block;
+        opacity: 1;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 300px;
+        height: 100vh;
+        background: #0d0d0d;
+        z-index: 999;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: column;
+        border-left: 4px solid #b20112;
+    }
+
+    .mobile-menu.open {
+        right: 0;
+    }
+
+    .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+    }
+
+    .mobile-menu-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 28px;
+        color: #ffffff;
+        letter-spacing: 0.05em;
+    }
+
+    .mobile-menu-close {
+        background: none;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        flex: 1;
+    }
+
+    .mobile-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-family: 'Inter', sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 16px;
+        border: 2px solid transparent;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .mobile-nav-link:hover {
+        border-color: #b20112;
+        background: rgba(178, 1, 18, 0.15);
+    }
+
+    .mobile-nav-link.active {
+        border-color: #b20112;
+        background: rgba(178, 1, 18, 0.25);
+    }
+
+    .mobile-nav-link .material-symbols-outlined {
+        font-size: 24px;
+        color: #b20112;
+    }
+
+    .mobile-menu-footer {
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+        padding-top: 16px;
+        margin-top: auto;
+    }
+
+    .mobile-menu-footer p {
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.05em;
+    }
+
+    .mobile-menu-footer .mobile-menu-sub {
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 0.08em;
+    }
+</style>
