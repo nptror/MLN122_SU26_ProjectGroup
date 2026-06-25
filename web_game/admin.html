@@ -69,15 +69,11 @@
             </button>
             <button onclick="updateState(3)" id="btn-round-3"
                 class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-gray-100 transition">
-                ▶ Lượt 3 — Mở <span class="text-blue-700">Câu 6, 7</span> (tích lũy đến Câu 7)
+                ▶ Lượt 3 — Mở <span class="text-blue-700">Câu 6, 7, 8, 9</span> (tích lũy đến Câu 9)
             </button>
             <button onclick="updateState(4)" id="btn-round-4"
-                class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-gray-100 transition">
-                ▶ Lượt 4 — Mở <span class="text-blue-700">Câu 8, 9</span> (tích lũy đến Câu 9)
-            </button>
-            <button onclick="updateState(5)" id="btn-round-5"
                 class="w-full text-left p-4 border-4 border-black font-bold text-lg hover:bg-purple-50 transition">
-                ▶ Lượt 5 — Mở <span class="text-purple-700">Câu 10 (Kết thúc game)</span>
+                ▶ Lượt 4 — Mở <span class="text-purple-700">Câu 10 (Kết thúc game)</span>
             </button>
         </div>
 
@@ -101,9 +97,8 @@
         const ROUNDS = [
             { round: 1, maxIndex: 1, newQuestions: [1], label: 'Câu 1' },
             { round: 2, maxIndex: 5, newQuestions: [2, 3, 4, 5], label: 'Câu 2, 3, 4, 5' },
-            { round: 3, maxIndex: 7, newQuestions: [6, 7], label: 'Câu 6, 7' },
-            { round: 4, maxIndex: 9, newQuestions: [8, 9], label: 'Câu 8, 9' },
-            { round: 5, maxIndex: 10, newQuestions: [10], label: 'Câu 10 (Kết thúc)' },
+            { round: 3, maxIndex: 9, newQuestions: [6, 7, 8, 9], label: 'Câu 6, 7, 8, 9' },
+            { round: 4, maxIndex: 10, newQuestions: [10], label: 'Câu 10 (Kết thúc)' },
         ];
 
         function getRoundConfig(round) {
@@ -148,13 +143,13 @@
             if (state.max_question_index >= 10) maxText = 'TẤT CẢ (Kết thúc Game)';
             maxEl.textContent = maxText;
 
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 4; i++) {
                 const btn = document.getElementById(`btn-round-${i}`);
                 if (!btn) continue;
                 btn.classList.toggle('btn-round-active', state.current_round === i && state.is_active);
             }
 
-            const atLastRound = state.is_active && state.current_round >= 5;
+            const atLastRound = state.is_active && state.current_round >= 4;
             nextBtn.disabled = atLastRound;
             nextBtn.classList.toggle('opacity-50', atLastRound);
             nextBtn.classList.toggle('cursor-not-allowed', atLastRound);

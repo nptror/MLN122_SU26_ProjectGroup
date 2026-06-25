@@ -233,10 +233,10 @@
                         <span class="w-3 h-3 bg-primary animate-pulse" id="waitingPulse"></span>
                         <h3 class="font-headline-md text-headline-md uppercase">Đã ghi nhận tên</h3>
                     </div>
-                    <p class="font-body-md text-body-md text-on-surface-variant" id="waitingText">Vui lòng chờ người điều phối mở lượt chơi tiếp theo. Bạn không cần nhập lại tên.</p>
+                    <p class="font-body-md text-body-md text-on-surface-variant" id="waitingText">Vui lòng chờ ông chủ mở lượt chơi tiếp theo. Bạn không cần nhập lại tên.</p>
                     <button id="btnContinueToGame" disabled
                         class="w-full mt-6 bg-on-background text-on-primary font-headline-lg text-headline-lg uppercase py-5 px-8 border-4 border-transparent flex justify-between items-center group cursor-pointer active:translate-y-[1px] transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-on-background enabled:hover:bg-primary">
-                        <span class="tracking-wide" id="btnContinueLabel">⏳ Đang chờ điều phối...</span>
+                        <span class="tracking-wide" id="btnContinueLabel">⏳ Đang chờ ông chủ...</span>
                         <span class="material-symbols-outlined text-[42px] group-hover:translate-x-3 transition-transform duration-300">arrow_right_alt</span>
                     </button>
                 </div>
@@ -357,11 +357,11 @@
                     }
                     if (waitingText) {
                         const name = (sessionStorage.getItem('playerName') || '').trim();
-                        waitingText.textContent = `Xin chào ${name || 'bạn'}, điều phối viên đã mở lượt chơi. Bấm nút bên dưới để bắt đầu!`;
+                        waitingText.textContent = `Xin chào ${name || 'bạn'}, ông chủ đã mở lượt chơi. Bấm nút bên dưới để bắt đầu!`;
                     }
                 } else {
                     btnContinue.disabled = true;
-                    btnLabel.textContent = '⏳ Đang chờ điều phối...';
+                    btnLabel.textContent = '⏳ Đang chờ ông chủ...';
                     if (waitingPulse) {
                         waitingPulse.classList.add('animate-pulse', 'bg-primary');
                         waitingPulse.classList.remove('bg-green-500');
@@ -373,8 +373,8 @@
             function showWaiting(name) {
                 if (waitingText) {
                     waitingText.textContent = gameIsOpen
-                        ? `Xin chào ${name}, điều phối viên đã mở lượt chơi. Bấm nút bên dưới để bắt đầu!`
-                        : `Xin chào ${name}, tên của bạn đã được ghi nhận. Vui lòng chờ người điều phối mở lượt chơi.`;
+                        ? `Xin chào ${name}, ông chủ đã mở lượt chơi. Bấm nút bên dưới để bắt đầu!`
+                        : `Xin chào ${name}, tên của bạn đã được ghi nhận. Vui lòng chờ ông chủ mở lượt chơi.`;
                 }
                 if (form) form.classList.add('hidden');
                 if (waiting) waiting.classList.remove('hidden');
@@ -461,6 +461,21 @@
             }
 
             checkExistingSession();
+
+            // --- Tab Focus handler to bypass background tab polling throttle ---
+            window.addEventListener('focus', async () => {
+                if (supabase) {
+                    await checkGameState();
+                } else {
+                    try {
+                        const res = await fetch('/api/game-state');
+                        const json = await res.json();
+                        if (json.ok && json.state) {
+                            updateButtonState(json.state.is_active && json.state.max_question_index >= 1);
+                        }
+                    } catch (_) {}
+                }
+            });
         })();
     </script>
 </body>

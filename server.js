@@ -29,9 +29,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 const ROUNDS = [
     { round: 1, maxIndex: 1, questions: [1], label: 'Câu 1' },
     { round: 2, maxIndex: 5, questions: [2, 3, 4, 5], label: 'Câu 2, 3, 4, 5' },
-    { round: 3, maxIndex: 7, questions: [6, 7], label: 'Câu 6, 7' },
-    { round: 4, maxIndex: 9, questions: [8, 9], label: 'Câu 8, 9' },
-    { round: 5, maxIndex: 10, questions: [10], label: 'Câu 10 (Kết thúc)' },
+    { round: 3, maxIndex: 9, questions: [6, 7, 8, 9], label: 'Câu 6, 7, 8, 9' },
+    { round: 4, maxIndex: 10, questions: [10], label: 'Câu 10 (Kết thúc)' },
 ];
 
 const LOCKED_STATE = { current_round: 0, max_question_index: 0, is_active: false };
@@ -107,8 +106,8 @@ app.get('/api/game-state', async (_req, res) => {
 app.put('/api/game-state', async (req, res) => {
     try {
         const round = Number(req.body.round);
-        if (!Number.isInteger(round) || round < 0 || round > 5) {
-            return res.status(400).json({ ok: false, error: 'round phải từ 0 đến 5' });
+        if (!Number.isInteger(round) || round < 0 || round > 4) {
+            return res.status(400).json({ ok: false, error: 'round phải từ 0 đến 4' });
         }
 
         if (round === 0) {
@@ -138,8 +137,8 @@ app.post('/api/game-state/next', async (_req, res) => {
         const current = await getState();
         const nextRound = current.is_active ? current.current_round + 1 : 1;
 
-        if (nextRound > 5) {
-            return res.status(400).json({ ok: false, error: 'Đã ở lượt cuối (Lượt 5)' });
+        if (nextRound > 4) {
+            return res.status(400).json({ ok: false, error: 'Đã ở lượt cuối (Lượt 4)' });
         }
 
         const cfg = roundConfig(nextRound);

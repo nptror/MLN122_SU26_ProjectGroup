@@ -736,8 +736,8 @@
 
         .ending-box .ending-stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px 16px;
+            grid-template-columns: 1fr;
+            gap: 8px;
             text-align: left;
             padding: 14px 18px;
             background: rgba(0, 0, 0, 0.04);
@@ -745,11 +745,25 @@
             margin-bottom: 14px;
         }
 
+        .ending-box .ending-stats > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(28, 27, 27, 0.15);
+            padding-bottom: 4px;
+        }
+
+        .ending-box .ending-stats > div:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
         .ending-box .ending-stats .es-label {
-            font-size: 0.6rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #5c403d;
+            letter-spacing: 0.05em;
+            color: #1c1b1b;
             font-weight: 600;
         }
 
@@ -995,8 +1009,8 @@
             }
 
             .ending-box .ending-stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 2px 12px;
+                grid-template-columns: 1fr;
+                gap: 8px;
                 padding: 10px 12px;
             }
 
@@ -1169,22 +1183,10 @@
                         quả</div>
                 </div>
             </a>
-            <nav
-                class="hidden md:flex items-center gap-2 lg:gap-4 font-label-bold text-label-bold uppercase tracking-[0.14em]">
-                <a class="px-4 py-2 border-2 border-transparent hover:border-on-surface hover:bg-surface-container-high transition-all"
-                    href="game.html">Play</a>
-                <a class="px-4 py-2 border-2 border-transparent hover:border-on-surface hover:bg-surface-container-high transition-all"
-                    href="leaderboard.html">Leaderboard</a>
-                <a class="px-4 py-2 border-2 border-transparent hover:border-on-surface hover:bg-surface-container-high transition-all"
-                    href="register.html">Register</a>
-            </nav>
             <div class="flex items-center gap-3">
                 <div id="playerNameBadge"
                     class="hidden px-3 py-2 border-2 border-on-surface bg-surface-container-lowest font-label-bold text-label-bold uppercase tracking-[0.12em] text-on-surface">
                 </div>
-                <button
-                    class="md:hidden px-3 py-2 border-2 border-on-surface bg-surface-container-lowest text-on-surface font-label-bold text-label-bold uppercase"
-                    type="button" aria-label="Open navigation">Menu</button>
             </div>
         </div>
     </header>
@@ -1256,22 +1258,16 @@
                         class="flex-1 border-4 border-on-surface bg-on-surface text-on-primary font-body-lg text-body-lg font-bold py-4 px-6 hover:bg-primary hover:border-primary transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn"
                         id="choiceA">
                         <span id="choiceATitle">LỰA CHỌN A</span>
-                        <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceAText">
-                            + Tiền</div>
                     </button>
                     <button
                         class="flex-1 border-4 border-on-surface bg-surface text-on-surface font-body-lg text-body-lg font-bold py-4 px-6 hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn"
                         id="choiceB">
                         <span id="choiceBTitle">LỰA CHỌN B</span>
-                        <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceBText">
-                            + Sức khỏe</div>
                     </button>
                     <button
                         class="flex-1 border-4 border-on-surface bg-surface text-on-surface font-body-lg text-body-lg font-bold py-4 px-6 hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:translate-y-1 uppercase choice-btn hidden"
                         id="choiceC">
                         <span id="choiceCTitle">LỰA CHỌN C</span>
-                        <div class="font-caption text-caption mt-1 font-normal opacity-80 normal-case" id="choiceCText">
-                            Lựa chọn C</div>
                     </button>
                 </div>
             </div>
@@ -1370,7 +1366,7 @@
                 }
             }
 
-            function setContinueWaitingState(waiting, message = 'Chờ người điều phối mở lượt tiếp theo...') {
+            function setContinueWaitingState(waiting, message = 'Chờ ông chủ mở lượt tiếp theo...') {
                 waitingForAdminContinue = waiting;
                 DOM.btnContinue.textContent = waiting ? 'CHỜ' : 'TIẾP TỤC →';
                 DOM.btnContinue.disabled = waiting;
@@ -1397,8 +1393,8 @@
                 if (!G.isPlaying) return;
 
                 if (adminMaxDay < 1) {
-                    setWaitingVisible(true, 'Câu 1 chưa được mở. Vui lòng chờ người điều phối...');
-                    setContinueWaitingState(true, 'Câu 1 chưa được mở. Vui lòng chờ người điều phối...');
+                    setWaitingVisible(true, 'Câu 1 chưa được mở. Vui lòng chờ ông chủ...');
+                    setContinueWaitingState(true, 'Câu 1 chưa được mở. Vui lòng chờ ông chủ...');
                     return;
                 }
 
@@ -1421,7 +1417,7 @@
                 }
 
                 if (G.day > adminMaxDay) {
-                    const msg = `Lượt tiếp theo sẽ là lúc tạo ra lợi nhuận cho ông chủ!`;
+                    const msg = `Câu ${G.day} chưa được mở. Vui lòng chờ ông chủ...`;
                     setWaitingVisible(true, msg);
                     return;
                 }
@@ -1475,7 +1471,8 @@
 
             function checkWaitingStatus() {
                 if (!adminStateKnown) {
-                    setWaitingVisible(true, 'Đang chờ người điều phối mở câu hỏi...');
+                    setWaitingVisible(true, 'Đang chờ ông chủ mở câu hỏi...');
+                    setContinueWaitingState(true, 'Đang chờ ông chủ mở câu hỏi...');
                     return;
                 }
                 syncAdminProgress(adminMaxDay, 'check');
@@ -1495,15 +1492,6 @@
                         syncAdminProgress(payload.new.max_question_index, 'realtime');
                     })
                     .subscribe();
-            }
-
-            function checkWaitingStatus() {
-                if (!adminStateKnown) {
-                    setWaitingVisible(true, 'Đang chờ người điều phối mở câu hỏi...');
-                    setContinueWaitingState(true, 'Đang chờ người điều phối mở câu hỏi...');
-                    return;
-                }
-                syncAdminProgress(adminMaxDay, 'check');
             }
 
             /**
@@ -1716,9 +1704,6 @@
                     choiceATitle: $('choiceATitle'),
                     choiceBTitle: $('choiceBTitle'),
                     choiceCTitle: $('choiceCTitle'),
-                    choiceAText: $('choiceAText'),
-                    choiceBText: $('choiceBText'),
-                    choiceCText: $('choiceCText'),
                     resultPopup: $('resultPopup'),
                     resultIcon: $('resultIcon'),
                     resultTitle: $('resultTitle'),
@@ -1781,8 +1766,8 @@
                 }
 
                 // Các câu hỏi cuối mỗi lượt admin
-                // Lượt 1→Q1, Lượt 2→Q5, Lượt 3→Q7, Lượt 4→Q9, Lượt 5→Q10
-                const ROUND_BOUNDARIES = new Set([1, 5, 7, 9, 10]);
+                // Lượt 1→Q1, Lượt 2→Q5, Lượt 3→Q9, Lượt 4→Q10
+                const ROUND_BOUNDARIES = new Set([1, 5, 9, 10]);
 
                 async function saveRoundScore() {
                     if (!supabase) return;
@@ -2017,18 +2002,12 @@
                     popup.classList.add('active');
                     G.isWaitingResult = true;
 
-                    const nextQ = G.day + 1;
-                    const canContinue = nextQ > G.maxDay || !adminStateKnown || adminMaxDay >= nextQ;
-
-                    if (canContinue) {
-                        setContinueWaitingState(false);
-                        DOM.btnContinue.textContent = 'TIẾP TỤC →';
-                        DOM.btnContinue.disabled = false;
-                        DOM.btnContinue.classList.remove('opacity-60', 'cursor-not-allowed');
-                        DOM.btnContinue.setAttribute('aria-disabled', 'false');
-                    } else {
-                        setContinueWaitingState(true, `Câu ${nextQ} chưa được mở. Vui lòng chờ người điều phối...`);
-                    }
+                    // Always show normal result popup first, then transition to full-screen waiting overlay upon clicking continue
+                    setContinueWaitingState(false);
+                    DOM.btnContinue.textContent = 'TIẾP TỤC →';
+                    DOM.btnContinue.disabled = false;
+                    DOM.btnContinue.classList.remove('opacity-60', 'cursor-not-allowed');
+                    DOM.btnContinue.setAttribute('aria-disabled', 'false');
 
                     if (playSfx) {
                         if (changes.some(c => c.delta < 0 && (c.key === 'health' || c.key === 'money'))) {
@@ -2480,7 +2459,10 @@
                     // Khởi chạy bộ định thời polling từ Server API mỗi 3 giây
                     adminSyncTimer = setInterval(fetchAdminState, 3000);
 
-                    window.addEventListener('focus', refreshCurrentScenarioIfNeeded);
+                    window.addEventListener('focus', () => {
+                        fetchAdminState();
+                        refreshCurrentScenarioIfNeeded();
+                    });
                     window.addEventListener('storage', (event) => {
                         if (event.key === 'game_state') {
                             refreshCurrentScenarioIfNeeded();
